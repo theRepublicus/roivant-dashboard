@@ -12,8 +12,8 @@
    Alliance -> Schibsted Grotesk, Apercu Mono -> DM Mono, Rosart -> Instrument Serif. */
 :root{
   color-scheme:light;
-  --page:#000000; --on-page:#F4F4E4; --on-page-2:#a3a293; --page-line:#2c2c2a;
-  --panel:#F4F4E4; --panel-2:#E8E8D5; --ink:#000000; --ink-2:#3b3b35; --ink-3:#6c6b60;
+  --page:#000000; --on-page:#F4F4E4; --on-page-2:#c2c1b1; --page-line:#2c2c2a;
+  --panel:#F4F4E4; --panel-2:#E8E8D5; --ink:#000000; --ink-2:#2e2e29; --ink-3:#57564c;
   --line:#D1D0C1; --line-2:#aeada0;
   --green:#758C58; --green-2:#5d7145; --green-soft:#dde2c8;
   --gray:#D1D0C1; --sold:#bdbcad; --sold-soft:#e6e6d6;
@@ -53,7 +53,7 @@
 [hidden]{display:none!important}
 table{color:inherit;font:inherit}
 html{background:var(--page)}
-body{margin:0;background:var(--page);color:var(--on-page);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-inline:var(--gut)}
+body{margin:0;background:var(--page);color:var(--on-page);font-family:var(--sans);font-size:17px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-inline:var(--gut)}
 button,select,input{font:inherit;color:inherit}
 a{color:inherit;text-decoration-color:var(--green);text-underline-offset:2px}
 :focus-visible{outline:2px solid var(--green);outline-offset:2px}
@@ -61,8 +61,8 @@ a{color:inherit;text-decoration-color:var(--green);text-underline-offset:2px}
 .shell{max-width:1360px;margin:0 auto}
 
 /* labels */
-.lab{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.hint{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-3)}
+.lab{font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
+.hint{font-family:var(--mono);font-size:14px;letter-spacing:.02em;color:var(--ink-3)}
 
 /* banner */
 .banner{background:var(--panel);color:var(--ink);border-radius:0 0 var(--corner) var(--corner);padding:20px 20px 22px;margin-bottom:10px}
@@ -71,15 +71,15 @@ a{color:inherit;text-decoration-color:var(--green);text-underline-offset:2px}
 .title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin:18px 0 22px}
 .title h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,7vw,84px);line-height:.92;letter-spacing:-.02em;margin:0}
 .title h1 em{font-style:italic;color:var(--green)}
-.tick{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);padding:7px 10px;font-family:var(--mono);font-size:12px;letter-spacing:.1em}
+.tick{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);padding:7px 10px;font-family:var(--mono);font-size:15px;letter-spacing:.1em}
 .tick b{font-weight:500}
 .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px dashed var(--green)}
 .kpi{padding:14px 16px 0 0}
 .kpi+.kpi{padding-left:16px;border-left:1px dashed var(--line-2)}
-.kl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
-.kv{font-family:var(--sans);font-weight:500;font-size:clamp(22px,2.6vw,32px);letter-spacing:-.035em;margin-top:4px;font-variant-numeric:tabular-nums}
+.kl{font-family:var(--mono);font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.kv{font-family:var(--sans);font-weight:500;font-size:clamp(26px,2.8vw,36px);letter-spacing:-.035em;margin-top:4px;font-variant-numeric:tabular-nums}
 .kv.g{color:var(--green)}
-.ks{font-size:12px;color:var(--ink-2);margin-top:2px}
+.ks{font-size:15px;color:var(--ink-2);margin-top:2px}
 .ks a{color:var(--ink-3)}
 @media (max-width:1000px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi{padding:12px 12px 12px 0}.kpi+.kpi{padding-left:0;border-left:0}.kpi:nth-child(2n){padding-left:12px;border-left:1px dashed var(--line-2)}.kpi:nth-child(n+3){border-top:1px dashed var(--line-2)}.kpi:last-child{grid-column:1/-1;border-left:0;padding-left:0}}
 
@@ -87,16 +87,16 @@ a{color:inherit;text-decoration-color:var(--green);text-underline-offset:2px}
 .nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--page);margin-inline:calc(var(--gut)*-1);padding-inline:var(--gut);border-bottom:1px solid var(--page-line)}
 .nav-in{max-width:1360px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:8px}
 .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
-.tab{border:0;background:none;padding:10px 12px;cursor:pointer;color:var(--on-page-2);white-space:nowrap;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid transparent}
+.tab{border:0;background:none;padding:10px 12px;cursor:pointer;color:var(--on-page-2);white-space:nowrap;font-family:var(--mono);font-weight:500;font-size:15px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid transparent}
 .tab[aria-selected="true"]{color:var(--on-page);border-bottom-color:var(--green)}
 .tab:hover{color:var(--on-page)}
-.tab kbd{font-family:var(--mono);font-size:10px;color:var(--on-page-2);margin-left:6px;opacity:.7}
+.tab kbd{font-family:var(--mono);font-size:13px;color:var(--on-page-2);margin-left:6px;opacity:.7}
 .tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.nsel{background:var(--page);color:var(--on-page);border:1px solid var(--page-line);padding:7px 8px;font-family:var(--mono);font-size:12px;border-radius:0;color-scheme:dark}
-.obtn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--green);background:none;color:var(--on-page);padding:7px 10px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+.nsel{background:var(--page);color:var(--on-page);border:1px solid var(--page-line);padding:7px 8px;font-family:var(--mono);font-size:15px;border-radius:0;color-scheme:dark}
+.obtn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--green);background:none;color:var(--on-page);padding:7px 10px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:14.5px;letter-spacing:.1em;text-transform:uppercase}
 .obtn:hover{background:var(--green);color:#000}
-.obtn kbd{font-family:var(--mono);font-size:10px;border:1px solid currentColor;padding:0 4px;opacity:.7}
-.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--green);background:var(--green);color:#000;padding:6px 9px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.obtn kbd{font-family:var(--mono);font-size:13px;border:1px solid currentColor;padding:0 4px;opacity:.7}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--green);background:var(--green);color:#000;padding:6px 9px;cursor:pointer;font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
 
 /* page heads on black */
 main{padding-block:26px 40px}
@@ -104,7 +104,7 @@ main{padding-block:26px 40px}
 @media (max-width:760px){.pg-h{grid-template-columns:minmax(0,1fr)}}
 .pg-h h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.4vw,54px);line-height:1;letter-spacing:-.015em;margin:0;text-wrap:balance}
 .pg-h h2 em{color:var(--green)}
-.lead{font-family:var(--serif);font-size:19px;line-height:1.3;color:var(--on-page-2);margin:12px 0 0;max-width:62ch}
+.lead{font-family:var(--serif);font-size:22px;line-height:1.3;color:var(--on-page-2);margin:12px 0 0;max-width:62ch}
 
 /* panels */
 .panel{background:var(--panel);color:var(--ink);border-radius:var(--corner);padding:20px;margin-bottom:10px}
@@ -116,32 +116,32 @@ main{padding-block:26px 40px}
 @media (max-width:1100px){.cols{grid-template-columns:minmax(0,1fr)}}
 .sep{border-bottom:1px dashed var(--green);padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:end;gap:8px 16px;flex-wrap:wrap}
 .panel.green .sep{border-color:var(--g-ink)}
-.sep h3{font-family:var(--sans);font-weight:500;font-size:19px;letter-spacing:-.03em;margin:0}
-.sub{font-family:var(--serif);font-size:16px;line-height:1.3;color:var(--ink-2);margin:0 0 14px;max-width:80ch}
+.sep h3{font-family:var(--sans);font-weight:500;font-size:22px;letter-spacing:-.03em;margin:0}
+.sub{font-family:var(--serif);font-size:19px;line-height:1.3;color:var(--ink-2);margin:0 0 14px;max-width:80ch}
 .sub a{color:var(--ink-2)}
 .ctl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-bottom:12px}
 .seg{display:inline-flex;border:1px solid var(--ink)}
-.seg button{border:0;background:none;padding:6px 10px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-left:1px solid var(--ink)}
+.seg button{border:0;background:none;padding:6px 10px;cursor:pointer;font-family:var(--mono);font-size:14px;letter-spacing:.08em;text-transform:uppercase;border-left:1px solid var(--ink)}
 .seg button:first-child{border-left:0}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
-.tchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-2);background:none;padding:4px 9px 4px 6px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.tchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-2);background:none;padding:4px 9px 4px 6px;cursor:pointer;font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
 .tchip[aria-pressed="false"]{opacity:.4;text-decoration:line-through}
 .tchip svg{display:block}
-.tog{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.tog{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 .tog input{accent-color:var(--green)}
-.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--ink);background:var(--ink);color:var(--panel);padding:7px 10px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--ink);background:var(--ink);color:var(--panel);padding:7px 10px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
 .btn.ghost{background:none;color:var(--ink)}
 .btn.ghost:hover{background:var(--ink);color:var(--panel)}
 .btn svg{width:10px;height:10px;fill:currentColor}
 .play{display:flex;align-items:center;gap:10px;flex:1;min-width:280px}
 .play input[type=range]{flex:1;accent-color:var(--green)}
-.yr{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.yr{font-family:var(--mono);font-size:15px;color:var(--ink-2);white-space:nowrap}
 .frame{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-top:12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:14px;color:var(--ink-2);margin-top:12px}
 .legend i{display:inline-block;width:16px;height:8px;border:1px solid var(--ink);vertical-align:middle;margin-right:6px}
-.empty{font-family:var(--serif);font-size:17px;color:var(--ink-3);padding:18px 0}
+.empty{font-family:var(--serif);font-size:20px;color:var(--ink-3);padding:18px 0}
 .lnk{border:0;background:none;color:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--green);padding:0}
-.foot{font-family:var(--serif);font-size:15px;color:var(--ink-3);margin:14px 0 0;max-width:90ch}
+.foot{font-family:var(--serif);font-size:18px;color:var(--ink-3);margin:14px 0 0;max-width:90ch}
 .foot a{color:var(--ink-3)}
 
 /* reveal */
@@ -149,11 +149,11 @@ main{padding-block:26px 40px}
 @keyframes rise{from{transform:translate3d(0,16px,0);opacity:.35}to{transform:none;opacity:1}}
 
 /* svg */
-svg text{font-family:var(--sans);font-size:12px}
+svg text{font-family:var(--sans);font-size:15px}
 svg .num,svg text.num{font-family:var(--mono)}
 .t1{fill:var(--ink)} .t2{fill:var(--ink-2)} .t3{fill:var(--ink-3)} .b{font-weight:600}
-.cap{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
-.s{font-size:11px}
+.cap{font-family:var(--mono);font-size:13px;letter-spacing:.09em;text-transform:uppercase}
+.s{font-size:14px}
 .grid{stroke:var(--line);stroke-width:1}
 .grid.q{stroke-dasharray:1 3}
 .hair{stroke:var(--line-2);stroke-width:1}
@@ -214,10 +214,10 @@ svg.hov .lk{opacity:.25} svg.hov .lk.on{opacity:1;fill:var(--green);fill-opacity
 .vc:hover{border-color:var(--green)}
 .vc.on{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
 .vc-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.vc-top b{font-weight:500;font-size:16px;letter-spacing:-.02em}
-.vc-a{font-size:13px;color:var(--ink-2)}
-.vc-y{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-3)}
-.pill{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;white-space:nowrap;border:1px solid}
+.vc-top b{font-weight:500;font-size:19px;letter-spacing:-.02em}
+.vc-a{font-size:16px;color:var(--ink-2)}
+.vc-y{font-family:var(--mono);font-size:13.5px;letter-spacing:.04em;color:var(--ink-3)}
+.pill{font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;white-space:nowrap;border:1px solid}
 .p-approved,.p-retained{background:var(--green-soft);color:var(--green-2);border-color:var(--green)}
 .p-clinical{background:var(--ochre-soft);color:var(--ochre);border-color:var(--ochre)}
 .p-sold,.p-merged{background:var(--sold-soft);color:var(--ink-2);border-color:var(--sold)}
@@ -227,10 +227,10 @@ svg.hov .lk{opacity:.25} svg.hov .lk.on{opacity:1;fill:var(--green);fill-opacity
 .feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0;margin-top:16px;border-top:1px dashed var(--green)}
 .fi{display:flex;flex-direction:column;gap:3px;text-align:left;border:0;border-bottom:1px dashed var(--line-2);background:none;padding:10px 12px 10px 0;cursor:pointer}
 .fi:hover .ft{text-decoration:underline;text-decoration-color:var(--green)}
-.fi .fd{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.fi .fd{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
 .fi .ft{font-weight:500;letter-spacing:-.01em}
 .fi.new .fd{color:var(--green-2)}
-.fi .fu{font-size:12px;color:var(--ink-3)}
+.fi .fu{font-size:15px;color:var(--ink-3)}
 
 /* scenario */
 .scn{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:10px}
@@ -241,10 +241,10 @@ svg.hov .lk{opacity:.25} svg.hov .lk.on{opacity:1;fill:var(--green);fill-opacity
 .fg{display:grid;gap:14px;margin-bottom:18px}
 .fld{display:grid;gap:4px}
 .fld .fh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
-.fld label{font-size:13.5px;font-weight:500}
+.fld label{font-size:16.5px;font-weight:500}
 .fld .fr{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:10px;align-items:center}
 .fld input[type=range]{width:100%;accent-color:var(--green)}
-.fld input[type=number],.cb input[type=number]{width:100%;background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:5px 7px;font-family:var(--mono);font-size:12.5px;text-align:right}
+.fld input[type=number],.cb input[type=number]{width:100%;background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:5px 7px;font-family:var(--mono);font-size:15.5px;text-align:right}
 .presets{display:flex;flex-wrap:wrap;gap:6px}
 .big{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
 .big>div{padding:0 16px 0 0}
@@ -252,18 +252,18 @@ svg.hov .lk{opacity:.25} svg.hov .lk.on{opacity:1;fill:var(--green);fill-opacity
 .panel.green .big>div+div{border-left-color:var(--g-ink)}
 .panel.green .big .kl{color:var(--g-ink-2)}
 .big .kv{font-size:clamp(26px,3.4vw,44px)}
-.big .ks{color:var(--ink-3);font-family:var(--mono);font-size:11px}
+.big .ks{color:var(--ink-3);font-family:var(--mono);font-size:14px}
 .panel.green .big .ks{color:var(--g-ink-2)}
 @media (max-width:760px){.big{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.big>div:nth-child(3){padding-left:0;border-left:0}}
 .cb{width:100%;border-collapse:collapse;min-width:720px}
-.cb th{font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:0 10px 8px 0;border-bottom:1px dashed var(--green)}
+.cb th{font-family:var(--mono);font-weight:500;font-size:13.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:0 10px 8px 0;border-bottom:1px dashed var(--green)}
 .cb td{padding:10px 10px 10px 0;border-bottom:1px dashed var(--line-2);vertical-align:middle}
 .cb tr.dim td{opacity:.3}
 .cb .cn{font-weight:500;letter-spacing:-.01em}
-.cb .cm{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+.cb .cm{font-family:var(--mono);font-size:13.5px;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
 .cb .pr{display:flex;align-items:center;gap:8px;min-width:170px}
 .cb .pr input{flex:1;accent-color:var(--green)}
-.cb output{font-family:var(--mono);font-size:12px;width:38px;text-align:right}
+.cb output{font-family:var(--mono);font-size:15px;width:38px;text-align:right}
 .cb input[type=number]{width:74px}
 .cb .ev{font-family:var(--mono);text-align:right;white-space:nowrap}
 .up{color:var(--green-2)} .dn{color:var(--rust)}
@@ -272,40 +272,40 @@ svg.hov .lk{opacity:.25} svg.hov .lk.on{opacity:1;fill:var(--green);fill-opacity
 /* deals */
 .deals{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:6px}
 .deal{border:1px solid var(--line-2);padding:14px 16px;display:flex;flex-direction:column;gap:6px;scroll-margin-top:90px;background:var(--panel)}
-.deal h4{margin:0;font-weight:500;font-size:16px;letter-spacing:-.02em}
+.deal h4{margin:0;font-weight:500;font-size:19px;letter-spacing:-.02em}
 .dh{display:flex;justify-content:space-between;align-items:center}
-.dd{font-size:11px;color:var(--ink-3)}
-.dir{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;padding:1px 6px;border:1px solid}
+.dd{font-size:14px;color:var(--ink-3)}
+.dir{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.1em;padding:1px 6px;border:1px solid}
 .d-in{color:var(--green-2)} .d-out{color:var(--ink-2)}
 .dir.d-in{background:var(--green-soft)}
-.dcp{font-size:13px;color:var(--ink-2)}
+.dcp{font-size:16px;color:var(--ink-2)}
 .deal dl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0;padding:8px 0;border-top:1px dashed var(--line-2);border-bottom:1px dashed var(--line-2)}
-.deal dt{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
-.deal dd{margin:0;font-weight:500;font-size:18px;letter-spacing:-.02em}
-.deal .st{font-size:13px;color:var(--ink-2);margin:0}
-.deal .why{font-family:var(--serif);font-size:16px;line-height:1.25;margin:0}
-.deal a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:auto;color:var(--ink-2)}
+.deal dt{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
+.deal dd{margin:0;font-weight:500;font-size:21px;letter-spacing:-.02em}
+.deal .st{font-size:16px;color:var(--ink-2);margin:0}
+.deal .why{font-family:var(--serif);font-size:19px;line-height:1.25;margin:0}
+.deal a{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin-top:auto;color:var(--ink-2)}
 .flash{animation:fl 1.6s ease-out}
 @keyframes fl{0%{box-shadow:0 0 0 4px var(--green)}100%{box-shadow:0 0 0 0 transparent}}
 tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
 @keyframes flt{0%{background:var(--green-soft)}100%{background:transparent}}
-.dq{background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:6px 8px;font-family:var(--mono);font-size:12px;min-width:0;width:200px;max-width:100%}
-.dsel{background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:6px 8px;font-family:var(--mono);font-size:12px}
-.tot{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);letter-spacing:.03em}
+.dq{background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:6px 8px;font-family:var(--mono);font-size:15px;min-width:0;width:240px;max-width:100%}
+.dsel{background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:6px 8px;font-family:var(--mono);font-size:15px}
+.tot{font-family:var(--mono);font-size:14.5px;color:var(--ink-2);letter-spacing:.03em}
 
 /* tooltip + detail */
-#tip{position:fixed;z-index:60;pointer-events:none;background:var(--tip-bg);color:var(--tip-ink);padding:9px 11px;font-size:12.5px;max-width:290px}
-#tip .tm{opacity:.7;font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;margin-top:2px}
+#tip{position:fixed;z-index:60;pointer-events:none;background:var(--tip-bg);color:var(--tip-ink);padding:9px 11px;font-size:15.5px;max-width:290px}
+#tip .tm{opacity:.7;font-family:var(--mono);font-size:13.5px;letter-spacing:.03em;margin-top:2px}
 .dp{position:fixed;z-index:50;top:calc(env(safe-area-inset-top,0px) + 76px);right:16px;width:360px;max-height:calc(100% - 100px);overflow:auto;background:var(--panel);color:var(--ink);border:1px solid var(--ink);border-radius:var(--corner);padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 .dp h3{margin:6px 0 4px;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.05;text-wrap:balance}
-.dp p{font-family:var(--serif);font-size:17px;line-height:1.3}
-.pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:6px}
-.pm{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
-.ap{background:var(--ochre-soft);color:var(--ochre);font-family:var(--mono);font-size:10px;padding:1px 5px;text-transform:uppercase;letter-spacing:.06em}
+.dp p{font-family:var(--serif);font-size:20px;line-height:1.3}
+.pk{font-family:var(--mono);font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:6px}
+.pm{font-family:var(--mono);font-size:14.5px;color:var(--ink-2)}
+.ap{background:var(--ochre-soft);color:var(--ochre);font-family:var(--mono);font-size:13px;padding:1px 5px;text-transform:uppercase;letter-spacing:.06em}
 .pv{display:flex;justify-content:space-between;border-top:1px dashed var(--green);border-bottom:1px dashed var(--green);padding:9px 0;margin:10px 0}
 .pv b{font-family:var(--mono);font-weight:500}
 .pa{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.pa a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.pa a{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase}
 .pnav{display:flex;justify-content:space-between;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
 .x{position:absolute;top:14px;right:14px;width:30px;height:30px;border:1px solid var(--green);border-radius:50%;background:none;cursor:pointer;font-size:0}
 .x::before,.x::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:1px;margin:-.5px 0 0 -7px;background:var(--ink)}
@@ -321,12 +321,12 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
 .cmdk li{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;align-items:baseline;padding:9px 12px;cursor:pointer}
 .cmdk li[aria-selected="true"]{background:var(--ink);color:var(--panel)}
 .cmdk li[aria-selected="true"] .ck,.cmdk li[aria-selected="true"] .cs{color:var(--panel);opacity:.7}
-.cmdk .ck{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-2)}
+.cmdk .ck{font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-2)}
 .cmdk .ct{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cmdk .cs{grid-column:2;font-size:12px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cmdk-f{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);padding:10px 20px;border-top:1px solid var(--line)}
+.cmdk .cs{grid-column:2;font-size:15px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmdk-f{font-family:var(--mono);font-size:13.5px;letter-spacing:.06em;color:var(--ink-3);padding:10px 20px;border-top:1px solid var(--line)}
 
-.sfoot{border-top:1px dashed var(--green);padding-block:18px 28px;color:var(--on-page-2);font-family:var(--mono);font-size:11px;letter-spacing:.03em;line-height:1.7}
+.sfoot{border-top:1px dashed var(--green);padding-block:18px 28px;color:var(--on-page-2);font-family:var(--mono);font-size:14px;letter-spacing:.03em;line-height:1.7}
 .sfoot a{margin-right:12px;color:var(--on-page)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -786,32 +786,32 @@ $('#scnChip').addEventListener('click',()=>{Object.assign(S.inp,DEF);afterScenar
 /* ---------- HISTORY ---------- */
 let TLG=null;
 function drawTimeline(){
- const box=$('#tl');const W=Math.max(box.clientWidth,900),L=198,R=S.price?56:18,T=40,RH=28,GH=20;
+ const box=$('#tl');const W=Math.max(box.clientWidth,980),L=230,R=S.price?64:18,T=44,RH=34,GH=26;
  const [x0,x1]=ZR[S.zoom],X=y=>L+(y-x0)/(x1-x0)*(W-L-R);
  const rows=V.filter(v=>(!S.retained||!v.to)&&(!S.vant||v.id===S.vant||v.id==='roivant'));
  let y=T,lay=[],lastG=null;
  rows.forEach(v=>{if(v.g!==lastG){lay.push({hdr:v.g,y});y+=GH;lastG=v.g;}lay.push({v,y:y+RH/2});y+=RH;});
- const bot=y+4,H=bot+26;let s='';
+ const bot=y+4,H=bot+30;let s='';
  [[2014,2019.99,'Incubator 2014–19','band-a'],[2019.99,2021.1,'Reset','band-b'],[2021.1,2027,'Allocator 2021–','band-a']].forEach(e=>{
   const a=Math.max(e[0],x0),b=Math.min(e[1],x1);if(b<=a)return;
   s+=`<rect x="${X(a)}" y="${T-26}" width="${X(b)-X(a)}" height="${bot-T+26}" class="${e[3]}"/>`;
-  if(X(b)-X(a)>60)s+=`<text x="${X(a)+6}" y="${T-11}" class="t3 cap">${e[2]}</text>`;});
+  if(X(b)-X(a)>(e[2].length*9))s+=`<text x="${X(a)+6}" y="${T-12}" class="t3 cap">${e[2]}</text>`;});
  const span=x1-x0;
- for(let yr=Math.ceil(x0);yr<=Math.floor(x1);yr++){const xx=X(yr);s+=`<line x1="${xx}" x2="${xx}" y1="${T-26}" y2="${bot}" class="grid"/>`;if(yr+1<=x1+1e-9)s+=`<text x="${(xx+X(Math.min(yr+1,x1)))/2}" y="${bot+18}" class="t3 num s" text-anchor="middle">${yr}</text>`;
+ for(let yr=Math.ceil(x0);yr<=Math.floor(x1);yr++){const xx=X(yr);s+=`<line x1="${xx}" x2="${xx}" y1="${T-26}" y2="${bot}" class="grid"/>`;if(yr+1<=x1+1e-9)s+=`<text x="${(xx+X(Math.min(yr+1,x1)))/2}" y="${bot+22}" class="t3 num s" text-anchor="middle">${yr}</text>`;
   if(span<7)for(let q=1;q<4;q++){const qx=yr+q/4;if(qx<x1)s+=`<line x1="${X(qx)}" x2="${X(qx)}" y1="${T-8}" y2="${bot}" class="grid q"/>`;}}
  if(2021.05>x0&&2021.05<x1)s+=`<line x1="${X(2021.05)}" x2="${X(2021.05)}" y1="${T-26}" y2="${bot}" class="rule"/>`;
  lay.forEach(r=>{
-  if(r.hdr){s+=`<text x="10" y="${r.y+14}" class="t3 cap">${esc(r.hdr)}</text>`;return;}
+  if(r.hdr){s+=`<text x="10" y="${r.y+17}" class="t3 cap">${esc(r.hdr)}</text>`;return;}
   const v=r.v,cy=r.y,a0=yf(v.f),b=v.to?yf(v.to):NOW,sel=S.vant===v.id;
   const a=Math.max(a0,x0),e=Math.min(b,S.year,x1);
   TIP['row-'+v.id]=`<b>${esc(v.n)}</b><div>${esc(v.a)}</div><div class="tm">${v.id==='roivant'?'Parent company events':'Click to '+(sel?'clear filter':'filter all pages')}</div>`;
-  s+=v.id==='roivant'?`<text x="10" y="${cy+4}" class="t1 b">${esc(v.n)}</text>`:`<g class="rowlab" data-act="vant:${v.id}" data-tip="row-${v.id}" tabindex="0" role="button" aria-label="Filter to ${esc(v.n)}"><rect x="4" y="${cy-12}" width="${L-14}" height="24" fill="transparent"/><text x="10" y="${cy+4}" class="${sel?'t1 b':'t1'}">${esc(v.n)}${sel?' ●':''}</text></g>`;
+  s+=v.id==='roivant'?`<text x="10" y="${cy+4}" class="t1 b">${esc(v.n)}</text>`:`<g class="rowlab" data-act="vant:${v.id}" data-tip="row-${v.id}" tabindex="0" role="button" aria-label="Filter to ${esc(v.n)}"><rect x="4" y="${cy-14}" width="${L-14}" height="28" fill="transparent"/><text x="10" y="${cy+4}" class="${sel?'t1 b':'t1'}">${esc(v.n)}${sel?' ●':''}</text></g>`;
   if(a0<=S.year&&a0<x1&&e>=a){const bw=Math.max(3,X(e)-X(a));
    TIP['bar-'+v.id]=`<b>${esc(v.n)}</b> · ${OUTL[v.o]}<div>${esc(v.a)}</div><div class="tm">${fmtD(v.f)}${v.ap?' (approx.)':''} → ${v.to?fmtD(v.to):'today'}</div>${v.stake?`<div class="tm">Roivant stake: ${esc(v.stake)}</div>`:''}`;
-   s+=`<rect x="${X(a)}" y="${cy-5}" width="${bw}" height="10" class="bar ${barCls(v)}" data-tip="bar-${v.id}"/>`;}
+   s+=`<rect x="${X(a)}" y="${cy-6}" width="${bw}" height="12" class="bar ${barCls(v)}" data-tip="bar-${v.id}"/>`;}
   EV.forEach((ev,i)=>{if(ev.v!==v.id||!S.types.has(ev.t))return;const ey=yf(ev.d);if(ey>S.year+1e-6||ey<x0||ey>x1)return;const ex=X(ey);
    TIP['ev'+i]=`<b>${esc(ev.ti)}</b><div class="tm">${fmtD(ev.d)}${ev.ap?' · approx.':''} · ${ev.t}</div>${ev.val?`<div class="num">${money(ev.val)}</div>`:''}<div class="tm">Click for detail</div>`;
-   s+=`<g class="mkg" data-tip="ev${i}" data-act="ev:${i}" tabindex="0" role="button" aria-label="${esc(ev.ti)}, ${fmtD(ev.d)}"><circle cx="${ex}" cy="${cy}" r="11" class="hit"/>${shp(ev.t,ex,cy,4.5,evCls(ev))}</g>`;});
+   s+=`<g class="mkg" data-tip="ev${i}" data-act="ev:${i}" tabindex="0" role="button" aria-label="${esc(ev.ti)}, ${fmtD(ev.d)}"><circle cx="${ex}" cy="${cy}" r="11" class="hit"/>${shp(ev.t,ex,cy,5.5,evCls(ev))}</g>`;});
  });
  if(S.price){const P=v=>bot-6-(v/45)*(bot-T-6);let d='';
   [0,15,30,45].forEach(t=>{s+=`<text x="${W-R+6}" y="${P(t)+4}" class="t3 num s">$${t}</text>`;});
@@ -820,7 +820,7 @@ function drawTimeline(){
   PX.forEach((p,i)=>{const py=yf(p[0]);if(py>S.year||py<x0||py>x1)return;TIP['px'+i]=`<b>ROIV $${p[1].toFixed(2)}</b><div class="tm">${fmtD(p[0])} · ${esc(p[2])}</div>`;
    s+=`<g class="mkg" data-tip="px${i}" data-act="px:${i}" tabindex="0"><circle cx="${X(py)}" cy="${P(p[1])}" r="9" class="hit"/><circle cx="${X(py)}" cy="${P(p[1])}" r="4" class="pdot"/></g>`;});}
  if(S.year<NOW-0.005&&S.year>=x0&&S.year<=x1){const cx=X(S.year);s+=`<line x1="${cx}" x2="${cx}" y1="${T-26}" y2="${bot}" class="cursor"/>`;}
- s+=`<g id="xh" visibility="hidden" pointer-events="none"><line class="xhl" y1="${T-26}" y2="${bot}"/><rect class="xhb" y="${bot+4}" width="64" height="18"/><text class="xht num s" y="${bot+17}" text-anchor="middle"></text></g>`;
+ s+=`<g id="xh" visibility="hidden" pointer-events="none"><line class="xhl" y1="${T-26}" y2="${bot}"/><rect class="xhb" y="${bot+4}" width="84" height="22"/><text class="xht num s" y="${bot+20}" text-anchor="middle"></text></g>`;
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline of Roivant subsidiaries and events, 2014 to 2026" style="cursor:crosshair">${s}</svg>`;
  TLG={L,R,W,x0,x1};
  const live=V.filter(v=>v.id!=='roivant'&&yf(v.f)<=S.year&&(!v.to||yf(v.to)>S.year)).length;
@@ -837,7 +837,7 @@ function tlYear(e){const svg=$('#tl svg');if(!svg||!TLG)return null;const r=svg.
 function showXH(y){const g=$('#xh');if(!g)return;if(y==null){g.setAttribute('visibility','hidden');return;}
  const x=TLG.L+(y-TLG.x0)/(TLG.x1-TLG.x0)*(TLG.W-TLG.L-TLG.R),yy=Math.floor(y),mm=MON[Math.min(11,Math.floor((y-yy)*12))];
  g.setAttribute('visibility','visible');g.querySelector('line').setAttribute('x1',x);g.querySelector('line').setAttribute('x2',x);
- g.querySelector('rect').setAttribute('x',x-32);const t=g.querySelector('text');t.setAttribute('x',x);t.textContent=`${mm} ${yy}`;}
+ g.querySelector('rect').setAttribute('x',x-42);const t=g.querySelector('text');t.setAttribute('x',x);t.textContent=`${mm} ${yy}`;}
 function setYear(y){if(S.playing)stopPlay();S.year=Math.max(2014,Math.min(NOW,y));$('#yrSlider').value=S.year;drawTimeline();}
 (()=>{const tl=$('#tl');let drag=false,lastPT='mouse';
  tl.addEventListener('pointerdown',e=>{lastPT=e.pointerType;if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('[data-act]'))return;const y=tlYear(e);if(y==null)return;drag=true;tl.setPointerCapture(e.pointerId);setYear(y);});
@@ -873,67 +873,67 @@ $('#spdSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(
 /* ---------- STRUCTURE ---------- */
 function bez(p0,p1,p2,p3,t){const u=1-t;return u*u*u*p0+3*u*u*t*p1+3*u*t*t*p2+t*t*t*p3;}
 function drawTree(){
- const box=$('#tree'),W=Math.max(box.clientWidth,640),m=model(),I=S.inp;
+ const box=$('#tree'),W=Math.max(box.clientWidth,760),m=model(),I=S.inp;
  const K=[
   {id:'priovant',lab:'$'+S.val.priovant.toFixed(1)+'B*',stk:'72% · 66% FD',mn:'Pfizer & others 28%',st:'approved',vl:'Lisraya launched Aug 2026'},
   {id:'immunovant',lab:moneyB(m.imvt),stk:'56% · 52% FD',mn:'Public float 44%',st:'clinical',vl:'Roivant stake at $'+I.imvt.toFixed(2)},
   {id:'pulmovant',lab:'$'+S.val.pulmovant.toFixed(1)+'B*',stk:'Majority · % n/d',mn:'Minority not disclosed',st:'clinical',vl:'Unlisted'},
   {id:'genevant',lab:'$'+S.val.genevant.toFixed(1)+'B*',stk:'83% · 64% FD',mn:'Others 17%',st:'retained',vl:'$772M received from Moderna; $1.3B contingent'}];
- const H=S.treeAll?490:340,ry=38,cy=176;let s='';
- K.forEach((k,i)=>{const cx=W*(i+.5)/4,r=36;
+ const H=S.treeAll?540:370,ry=40,cy=184;let s='';
+ K.forEach((k,i)=>{const cx=W*(i+.5)/4,r=42;
   const P0=[W/2,ry+24],P1=[W/2,(ry+cy)/2],P2=[cx,(ry+cy)/2-6],P3=[cx,cy-r-2];
   s+=`<path d="M${P0} C ${P1} ${P2} ${P3}" class="edge"/>`;
   const t=.7,lx=bez(P0[0],P1[0],P2[0],P3[0],t),ly=bez(P0[1],P1[1],P2[1],P3[1],t);
-  s+=`<rect x="${lx-50}" y="${ly-10}" width="100" height="19" rx="9.5" class="elab"/><text x="${lx}" y="${ly+4}" text-anchor="middle" class="t2 num s">${k.stk}</text>`;
+  s+=`<rect x="${lx-64}" y="${ly-12}" width="128" height="23" rx="11.5" class="elab"/><text x="${lx}" y="${ly+5}" text-anchor="middle" class="t2 num s">${k.stk}</text>`;
   const v=V.find(x=>x.id===k.id);
   TIP['nd-'+k.id]=`<b>${esc(v.n)}</b> · ${OUTL[v.o]}<div>${esc(v.a)}</div><div>${esc(k.vl)}</div><div class="tm">Stake ${esc(v.stake)}. ${k.id==='immunovant'?'Marked at market.':'* Your scenario value.'} Click to filter.</div>`;
   s+=`<g data-act="vant:${k.id}" data-tip="nd-${k.id}" tabindex="0" role="button" aria-label="Filter to ${esc(v.n)}">`;
   if(S.vant===k.id)s+=`<circle cx="${cx}" cy="${cy}" r="${r+6}" class="ring"/>`;
   s+=`<circle cx="${cx}" cy="${cy}" r="${r}" class="nd nd-${k.st}"/>`;
   s+=`<text x="${cx}" y="${cy+4}" text-anchor="middle" class="t1 num s">${esc(k.lab)}</text></g>`;
-  s+=`<text x="${cx}" y="${cy+r+20}" text-anchor="middle" class="t1 b">${esc(v.n)}</text>`;
-  s+=`<text x="${cx}" y="${cy+r+35}" text-anchor="middle" class="t2 s">${esc(v.a)}</text>`;
-  s+=`<text x="${cx}" y="${cy+r+51}" text-anchor="middle" class="t3 s">${esc(k.mn)}</text>`;
+  s+=`<text x="${cx}" y="${cy+r+22}" text-anchor="middle" class="t1 b">${esc(v.n)}</text>`;
+  s+=`<text x="${cx}" y="${cy+r+40}" text-anchor="middle" class="t2 s">${esc(v.a)}</text>`;
+  s+=`<text x="${cx}" y="${cy+r+58}" text-anchor="middle" class="t3 s">${esc(k.mn)}</text>`;
  });
- s+=`<rect x="${W/2-100}" y="${ry-22}" width="200" height="46" class="root"/><text x="${W/2}" y="${ry-3}" text-anchor="middle" class="b" fill="var(--panel)">Roivant Sciences</text><text x="${W/2}" y="${ry+14}" text-anchor="middle" class="num s" fill="var(--panel)">${moneyB(m.mcap)} market cap</text>`;
+ s+=`<rect x="${W/2-120}" y="${ry-26}" width="240" height="54" class="root"/><text x="${W/2}" y="${ry-4}" text-anchor="middle" class="b" fill="var(--panel)">Roivant Sciences</text><text x="${W/2}" y="${ry+16}" text-anchor="middle" class="num s" fill="var(--panel)">${moneyB(m.mcap)} market cap</text>`;
  s+=`<text x="${W-8}" y="${H-8}" text-anchor="end" class="t3 s">* value from the scenario lab</text>`;
- if(S.treeAll){const ex=V.filter(v=>v.to),ey=410;
+ if(S.treeAll){const ex=V.filter(v=>v.to),ey=450;
   s+=`<line x1="16" x2="${W-16}" y1="${ey-44}" y2="${ey-44}" class="rule"/><text x="16" y="${ey-26}" class="t3 cap">Exited · grey = sold or merged, rust = failed</text>`;
   ex.forEach((v,i)=>{const cx=W*(i+.5)/ex.length;TIP['ex-'+v.id]=`<b>${esc(v.n)}</b> · ${OUTL[v.o]}<div>${esc(v.a)}</div><div class="tm">${v.f.slice(0,4)}${v.ap?'~':''}–${v.to.slice(0,4)} · ${esc(v.g)}</div>`;
-   s+=`<g data-tip="ex-${v.id}" data-act="vant:${v.id}" tabindex="0" role="button"><circle cx="${cx}" cy="${ey}" r="${S.vant===v.id?11:9}" class="nd nd-${v.o==='failed'?'failed':'sold'}"/></g><text x="${cx}" y="${ey+26}" text-anchor="middle" class="t2 s">${esc(v.n)}</text><text x="${cx}" y="${ey+40}" text-anchor="middle" class="t3 num s">${v.to.slice(0,4)}</text>`;});}
+   s+=`<g data-tip="ex-${v.id}" data-act="vant:${v.id}" tabindex="0" role="button"><circle cx="${cx}" cy="${ey}" r="${S.vant===v.id?11:9}" class="nd nd-${v.o==='failed'?'failed':'sold'}"/></g><text x="${cx}" y="${ey+28}" text-anchor="middle" class="t2 s">${esc(v.n)}</text><text x="${cx}" y="${ey+46}" text-anchor="middle" class="t3 num s">${v.to.slice(0,4)}</text>`;});}
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Ownership tree of Roivant subsidiaries">${s}</svg>`;
 }
 function drawPipe(){
- const box=$('#pipe'),W=Math.max(box.clientWidth,660),L=196,NX=150,TW=W-L-NX-12;
+ const box=$('#pipe'),W=Math.max(box.clientWidth,760),L=240,NX=180,TW=W-L-NX-12;
  const rows=PIPE.map((p,i)=>Object.assign({i},p)).filter(p=>!S.vant||p.v===S.vant);
  if(!rows.length){box.innerHTML=`<p class="empty">${S.vant==='genevant'?'Genevant is a licensing and litigation estate with no clinical pipeline.':'No active clinical assets for '+esc(VN(S.vant))+'.'} <button class="lnk" data-act="vant:${S.vant}">Show all units</button></p>`;return;}
- const STG=['Phase 1','Phase 2','Phase 3','Filed','Approved'],cw=TW/5,T=24,RH=26,GH=24;let y=T,s='',last=null;
+ const STG=['Phase 1','Phase 2','Phase 3','Filed','Approved'],cw=TW/5,T=28,RH=32,GH=30;let y=T,s='',last=null;
  const soonEnd=NOW+S.win/12;
  const body=[];rows.forEach(p=>{if(p.a!==last){body.push({hdr:p.a,v:p.v,y});y+=GH;last=p.a;}body.push({p,y});y+=RH;});
  const H=y+6;
- STG.forEach((t,i)=>{const x=L+i*cw;s+=`<line x1="${x}" x2="${x}" y1="${T-6}" y2="${H-4}" class="grid"/><text x="${x+cw/2}" y="${T-10}" text-anchor="middle" class="t3 cap">${t}</text>`;});
- s+=`<line x1="${L+TW}" x2="${L+TW}" y1="${T-6}" y2="${H-4}" class="grid"/><text x="${L+TW+16}" y="${T-10}" class="t3 cap">Next readout</text>`;
+ STG.forEach((t,i)=>{const x=L+i*cw;s+=`<line x1="${x}" x2="${x}" y1="${T-6}" y2="${H-4}" class="grid"/><text x="${x+cw/2}" y="${T-12}" text-anchor="middle" class="t3 cap">${t}</text>`;});
+ s+=`<line x1="${L+TW}" x2="${L+TW}" y1="${T-6}" y2="${H-4}" class="grid"/><text x="${L+TW+12}" y="${T-12}" class="t3 cap">Next readout</text>`;
  body.forEach(r=>{
-  if(r.hdr){s+=`<text x="8" y="${r.y+16}" class="t1 b">${esc(r.hdr)}</text><text x="${8+r.hdr.length*7.6+8}" y="${r.y+16}" class="t3 s">${esc(VN(r.v))}</text>`;return;}
+  if(r.hdr){s+=`<text x="8" y="${r.y+20}" class="t1 b">${esc(r.hdr)}</text><text x="${8+r.hdr.length*9.4+10}" y="${r.y+20}" class="t3 s">${esc(VN(r.v))}</text>`;return;}
   const p=r.p,cy=r.y+RH/2,soon=p.end&&yf(p.end)<=soonEnd;
   TIP['pp'+p.i]=`<b>${esc(p.a)} · ${esc(p.ind)}</b><div>${esc(p.lab)}</div><div class="tm">Next: ${esc(p.nx)}</div>`;
   s+=`<g class="prow" data-act="pipe:${p.i}" data-tip="pp${p.i}" tabindex="0" role="button"><rect x="0" y="${r.y}" width="${W}" height="${RH}" fill="transparent"/>
-   <text x="18" y="${cy+4}" class="t2">${esc(p.ind)}</text>
+   <text x="18" y="${cy+5}" class="t2">${esc(p.ind)}</text>
    <rect x="${L+2}" y="${cy-6}" width="${TW-4}" height="12" class="track"/>
    <rect x="${L+2}" y="${cy-6}" width="${Math.max(6,TW*p.st/5-4)}" height="12" class="${p.st>=5?'pb-good':'pb-warn'}"/>
    <path d="M${L+TW+20} ${cy-6}L${L+TW+26} ${cy}L${L+TW+20} ${cy+6}L${L+TW+14} ${cy}Z" class="dia${soon?' soon':''}"/>
-   <text x="${L+TW+32}" y="${cy+4}" class="${soon?'t1 b':'t2'} s">${esc(p.nx)}</text></g>`;
+   <text x="${L+TW+32}" y="${cy+5}" class="${soon?'t1 b':'t2'} s">${esc(p.nx)}</text></g>`;
  });
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Pipeline stage chart">${s}</svg>`;
 }
 $('#winSl').addEventListener('input',e=>{S.win=+e.target.value;$('#winOut').textContent=S.win+' mo';drawPipe();});
 function drawSOTP(){
- const m=model(),I=S.inp,box=$('#wf'),W=Math.max(box.clientWidth,520),L=230,R=80,RH=36,T=6;
+ const m=model(),I=S.inp,box=$('#wf'),W=Math.max(box.clientWidth,620),L=290,R=96,RH=42,T=6;
  const steps=[['Market cap',m.mcap,'tot'],['Cash, pro forma',-I.cash],['Immunovant stake at market (56%)',-m.imvt],['Priovant + Pulmovant + Genevant',m.resid,'res']];
  const max=Math.max(m.mcap,.1)*1.02,X=v=>L+Math.max(0,v)/max*(W-L-R);let run=m.mcap,s='';const H=T+steps.length*RH+4;
  steps.forEach((st,i)=>{const y=T+i*RH;let a,b,cls;
   if(st[2]==='tot'){a=0;b=st[1];cls='wf-tot';}else if(st[2]==='res'){a=0;b=st[1];cls='wf-res';}else{a=run+st[1];b=run;run=a;cls='wf-dec';}
-  s+=`<text x="${L-10}" y="${y+RH/2+4}" text-anchor="end" class="${st[2]?'t1 b':'t2'}">${esc(st[0])}</text>`;
+  s+=`<text x="${L-10}" y="${y+RH/2+5}" text-anchor="end" class="${st[2]?'t1 b':'t2'}">${esc(st[0])}</text>`;
   s+=`<rect x="${X(a)}" y="${y+8}" width="${Math.max(2,X(b)-X(a))}" height="${RH-16}" class="${cls}"/>`;
   s+=`<text x="${X(Math.max(a,b))+6}" y="${y+RH/2+4}" class="t2 num s">${st[2]?moneyB(st[1]):'−'+moneyB(Math.abs(st[1]))}</text>`;
   if(!st[2])s+=`<line x1="${X(a)}" x2="${X(a)}" y1="${y+RH-8}" y2="${y+RH+8}" class="rule"/>`;});
@@ -944,11 +944,11 @@ $('#treeToday').addEventListener('click',()=>{S.treeAll=false;$('#treeToday').se
 $('#treeAll').addEventListener('click',()=>{S.treeAll=true;$('#treeAll').setAttribute('aria-pressed',true);$('#treeToday').setAttribute('aria-pressed',false);drawTree();});
 
 /* ---------- TRANSACTIONS ---------- */
-const TX={x0:2019.5,x1:2027,L:58,R:20};
+const TX={x0:2019.5,x1:2027,L:70,R:24};
 const dealText=d=>(d.cp+' '+d.ti+' '+d.st+' '+VN(d.ent)).toLowerCase();
 const dealDim=d=>(S.dir!=='all'&&d.dir!==S.dir)||(S.vant&&d.ent!==S.vant)||(S.q&&!S.q.split(/\s+/).every(w=>dealText(d).includes(w)));
 function drawBubbles(){
- const box=$('#bub'),W=Math.max(box.clientWidth,660),{x0,x1,L,R}=TX,T=14,H=300,B=24;
+ const box=$('#bub'),W=Math.max(box.clientWidth,720),{x0,x1,L,R}=TX,T=14,H=320,B=28;
  const X=y=>L+(y-x0)/(x1-x0)*(W-L-R),lg=Math.log10,y0=lg(25),y1=lg(12000),Y=v=>T+(1-(lg(v)-y0)/(y1-y0))*(H-T-B);let s='';
  [[30,'$30M'],[100,'$100M'],[300,'$300M'],[1000,'$1B'],[3000,'$3B'],[10000,'$10B']].forEach(t=>{s+=`<line x1="${L}" x2="${W-R}" y1="${Y(t[0])}" y2="${Y(t[0])}" class="grid"/><text x="${L-8}" y="${Y(t[0])+4}" text-anchor="end" class="t3 num s">${t[1]}</text>`;});
  for(let yr=2020;yr<=2026;yr++){s+=`<text x="${(X(yr)+X(yr+1))/2}" y="${H-6}" text-anchor="middle" class="t3 num s">${yr}</text><line x1="${X(yr)}" x2="${X(yr)}" y1="${H-B}" y2="${H-B+5}" class="hair"/>`;}
@@ -962,8 +962,8 @@ function drawBubbles(){
  $('#dealTot').textContent=`${live.length} priced deals · in ${money(inf)} · out ${money(out)}`;
 }
 function drawCash(){
- const box=$('#cash'),W=Math.max(box.clientWidth,660),{x0,x1,L,R}=TX,T=16,H=118,B=22;
- const X=y=>L+(y-x0)/(x1-x0)*(W-L-R),Y=v=>T+(1-v/7)*(H-T-B);let s=`<text x="${L}" y="11" class="t3 cap">Consolidated cash, $B</text>`;
+ const box=$('#cash'),W=Math.max(box.clientWidth,720),{x0,x1,L,R}=TX,T=22,H=134,B=26;
+ const X=y=>L+(y-x0)/(x1-x0)*(W-L-R),Y=v=>T+(1-v/7)*(H-T-B);let s=`<text x="${L}" y="13" class="t3 cap">Consolidated cash, $B</text>`;
  [0,2,4,6].forEach(t=>{s+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" class="grid"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end" class="t3 num s">$${t}B</text>`;});
  for(let i=1;i<CASH.length;i++){const a=CASH[i-1],b=CASH[i],gap=yf(b[0])-yf(a[0])>0.6||b[3];s+=`<line x1="${X(yf(a[0]))}" y1="${Y(a[1])}" x2="${X(yf(b[0]))}" y2="${Y(b[1])}" class="cline${gap?' gap':''}"/>`;}
  CASH.forEach((c,i)=>{TIP['cs'+i]=`<b>${moneyB(c[1])}</b><div class="tm">${fmtD(c[0])}${c[3]?' · pro forma incl. Moderna receipt':''}</div>`;s+=`<circle cx="${X(yf(c[0]))}" cy="${Y(c[1])}" r="4" class="cdot" data-tip="cs${i}"/>`;});
@@ -972,10 +972,10 @@ function drawCash(){
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Reported cash balance">${s}</svg>`;
 }
 function drawSankey(){
- const box=$('#sank'),W=Math.max(box.clientWidth,560),H=340,T=8,gap=10,NW=10,LX=172,RX=W-196;
+ const box=$('#sank'),W=Math.max(box.clientWidth,640),H=380,T=10,gap=14,NW=10,LX=220,RX=W-240;
  const SN=[['Roche (Telavant)',5200,'roche'],['Sumitomo alliance',3000,'sumitomo'],['Moderna upfront',772,'moderna'],['Datavant merger',320,'datavant'],['SPAC + PIPE',213.4,'spac'],['Organon (Dermavant)',183.6,'organon']];
  const tot=SN.reduce((a,b)=>a+b[1],0),bb=962.7,im=886.9,cash=S.inp.cash*1000;
- const UN=[['Cash on hand, pro forma',cash],['R&D, opex & other (residual)',Math.max(0,tot-cash-bb-im)],['Buybacks disclosed',bb],['Immunovant top-ups',im]];
+ const UN=[['Cash on hand, pro forma',cash],['R&D, opex, other',Math.max(0,tot-cash-bb-im)],['Buybacks disclosed',bb],['Immunovant top-ups',im]];
  const utot=UN.reduce((a,b)=>a+b[1],0),k=Math.min((H-2*T-gap*(SN.length-1))/tot,(H-2*T-gap*(UN.length-1))/utot);
  let ly=T+((H-2*T)-(tot*k+gap*(SN.length-1)))/2,ry=T+((H-2*T)-(utot*k+gap*(UN.length-1)))/2;
  const ln=SN.map(n=>{const o={y:ly,h:n[1]*k,off:0};ly+=o.h+gap;return o;}),rn=UN.map(n=>{const o={y:ry,h:n[1]*k,off:0};ry+=o.h+gap;return o;});
@@ -986,14 +986,14 @@ function drawSankey(){
  SN.forEach((n,i)=>{const o=ln[i];TIP['sn'+i]=`<b>${esc(n[0])}</b><div class="num">${money(n[1])}</div><div class="tm">Click for the deal card</div>`;
   nodes+=`<g class="sk" data-k="L${i}" data-tip="sn${i}" data-act="deal:${n[2]}" tabindex="0" role="button" style="cursor:pointer"><rect x="${LX}" y="${o.y}" width="${NW}" height="${Math.max(2,o.h)}" class="snode in"/><text x="${LX-8}" y="${o.y+o.h/2+4}" text-anchor="end" class="t1 s">${esc(n[0])} <tspan class="num t2">${money(n[1])}</tspan></text></g>`;});
  UN.forEach((n,i)=>{const o=rn[i];TIP['un'+i]=`<b>${esc(n[0])}</b><div class="num">${money(n[1])}</div>`;
-  nodes+=`<g class="sk" data-k="R${i}" data-tip="un${i}"><rect x="${RX}" y="${o.y}" width="${NW}" height="${Math.max(2,o.h)}" class="snode"/><text x="${RX+NW+8}" y="${o.y+o.h/2+4}" class="t1 s">${esc(n[0])}</text><text x="${RX+NW+8}" y="${o.y+o.h/2+18}" class="t2 num s">${money(n[1])}</text></g>`;});
+  nodes+=`<g class="sk" data-k="R${i}" data-tip="un${i}"><rect x="${RX}" y="${o.y}" width="${NW}" height="${Math.max(2,o.h)}" class="snode"/><text x="${RX+NW+8}" y="${o.y+o.h/2+4}" class="t1 s">${esc(n[0])}</text><text x="${RX+NW+8}" y="${o.y+o.h/2+21}" class="t2 num s">${money(n[1])}</text></g>`;});
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Capital flow from deal inflows to uses">${links}${nodes}</svg>`;
  const svg=box.querySelector('svg');
  svg.querySelectorAll('.sk').forEach(g=>{g.addEventListener('pointerenter',()=>{svg.classList.add('hov');svg.querySelectorAll('.lk').forEach(p=>p.classList.toggle('on',p.classList.contains(g.dataset.k)));});
   g.addEventListener('pointerleave',()=>{svg.classList.remove('hov');});});
 }
 function drawDumb(){
- const I=S.inp,box=$('#dumb'),W=Math.max(box.clientWidth,500),L=168,R=58,RH=40,T=26;
+ const I=S.inp,box=$('#dumb'),W=Math.max(box.clientWidth,580),L=210,R=66,RH=46,T=30;
  const rows=[
   {l:'RVT-3101 (Telavant)',a:45,b:5200,r:1,n:'~$45M upfront → ~$5.2B at the Roche close',deal:'roche'},
   {l:'Sumitomo stake buyback',a:648.4,b:71.251*I.roiv,r:0,n:`71.25M retired shares at $${I.roiv.toFixed(2)}`,deal:'sumibuy'},
@@ -1089,16 +1089,16 @@ function updScenario(){
  drawStack(m);drawHeat(m);drawTorn();
 }
 function drawStack(m){
- const box=$('#stack'),W=Math.max(box.clientWidth,480),L=112,R=70,T=6,RH=44,H=T+2*RH+30;
+ const box=$('#stack'),W=Math.max(box.clientWidth,540),L=132,R=90,T=6,RH=50,H=T+2*RH+34;
  const segs=[['Cash',S.inp.cash,'var(--gray)'],['Immunovant 56%',m.imvt,'var(--ink-2)'],['Priovant',S.val.priovant,'var(--green)'],['Pulmovant',S.val.pulmovant,'var(--green-2)'],['Genevant',S.val.genevant,'var(--ochre)']];
  const pos=Math.max(0,m.ev),max=Math.max(m.mcap,m.nav+pos,.1)*1.04,X=v=>L+v/max*(W-L-R);let s='',x=0;
- [0,10,20,30,40,50,60].filter(t=>t<=max).forEach(t=>{s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T+2*RH}" class="grid"/><text x="${X(t)}" y="${T+2*RH+16}" text-anchor="middle" class="t3 num s">$${t}B</text>`;});
+ [0,10,20,30,40,50,60].filter(t=>t<=max).forEach(t=>{s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T+2*RH}" class="grid"/><text x="${X(t)}" y="${T+2*RH+20}" text-anchor="middle" class="t3 num s">$${t}B</text>`;});
  TIP['st-m']=`<b>Market cap ${moneyB(m.mcap)}</b><div class="tm">$${S.inp.roiv.toFixed(2)} × ${SH}M shares</div>`;
  s+=`<text x="0" y="${T+RH/2+4}" class="t1 b">Market cap</text><rect x="${X(0)}" y="${T+10}" width="${X(m.mcap)-X(0)}" height="${RH-20}" class="bo-ink" data-tip="st-m"/><text x="${X(m.mcap)+6}" y="${T+RH/2+4}" class="t1 num s">${moneyB(m.mcap)}</text>`;
  const y2=T+RH;s+=`<text x="0" y="${y2+RH/2+4}" class="t1 b">Your parts</text>`;
  segs.forEach((g,i)=>{if(g[1]<=0)return;const w=X(x+g[1])-X(x);TIP['st'+i]=`<b>${g[0]}</b><div class="num">${moneyB(g[1])} · ${(g[1]*1000/SH).toFixed(2)}/sh</div>`;
   s+=`<rect x="${X(x)}" y="${y2+10}" width="${w}" height="${RH-20}" fill="${g[2]}" class="sg" data-tip="st${i}"/>`;
-  if(w>64)s+=`<text x="${X(x)+5}" y="${y2+RH/2+4}" class="s" fill="${i<2&&i!==1?'var(--ink)':'var(--panel)'}">${g[0].split(' ')[0]}</text>`;x+=g[1];});
+  if(w>g[0].split(' ')[0].length*9+12)s+=`<text x="${X(x)+5}" y="${y2+RH/2+4}" class="s" fill="${i<2&&i!==1?'var(--ink)':'var(--panel)'}">${g[0].split(' ')[0]}</text>`;x+=g[1];});
  if(m.ev>0){TIP['st-ev']=`<b>Catalyst book EV</b><div class="num">${sgnB(m.ev)}</div>`;s+=`<rect x="${X(x)}" y="${y2+10}" width="${X(x+m.ev)-X(x)}" height="${RH-20}" fill="none" stroke="var(--ink)" stroke-dasharray="3 2" data-tip="st-ev"/>`;x+=m.ev;}
  else if(m.ev<0){TIP['st-ev']=`<b>Catalyst book EV</b><div class="num">${sgnB(m.ev)}</div>`;s+=`<rect x="${X(x+m.ev)}" y="${y2+6}" width="${X(x)-X(x+m.ev)}" height="${RH-12}" fill="var(--rust)" fill-opacity=".35" stroke="var(--rust)" data-tip="st-ev"/>`;x+=m.ev;}
  s+=`<text x="${X(Math.max(x,m.nav))+6}" y="${y2+RH/2+4}" class="t1 num s b">${moneyB(m.navc)}</text>`;
@@ -1106,27 +1106,27 @@ function drawStack(m){
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Market cap against your sum of the parts">${s}</svg>`;
 }
 function drawHeat(m){
- const box=$('#heat'),W=Math.max(box.clientWidth,420),PXS=[25,30,35,40,45,50,55],PV=[24,21,18,15,12,9,6],L=64,T=10,B=34,cw=(W-L-8)/PXS.length,ch=34,H=T+PV.length*ch+B;let s='';
+ const box=$('#heat'),W=Math.max(box.clientWidth,500),PXS=[25,30,35,40,45,50,55],PV=[24,21,18,15,12,9,6],L=76,T=22,B=40,cw=(W-L-8)/PXS.length,ch=40,H=T+PV.length*ch+B;let s='';
  PV.forEach((pv,r)=>{s+=`<text x="${L-8}" y="${T+r*ch+ch/2+4}" text-anchor="end" class="t3 num s">$${pv}B</text>`;
   PXS.forEach((px,c)=>{const mm=model({inp:{roiv:px},val:{priovant:pv}}),u=mm.up,a=Math.min(1,Math.abs(u)/0.6);
    TIP[`hc${r}-${c}`]=`<b>${pct(u)}</b><div class="tm">ROIV $${px} · Priovant $${pv}B</div><div class="num">NAV $${mm.ps.toFixed(2)}/sh</div><div class="tm">Click to adopt</div>`;
    s+=`<g data-tip="hc${r}-${c}" class="hg" data-px="${px}" data-pv="${pv}" style="cursor:pointer"><rect x="${L+c*cw}" y="${T+r*ch}" width="${cw}" height="${ch}" fill="${u>=0?'var(--green)':'var(--rust)'}" fill-opacity="${(0.08+a*0.82).toFixed(2)}" class="hcell"/><text x="${L+c*cw+cw/2}" y="${T+r*ch+ch/2+4}" text-anchor="middle" class="num s" fill="${a>0.55?'var(--panel)':'var(--ink)'}">${pct(u)}</text></g>`;});});
- PXS.forEach((px,c)=>{s+=`<text x="${L+c*cw+cw/2}" y="${T+PV.length*ch+16}" text-anchor="middle" class="t3 num s">$${px}</text>`;});
- s+=`<text x="${L}" y="${H-2}" class="t3 cap">ROIV price →</text><text x="4" y="${T-1}" class="t3 cap" dy="0">Prio ↓</text>`;
+ PXS.forEach((px,c)=>{s+=`<text x="${L+c*cw+cw/2}" y="${T+PV.length*ch+20}" text-anchor="middle" class="t3 num s">$${px}</text>`;});
+ s+=`<text x="${L}" y="${H-2}" class="t3 cap">ROIV price →</text><text x="4" y="${T-7}" class="t3 cap">Priovant ↓</text>`;
  const cx=L+((S.inp.roiv-22.5)/5)*cw,cy=T+((25.5-S.val.priovant)/3)*ch;
  if(cx>=L&&cx<=W-8&&cy>=T&&cy<=T+PV.length*ch)s+=`<circle cx="${cx}" cy="${cy}" r="7" class="hcur"/><circle cx="${cx}" cy="${cy}" r="2.5" fill="var(--ink)"/>`;
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sensitivity of upside to ROIV price and Priovant value">${s}</svg>`;
  box.querySelectorAll('.hg').forEach(g=>g.addEventListener('click',()=>{S.inp.roiv=+g.dataset.px;S.val.priovant=+g.dataset.pv;S.preset='custom';tip.hidden=true;afterScenario(true);}));
 }
 function drawTorn(){
- const box=$('#torn'),W=Math.max(box.clientWidth,640),L=300,R=70,RH=30,T=22;
+ const box=$('#torn'),W=Math.max(box.clientWidth,760),L=390,R=90,RH=36,T=26;
  const rows=CAT.map(c=>({c,k:S.cat[c.id],ev:catEV(c)})).sort((a,b)=>(b.k.up+b.k.dn)-(a.k.up+a.k.dn)),H=T+rows.length*RH+6;
  const mx=Math.max(.5,...rows.map(r=>Math.max(r.k.up,r.k.dn)))*1.05,Z=L+(W-L-R)/2,X=v=>Z+v/mx*(W-L-R)/2;let s='';
  const step=mx>4?2:mx>2?1:.5;for(let t=-Math.floor(mx/step)*step;t<=mx;t+=step){s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T-4}" y2="${H-4}" class="${Math.abs(t)<1e-9?'hair':'grid'}"/><text x="${X(t)}" y="${T-8}" text-anchor="middle" class="t3 num s">${t>0?'+':t<0?'−':''}$${Math.abs(t)}B</text>`;}
  rows.forEach((r,i)=>{const cy=T+i*RH+RH/2,dim=S.vant&&r.c.v!==S.vant;
   TIP['tn'+i]=`<b>${esc(r.c.ti)}</b><div class="num">P ${Math.round(r.k.p*100)}% · +$${r.k.up}B / −$${r.k.dn}B</div><div class="num">EV ${sgnB(r.ev)}</div><div class="tm">Click to edit</div>`;
-  s+=`<g data-tip="tn${i}" data-act="gcat:${r.c.id}" style="cursor:pointer" ${dim?'opacity=".25"':''}><rect x="0" y="${cy-RH/2}" width="${W}" height="${RH}" fill="transparent"/><text x="0" y="${cy+4}" class="t1 s">${esc(r.c.ti.length>44?r.c.ti.slice(0,43)+'…':r.c.ti)}</text>
-   <rect x="${X(-r.k.dn)}" y="${cy-7}" width="${X(0)-X(-r.k.dn)}" height="14" class="tneg" fill-opacity="${.3+.7*(1-r.k.p)}"/><rect x="${X(0)}" y="${cy-7}" width="${X(r.k.up)-X(0)}" height="14" class="tpos" fill-opacity="${.3+.7*r.k.p}"/>
+  s+=`<g data-tip="tn${i}" data-act="gcat:${r.c.id}" style="cursor:pointer" ${dim?'opacity=".25"':''}><rect x="0" y="${cy-RH/2}" width="${W}" height="${RH}" fill="transparent"/><text x="0" y="${cy+4}" class="t1 s">${esc(r.c.ti.length>46?r.c.ti.slice(0,45)+'…':r.c.ti)}</text>
+   <rect x="${X(-r.k.dn)}" y="${cy-8}" width="${X(0)-X(-r.k.dn)}" height="16" class="tneg" fill-opacity="${.3+.7*(1-r.k.p)}"/><rect x="${X(0)}" y="${cy-8}" width="${X(r.k.up)-X(0)}" height="16" class="tpos" fill-opacity="${.3+.7*r.k.p}"/>
    <circle cx="${X(r.ev)}" cy="${cy}" r="5" class="tev"/><text x="${W-4}" y="${cy+4}" text-anchor="end" class="num s ${r.ev>=0?'t1':'t2'}">${sgnB(r.ev)}</text></g>`;});
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Catalyst swings: loss if negative, gain if positive, dot at expected value">${s}</svg>`;
 }
