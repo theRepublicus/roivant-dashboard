@@ -256,10 +256,6 @@ svg .sterm{text-decoration:underline;text-decoration-style:dotted;cursor:help}
 .dis a,.srcs a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--ink-2)}
 .srcs{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px}
 .prose{font-size:17px;line-height:1.5;max-width:80ch;margin:0 0 14px}
-.gov{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.gov .vc{min-height:150px}
-.gov .vc p{margin:4px 0 0;font-size:15px;color:var(--ink-2);line-height:1.4}
-.ucards{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:10px}
 .dos-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;flex-wrap:wrap;margin-bottom:6px}
 .dos-h h3{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5vw,60px);line-height:.95;letter-spacing:-.015em;margin:6px 0 0}
 .dos-a{font-size:18px;color:var(--ink-2);margin:10px 0 18px;max-width:80ch;line-height:1.45}
@@ -267,18 +263,74 @@ svg .sterm{text-decoration:underline;text-decoration-style:dotted;cursor:help}
 .facts>div{padding:12px 16px 12px 0;border-bottom:1px dashed var(--line-2)}
 .facts .fv{font-size:16px;line-height:1.4;margin-top:3px}
 .facts a{color:var(--ink-3);font-family:var(--mono);font-size:12.5px}
-.evl{list-style:none;margin:14px 0 0;padding:0}
-.evl li{display:grid;grid-template-columns:120px 118px minmax(0,1fr);gap:6px 16px;padding:13px 6px;border-bottom:1px dashed var(--line-2);cursor:pointer;scroll-margin-top:100px}
-.evl li:hover,.evl li.hl{background:var(--green-soft)}
-.evl .ed{font-family:var(--mono);font-size:14px;color:var(--ink-2)}
-.evl .el{display:flex;align-items:flex-start;gap:6px;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
-.evl .et{font-weight:500;font-size:17px;letter-spacing:-.01em}
-.evl .eb{font-size:15.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
-.evl .eb a{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);margin-left:6px}
-.evl li.neg .et{color:var(--rust)}
-@media (max-width:700px){.evl li{grid-template-columns:1fr}}
 .hlm{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:3 2}
 .era{fill:var(--green-soft)} .era2{fill:var(--panel-2)}
+
+
+/* data tables */
+.dt{width:100%;border-collapse:collapse;min-width:760px}
+.dt th{text-align:left;padding:0 12px 10px 0;border-bottom:1px dashed var(--green);vertical-align:bottom;white-space:nowrap}
+.dt th,.thb{font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.thb{border:0;background:none;padding:0;cursor:pointer;display:inline-flex;gap:5px;align-items:center}
+.thb:hover{color:var(--ink)}
+.thb .sa{opacity:.55;font-size:11px}
+.dt td{padding:11px 12px 11px 0;border-bottom:1px dashed var(--line-2);vertical-align:top;font-size:15.5px;line-height:1.4}
+.dt td.num,.dt td .num{font-family:var(--mono);font-size:14px}
+.dt .c{text-align:center}.dt .r{text-align:right}.dt .nw{white-space:nowrap}
+.dt tbody tr[data-su],.dt tbody tr[data-i],.dt tbody tr[data-deal]{cursor:pointer}
+.dt tbody tr:hover td{background:var(--green-soft)}
+.dt tbody tr.sel td{background:var(--green-soft)}
+.dt tbody tr.sel td:first-child{box-shadow:inset 3px 0 0 var(--green)}
+.dt tbody tr.hl td{background:var(--green-soft)}
+.dt .el{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.dt .negt{color:var(--rust)}
+.dim2{color:var(--ink-2);font-size:14.5px}
+.dt .lnk{text-align:left}
+.srcl{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.rowlink{font-weight:600;text-decoration:none}
+.rdb{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--ink);background:none;color:var(--ink);padding:6px 9px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.rdb:hover{background:var(--ink);color:var(--panel)}
+.rdb svg{width:10px;height:10px;fill:currentColor}
+.kv{width:100%;border-collapse:collapse}
+.kv th{width:32%;text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px dashed var(--line-2);font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.kv td{padding:10px 0;border-bottom:1px dashed var(--line-2);font-size:15.5px;line-height:1.4}
+.cols2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px}
+@media (max-width:1000px){.cols2{grid-template-columns:minmax(0,1fr)}}
+#unitPanel{margin-bottom:10px}
+@media (max-width:760px){.dt.stack,.dt{min-width:0}.dt thead{display:none}.dt tr{display:block;border-bottom:1px dashed var(--green);padding:8px 0}.dt td{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;border:0;padding:4px 0}.dt td::before{content:attr(data-l);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}.dt td[data-l=""]::before{content:none}.dt td[data-l=""]{display:block}.dt .r,.dt .c{text-align:left}}
+
+/* full-text reader */
+.reader{position:fixed;inset:0;z-index:55;background:var(--page);overflow:auto;padding:0 var(--gut) 60px}
+.rd-bar{position:sticky;top:0;z-index:2;background:var(--page);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:calc(env(safe-area-inset-top,0px) + 12px) 0 12px;border-bottom:1px solid var(--page-line);color:var(--on-page-2)}
+.rd-nav{display:flex;gap:8px;flex-wrap:wrap}
+.rd-in{max-width:1240px;margin:22px auto 0;display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;align-items:start}
+.rd-toc{position:sticky;top:84px;display:flex;flex-direction:column;gap:2px;padding-top:8px}
+.rd-toc a{color:var(--on-page);text-decoration:none;font-size:15px;padding:6px 0 6px 12px;border-left:1px solid var(--page-line)}
+.rd-toc a:hover{border-left-color:var(--green);color:var(--green)}
+@media (max-width:900px){.rd-in{grid-template-columns:minmax(0,1fr)}.rd-toc{display:none}}
+.rd-body{background:var(--panel);color:var(--ink);border-radius:var(--corner);padding:clamp(22px,4vw,56px);font-family:var(--serif);font-size:21px;line-height:1.55}
+.rd-body>*{max-width:70ch}
+.rd-body h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6vw,76px);line-height:.95;letter-spacing:-.015em;margin:14px 0 18px}
+.rd-body h2{font-family:var(--sans);font-weight:500;font-size:26px;letter-spacing:-.03em;margin:44px 0 14px;padding-bottom:10px;border-bottom:1px dashed var(--green);max-width:none;scroll-margin-top:80px}
+.rd-body h3{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:20px 0 4px}
+.rd-body p{margin:0 0 14px}
+.rd-body .term{font-family:inherit}
+.rd-lead{font-size:26px;line-height:1.35;color:var(--ink-2)}
+.rd-eb{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.rd-q{margin:0;font-size:27px;line-height:1.3;border-left:2px solid var(--green);padding-left:20px}
+.rd-ul,.rd-ol{padding-left:22px;margin:0 0 14px}.rd-ul li,.rd-ol li{margin-bottom:6px}
+.rd-ol a{font-family:var(--mono);font-size:14px;color:var(--ink-2);word-break:break-all}
+.rd-tbl{width:100%;max-width:none;border-collapse:collapse;font-family:var(--sans);font-size:16px;line-height:1.45;margin-bottom:10px}
+.rd-tbl th{text-align:left;vertical-align:top;padding:10px 14px 10px 0;border-bottom:1px dashed var(--line-2);font-family:var(--mono);font-weight:500;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.rd-tbl tr:first-child th{border-bottom-color:var(--green)}
+.rd-tbl td{padding:10px 14px 10px 0;border-bottom:1px dashed var(--line-2);vertical-align:top}
+.rd-tbl .r{text-align:right}.rd-tbl .nw{white-space:nowrap}
+.rd-yr{font-size:15px!important;color:var(--green-2)!important;margin-top:28px!important}
+.rd-ev{padding:4px 0 2px 16px;border-left:2px solid var(--line)}
+.rd-ev.neg{border-left-color:var(--rust)}
+.rd-evh{display:flex;gap:12px;align-items:center;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--ink-3);margin-bottom:2px}
+.rd-evh .el{display:inline-flex;gap:5px;align-items:center;text-transform:uppercase}
+.rd-src{font-size:15px}
 
 /* financials */
 .pxstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px dashed var(--green);margin-bottom:14px}
@@ -309,21 +361,12 @@ svg .sterm{text-decoration:underline;text-decoration-style:dotted;cursor:help}
 .panel.green .up{color:var(--g-ink)}
 
 /* deals */
-.deals{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:6px}
-.deal{border:1px solid var(--line-2);padding:14px 16px;display:flex;flex-direction:column;gap:6px;scroll-margin-top:90px;background:var(--panel)}
-.deal h4{margin:0;font-weight:500;font-size:19px;letter-spacing:-.02em}
 .dh{display:flex;justify-content:space-between;align-items:center}
 .dd{font-size:14px;color:var(--ink-3)}
 .dir{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.1em;padding:1px 6px;border:1px solid}
 .d-in{color:var(--green-2)} .d-out{color:var(--ink-2)}
 .dir.d-in{background:var(--green-soft)}
 .dcp{font-size:16px;color:var(--ink-2)}
-.deal dl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0;padding:8px 0;border-top:1px dashed var(--line-2);border-bottom:1px dashed var(--line-2)}
-.deal dt{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
-.deal dd{margin:0;font-weight:500;font-size:21px;letter-spacing:-.02em}
-.deal .st{font-size:16px;color:var(--ink-2);margin:0}
-.deal .why{font-family:var(--serif);font-size:19px;line-height:1.25;margin:0}
-.deal a{font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin-top:auto;color:var(--ink-2)}
 .flash{animation:fl 1.6s ease-out}
 @keyframes fl{0%{box-shadow:0 0 0 4px var(--green)}100%{box-shadow:0 0 0 0 transparent}}
 tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
@@ -485,7 +528,7 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
     </div>
     <div class="panel rv">
       <div class="sep"><h3>Deals over time</h3><span class="tot" id="dealTot"></span></div>
-      <p class="sub">Log scale. Hover for terms, click to jump to the deal card. Strip below: reported consolidated cash.</p>
+      <p class="sub">Log scale. Hover for terms, click to jump to the deal in the table. Strip below: reported consolidated cash.</p>
       <div class="frame" id="bub"></div>
       <div class="frame" id="cash"></div>
       <div class="legend"><span><i style="background:var(--in)"></i>Inflow to Roivant</span><span><i style="background:var(--out)"></i>Outflow</span><span>Cash strip: dotted where quarters are missing from the sources used</span></div>
@@ -504,7 +547,7 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
     </div>
     <div class="panel rv" style="--d:.14s;margin-top:10px">
       <div class="sep">
-        <h3>Deal cards</h3>
+        <h3>All deals</h3>
         <div class="ctl" style="margin:0">
           <input type="search" id="dealQ" class="dq" placeholder="Filter by name or term" aria-label="Filter deals">
           <select id="dealSort" class="dsel" aria-label="Sort deals"><option value="date">Newest first</option><option value="cash">Largest cash first</option><option value="mult">Headline value first</option></select>
@@ -522,7 +565,7 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
     </div>
     <div class="gchips" id="grpChips" role="group" aria-label="Disease area"></div>
     <div id="grpPanel"></div>
-    <div class="ucards" id="unitCards"></div>
+    <div class="panel rv" id="unitPanel"></div>
     <div class="panel rv" id="dossier"></div>
   </section>
 
@@ -578,6 +621,10 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
 </footer>
 </div>
 
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-label="Full text">
+  <div class="rd-bar"><span class="lab" id="rdCrumb"></span><div class="rd-nav"><button class="obtn" id="rdPrev">← Prev</button><button class="obtn" id="rdNext">Next →</button><button class="obtn" id="rdClose" aria-label="Close full text">Close ×</button></div></div>
+  <div class="rd-in"><nav class="rd-toc" id="rdToc" aria-label="Sections"></nav><article class="rd-body" id="rdBody"></article></div>
+</div>
 <div id="tip" hidden></div>
 <aside class="dp" id="panel" hidden aria-live="polite"><button class="x" id="pclose" aria-label="Close detail"></button><div id="pbody"></div></aside>
 <div class="cmdk" id="cmdk" hidden role="dialog" aria-modal="true" aria-label="Search the dashboard">
@@ -761,11 +808,12 @@ document.addEventListener('pointermove',e=>{if(!tip.hidden&&!gPin)placeTip(e.cli
 document.addEventListener('pointerout',e=>{if(gPin)return;const gt=e.target.closest&&e.target.closest('[data-g]');if(gt){if(!gt.contains(e.relatedTarget))tip.hidden=true;return;}const el=e.target.closest&&e.target.closest('[data-tip]');if(el&&!el.contains(e.relatedTarget))tip.hidden=true;});
 document.addEventListener('focusin',e=>{const gt=e.target.closest&&e.target.closest('[data-g]');if(gt){const r=gt.getBoundingClientRect();showGloss(gt,r.left,r.bottom);return;}const el=e.target.closest&&e.target.closest('[data-tip]');if(el&&TIP[el.dataset.tip]){const r=el.getBoundingClientRect();tip.innerHTML=TIP[el.dataset.tip];tip.hidden=false;placeTip(r.right,r.top);}});
 document.addEventListener('focusout',()=>{if(!gPin)tip.hidden=true;});
-document.addEventListener('click',e=>{const gt=e.target.closest('[data-g]');if(gt&&GL[gt.dataset.g]){e.preventDefault();e.stopPropagation();const was=gPin===gt;unpin();if(!was){gPin=gt;gt.classList.add('on');const r=gt.getBoundingClientRect();showGloss(gt,r.left,r.bottom,true);}return;}if(gPin&&!e.target.closest('#tip'))unpin();const el=e.target.closest('[data-act]');if(el){e.preventDefault();act(el.dataset.act);}});
+document.addEventListener('click',e=>{const gt=e.target.closest('[data-g]');if(gt&&GL[gt.dataset.g]){e.preventDefault();e.stopPropagation();const was=gPin===gt;unpin();if(!was){gPin=gt;gt.classList.add('on');const r=gt.getBoundingClientRect();showGloss(gt,r.left,r.bottom,true);}return;}if(gPin&&!e.target.closest('#tip'))unpin();const th=e.target.closest('.thb');if(th){sortClick(th);return;}const el=e.target.closest('[data-act]');if(el){e.preventDefault();act(el.dataset.act);}});
 const typing=t=>t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA');
 document.addEventListener('keydown',e=>{
  if(!$('#cmdk').hidden)return;
- if(e.key==='Escape'){unpin();closePanel();tip.hidden=true;return;}
+ if(e.key==='Escape'){unpin();if(!$('#reader').hidden){closeReader();return;}closePanel();tip.hidden=true;return;}
+ if(!$('#reader').hidden){if((e.key==='ArrowLeft'||e.key==='ArrowRight')&&!typing(e.target)){e.preventDefault();stepReader(e.key==='ArrowLeft'?-1:1);}return;}
  if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('.term')){e.preventDefault();e.target.closest('.term').click();return;}
  if((e.key==='/'&&!typing(e.target))||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')){e.preventDefault();openCmd();return;}
  if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('svg [data-act]')){e.preventDefault();act(e.target.closest('[data-act]').dataset.act);return;}
@@ -779,7 +827,7 @@ function act(a){const i=a.indexOf(':'),k=a.slice(0,i),v=a.slice(i+1);
  if(k==='ev')openEvent(+v);else if(k==='evn')stepEv(+v);else if(k==='vant')setVant(S.vant===v?null:v);else if(k==='setv')setVant(v||null);else if(k==='deal')gotoDeal(v);
  else if(k==='pipe')openPipe(+v);else if(k==='page')setPage(v);else if(k==='px')openPx(+v);
  else if(k==='gev'){setPage('history');openEvent(+v);}else if(k==='gpipe'){setPage('structure');openPipe(+v);}
- else if(k==='unit')openUnit(v);else if(k==='grp'){SU.g=v;setPage('subsidiaries');}
+ else if(k==='read')openReader(v);else if(k==='unit')openUnit(v);else if(k==='grp'){SU.g=v;setPage('subsidiaries');}
  else if(k==='ue'){const [u,n]=v.split('|');openUE(u,+n);}else if(k==='uen')stepUE(+v);else if(k==='gl')openGloss(v);else if(k==='pxe')openPxEv(+v);}
 const panel=$('#panel'),pbody=$('#pbody');
 function closePanel(){panel.hidden=true;S.curEv=null;}
@@ -1045,19 +1093,29 @@ function drawDumb(){
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Entry cost versus value">${s}</svg>`;
 }
 function renderDeals(){
- let ds=DEALS.filter(d=>!dealDim(d));
- ds.sort(S.sort==='cash'?(a,b)=>Math.abs(b.cash||0)-Math.abs(a.cash||0):S.sort==='mult'?(a,b)=>(b.head||0)-(a.head||0):(a,b)=>yf(b.d)-yf(a.d));
- $('#deals').innerHTML=ds.length?ds.map(d=>`<article class="deal" id="card-${d.id}">
-  <div class="dh"><span class="dd num">${fmtD(d.d)}</span><span class="dir d-${d.dir}">${d.dir==='in'?'Inflow':'Outflow'}</span></div>
-  <h4>${esc(d.ti)}</h4><div class="dcp">${esc(d.cp)} · <button class="lnk" data-act="vant:${d.ent}">${esc(VN(d.ent))}</button></div>
-  <dl><div><dt>Headline</dt><dd class="num">${money(d.head)}</dd></div><div><dt>Cash to Roivant</dt><dd class="num d-${d.dir}">${d.cash==null?'n/d':(d.cash>0?'+':'')+money(d.cash)}</dd></div></dl>
-  <p class="st">${glz(d.st)}</p><p class="why">${glz(d.why)}</p><a href="${d.src}" target="_blank" rel="noopener">Source ↗</a></article>`).join('')
+ const ds=DEALS.filter(d=>!dealDim(d)).map(d=>({...d,y:yf(d.d),u:VN(d.ent),hv:d.head==null?-1:d.head,cv:d.cash==null?null:d.cash}));
+ TR.deals=()=>{$('#deals').innerHTML=ds.length?table('deals',[
+  {k:'y',l:'Date',cls:'num nw',fmt:d=>fmtD(d.d)},
+  {k:'cp',l:'Counterparty',fmt:d=>`<b>${esc(d.cp)}</b>`},
+  {k:'ti',l:'Deal',fmt:d=>glz(d.ti)},
+  {k:'u',l:'Unit',fmt:d=>`<button class="lnk" data-act="unit:${d.ent}">${esc(d.u)}</button>`},
+  {k:'dir',l:'Flow',fmt:d=>`<span class="dir d-${d.dir}">${d.dir==='in'?'Inflow':'Outflow'}</span>`},
+  {k:'hv',l:'Headline',cls:'num r',fmt:d=>money(d.head)},
+  {k:'cv',l:'Cash to Roivant',cls:'num r',fmt:d=>`<span class="d-${d.dir}">${d.cash==null?'n/d':(d.cash>0?'+':'')+money(d.cash)}</span>`},
+  {k:'why',l:'Why it mattered',nosort:1,fmt:d=>`<span class="dim2">${glz(short(d.why,100))}</span>`},
+  {k:'src',l:'',nosort:1,fmt:d=>src(d.src)}],ds,{sort:S.sort==='cash'?'cv':S.sort==='mult'?'hv':'y',dir:-1,rowAttr:d=>`id="card-${d.id}" data-deal="${d.id}" tabindex="0"`})
   :`<p class="empty">No deals match. <button class="lnk" id="dealClr">Clear the filters</button></p>`;
- const c=$('#dealClr');if(c)c.addEventListener('click',()=>{S.q='';$('#dealQ').value='';S.dir='all';syncDir();setVant(null);});
+  $('#deals').querySelectorAll('tr[data-deal]').forEach(tr=>{tr.onclick=e=>{if(e.target.closest('a,.term,button'))return;openDeal(tr.dataset.deal);};tr.onkeydown=e=>{if(e.key==='Enter'&&e.target===tr)openDeal(tr.dataset.deal);};});
+  const c=$('#dealClr');if(c)c.addEventListener('click',()=>{S.q='';$('#dealQ').value='';S.dir='all';syncDir();setVant(null);});};
+ TR.deals();
 }
+function openDeal(id){const d=DEALS.find(x=>x.id===id);if(!d)return;S.curEv=null;tip.hidden=true;
+ pbody.innerHTML=`<div class="pk">${d.dir==='in'?'Inflow':'Outflow'} · ${esc(VN(d.ent))}</div><h3>${glz(d.ti)}</h3><div class="pm">${fmtD(d.d)} · ${esc(d.cp)}</div>
+ <div class="pv"><span class="lab">Headline</span><b>${money(d.head)}</b></div><div class="pv" style="margin-top:-11px"><span class="lab">Cash to Roivant</span><b>${d.cash==null?'n/d':(d.cash>0?'+':'')+money(d.cash)}</b></div>
+ <p>${glz(d.st)}</p><p><em>${glz(d.why)}</em></p><div class="pa"><a href="${d.src}" target="_blank" rel="noopener">Source ↗</a>${UNIT(d.ent)?`<button class="btn ghost" data-act="read:file-${d.ent}">${esc(VN(d.ent))} full file ${ARW}</button>`:''}</div>`;panel.hidden=false;}
 function syncDir(){$('#dirSeg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dir===S.dir));}
 $('#dirSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.dir=b.dataset.dir;syncDir();drawBubbles();drawCash();renderDeals();});
-$('#dealSort').addEventListener('change',e=>{S.sort=e.target.value;renderDeals();});
+$('#dealSort').addEventListener('change',e=>{S.sort=e.target.value;delete TS.deals;renderDeals();});
 $('#dealQ').addEventListener('input',e=>{S.q=e.target.value.trim().toLowerCase();drawBubbles();drawCash();renderDeals();});
 
 /* ---------- GLOSSARY ---------- */
@@ -1168,47 +1226,132 @@ let SU={g:'all',u:'priovant',cur:null};
 function openUnit(id){if(!V.find(v=>v.id===id))return;SU.u=id;SU.g=GID[V.find(v=>v.id===id).g];if(id!=='roivant'){S.vant=id;$('#vantSel').value=id;}closePanel();setPage('subsidiaries');
  requestAnimationFrame(()=>{const d=$('#dossier');if(d)d.scrollIntoView({behavior:RM()?'auto':'smooth',block:'start'});});}
 function uEvents(u){return (u&&u.events||[]).slice().sort((a,b)=>yf(a.d)-yf(b.d));}
+/* ---------- tables + reader ---------- */
+function short(t,n){t=String(t==null?'':t);n=n||130;const m=t.match(/^.*?[^A-Z.][.](?=\s+[A-Z(“"']|$)/);let s=m?m[0].trim():t;if(s.length>n)s=s.slice(0,n-1).replace(/[\s,;:]+\S*$/,'')+'…';return s;}
+const TS={},TR={};
+function table(id,cols,rows,opt){opt=opt||{};const st=TS[id]||(TS[id]={k:opt.sort||null,d:opt.dir||1});
+ let rs=rows.slice();if(st.k){const c=cols.find(c=>c.k===st.k);if(c)rs.sort((a,b)=>{const x=c.sort?c.sort(a):a[c.k],y=c.sort?c.sort(b):b[c.k];return ((x==null)-(y==null))||(x>y?1:x<y?-1:0)*st.d;});}
+ return `<table class="dt" data-t="${id}"><thead><tr>${cols.map(c=>`<th class="${c.cls||''}"${c.w?` style="width:${c.w}"`:''}>${c.nosort?c.l:`<button class="thb" data-t="${id}" data-sk="${c.k}" aria-label="Sort by ${esc(c.l)}">${c.l}<span class="sa">${st.k===c.k?(st.d>0?'↑':'↓'):'↕'}</span></button>`}</th>`).join('')}</tr></thead><tbody>${rs.map(r=>`<tr${opt.rowAttr?' '+opt.rowAttr(r):''}>${cols.map(c=>`<td class="${c.cls||''}"${c.l?` data-l="${esc(c.l)}"`:''}><div class="cv">${c.fmt?c.fmt(r):esc(r[c.k]==null?'':r[c.k])}</div></td>`).join('')}</tr>`).join('')}</tbody></table>`;}
+function sortClick(b){const id=b.dataset.t,k=b.dataset.sk,st=TS[id]||(TS[id]={k:null,d:1});if(st.k===k)st.d*=-1;else{st.k=k;st.d=1;}if(TR[id])TR[id]();}
+const yrs=v=>`${v.f.slice(0,4)}–${v.to?v.to.slice(0,4):'now'}`;
+const src=u=>u?`<a class="srcl" href="${esc(u)}" target="_blank" rel="noopener">src ↗</a>`:'';
+const readBtn=(k,id,l)=>`<button class="rdb" data-act="read:${k}-${id}">${l||'Full file'} ${ARW}</button>`;
+
+/* ---------- SUBSIDIARIES (tables) ---------- */
+const AREA_ORDER=[...new Set(V.map(v=>v.g))];
 function renderSubs(){
  if(S.vant&&S.vant!==SU.u){SU.u=S.vant;SU.g=GID[V.find(v=>v.id===S.vant).g];}
- const groups=[...new Set(V.map(v=>v.g))];
- $('#grpChips').innerHTML=`<button class="tchip" data-g="all" aria-pressed="${SU.g==='all'}">All areas</button>`+groups.map(g=>`<button class="tchip" data-g="${GID[g]}" aria-pressed="${SU.g===GID[g]}">${esc(g)}<span class="n num">${V.filter(v=>v.g===g).length}</span></button>`).join('');
+ $('#grpChips').innerHTML=`<button class="tchip" data-g="all" aria-pressed="${SU.g==='all'}">All areas</button>`+AREA_ORDER.map(g=>`<button class="tchip" data-g="${GID[g]}" aria-pressed="${SU.g===GID[g]}">${esc(g)}<span class="n num">${V.filter(v=>v.g===g).length}</span></button>`).join('');
  $('#grpChips').querySelectorAll('button').forEach(b=>b.onclick=()=>{SU.g=b.dataset.g;const first=V.find(v=>SU.g==='all'||GID[v.g]===SU.g);if(SU.g!=='all'&&first&&GID[V.find(v=>v.id===SU.u).g]!==SU.g)SU.u=first.id;renderSubs();});
+ renderAreaPanel();renderUnitTable();renderDossier();
+}
+function renderAreaPanel(){
  const gp=$('#grpPanel');
  if(SU.g==='all'){
-  gp.innerHTML=`<div class="gov" style="margin-bottom:10px">${groups.map(g=>{const r=GRP(GID[g]),n=V.filter(v=>v.g===g);return `<button class="vc" data-act="grp:${GID[g]}"><span class="vc-top"><b>${esc(g)}</b><span class="pill p-${n.some(v=>!v.to)?'retained':'sold'}">${n.filter(v=>!v.to).length} held</span></span><span class="vc-y">${n.map(v=>esc(v.n)).join(' · ')}</span>${r?`<p>${glz(r.summary.split('. ')[0]+'.')}</p>`:''}</button>`;}).join('')}</div>`;
- }else{
-  const r=GRP(SU.g),name=GNAME[SU.g];
-  gp.innerHTML=`<div class="panel rv"><div class="sep"><h3>${esc(name)}</h3><span class="hint">disease area</span></div>`+(r?`
-   <p class="prose">${glz(r.summary)}</p>${r.thesis?`<p class="thesis">${glz(r.thesis)}</p>`:''}
-   ${(r.diseases||[]).length?`<div class="dgrid">${r.diseases.map(d=>{const sn=new Set();return `<div class="dis"><h4>${glz(d.name,sn)}</h4><dl>
-     ${d.what?`<div><dt>What it is</dt><dd>${glz(d.what,sn)}</dd></div>`:''}${d.prevalence?`<div><dt>How common</dt><dd>${glz(d.prevalence,sn)}</dd></div>`:''}
-     ${d.soc?`<div><dt>Standard of care</dt><dd>${glz(d.soc,sn)}</dd></div>`:''}${d.unmet?`<div><dt>Unmet need</dt><dd>${glz(d.unmet,sn)}</dd></div>`:''}</dl>
-     ${d.src?`<a href="${esc(d.src)}" target="_blank" rel="noopener">Source ↗</a>`:''}</div>`;}).join('')}</div>`:''}
-   ${r.landscape?`<div class="sep" style="margin-top:6px"><h3 style="font-size:17px">Competitive landscape</h3></div><p class="prose">${glz(r.landscape)}</p>`:''}
-   ${(r.src||[]).length?`<div class="srcs">${r.src.map((u,i)=>`<a href="${esc(u)}" target="_blank" rel="noopener">Source ${i+1} ↗</a>`).join('')}</div>`:''}`
-   :`<p class="empty">Research for this area is not loaded.</p>`)+`</div>`;
- }
- const list=V.filter(v=>SU.g==='all'||GID[v.g]===SU.g);
- $('#unitCards').innerHTML=list.map(v=>`<button class="vc ${SU.u===v.id?'on':''}" data-su="${v.id}" aria-pressed="${SU.u===v.id}"><span class="vc-top"><b>${esc(v.id==='roivant'?'Roivant':v.n)}</b><span class="pill p-${v.o}">${OUTL[v.o]}</span></span><span class="vc-a">${esc(v.a)}</span><span class="vc-y">${v.f.slice(0,4)}–${v.to?v.to.slice(0,4):'now'} · ${(uEvents(UNIT(v.id))).length} events</span></button>`).join('');
- $('#unitCards').querySelectorAll('[data-su]').forEach(b=>b.onclick=e=>{if(e.target.closest('.term'))return;SU.u=b.dataset.su;if(SU.u!=='roivant'){S.vant=SU.u;$('#vantSel').value=SU.u;}else{S.vant=null;$('#vantSel').value='';}renderSubs();});
- renderDossier();
+  const rows=AREA_ORDER.filter(g=>g!=='Parent').map(g=>{const r=GRP(GID[g])||{},n=V.filter(v=>v.g===g);return {id:GID[g],name:g,units:n.map(v=>v.n).join(', '),n:n.length,held:n.filter(v=>!v.to).length,dis:(r.diseases||[]).map(d=>d.name.replace(/\s*\(.*?\)\s*/g,' ').trim()).join('; '),sum:r.summary||''};});
+  TR.areas=()=>{$('#areaTbl').innerHTML=table('areas',[
+   {k:'name',l:'Disease area',fmt:r=>`<button class="lnk rowlink" data-act="grp:${r.id}">${esc(r.name)}</button>`},
+   {k:'n',l:'Units',cls:'num c'},{k:'held',l:'Still held',cls:'num c'},
+   {k:'units',l:'Subsidiaries'},{k:'dis',l:'Diseases and technologies',fmt:r=>glz(short(r.dis,140))},
+   {k:'rd',l:'',nosort:1,cls:'r',fmt:r=>readBtn('area',r.id,'Area brief')}],rows);};
+  gp.innerHTML=`<div class="panel rv"><div class="sep"><h3>Disease areas</h3><span class="hint">sort by any column · open a brief for the full research</span></div><div class="frame" id="areaTbl"></div></div>`;TR.areas();return;}
+ const r=GRP(SU.g),name=GNAME[SU.g];
+ if(!r){gp.innerHTML=`<div class="panel rv"><div class="sep"><h3>${esc(name)}</h3></div><p class="empty">Research for this area is not loaded.</p></div>`;return;}
+ TR.dis=()=>{$('#disTbl').innerHTML=table('dis',[
+  {k:'name',l:'Disease or technology',w:'18%',fmt:d=>`<b>${glz(d.name.replace(/\s*\((?:WHO|incl\.)[^)]*\)/,''))}</b>`},
+  {k:'prevalence',l:'How common',fmt:d=>glz(short(d.prevalence,110))},
+  {k:'soc',l:'Standard of care',fmt:d=>glz(short(d.soc,120))},
+  {k:'unmet',l:'Unmet need',fmt:d=>glz(short(d.unmet,120))},
+  {k:'src',l:'',nosort:1,fmt:d=>src(d.src)}],r.diseases||[]);};
+ gp.innerHTML=`<div class="panel rv"><div class="sep"><h3>${esc(name)}</h3>${readBtn('area',SU.g,'Read the full brief')}</div>
+  <p class="prose">${glz(short(r.summary,260))}</p><div class="frame" id="disTbl"></div></div>`;TR.dis();
+}
+function renderUnitTable(){
+ const list=V.filter(v=>SU.g==='all'||GID[v.g]===SU.g).map(v=>{const u=UNIT(v.id)||{},ev=uEvents(u);return {id:v.id,name:v.id==='roivant'?'Roivant (parent)':v.n,g:v.g,asset:u.asset||v.a,origin:u.origin||'',f:v.f,yrs:yrs(v),o:v.o,status:u.status||'',n:ev.length,last:ev.length?ev[ev.length-1]:null};});
+ TR.units=()=>{$('#unitTbl').innerHTML=table('units',[
+  {k:'name',l:'Subsidiary',fmt:r=>`<b>${esc(r.name)}</b>`},
+  ...(SU.g==='all'?[{k:'g',l:'Area'}]:[]),
+  {k:'asset',l:'Asset',fmt:r=>glz(short(r.asset,70))},
+  {k:'origin',l:'Came from',fmt:r=>glz(short(r.origin,90))},
+  {k:'f',l:'Years',cls:'num',fmt:r=>r.yrs},
+  {k:'o',l:'Outcome',fmt:r=>`<span class="pill p-${r.o}">${OUTL[r.o]}</span>`},
+  {k:'n',l:'Events',cls:'num c'},
+  {k:'lastd',l:'Latest event',sort:r=>r.last?yf(r.last.d):0,fmt:r=>r.last?`<span class="num">${fmtD(r.last.d)}</span> · ${glz(r.last.t)}`:'–'},
+  {k:'rd',l:'',nosort:1,cls:'r',fmt:r=>readBtn('file',r.id)}],list,{rowAttr:r=>`data-su="${r.id}" class="${SU.u===r.id?'sel':''}" tabindex="0"`});
+  $('#unitTbl').querySelectorAll('tr[data-su]').forEach(tr=>{const go=()=>{SU.u=tr.dataset.su;if(SU.u!=='roivant'){S.vant=SU.u;$('#vantSel').value=SU.u;}else{S.vant=null;$('#vantSel').value='';}renderUnitTable();renderDossier();};tr.onclick=e=>{if(e.target.closest('.term,a,button'))return;go();};tr.onkeydown=e=>{if(e.key==='Enter'&&e.target===tr)go();};});};
+ $('#unitPanel').innerHTML=`<div class="sep"><h3>Subsidiaries${SU.g==='all'?'':' in '+esc(GNAME[SU.g])}</h3><span class="hint">click a row to load its file below</span></div><div class="frame" id="unitTbl"></div>`;TR.units();
 }
 function renderDossier(){
  const v=V.find(x=>x.id===SU.u),u=UNIT(SU.u),box=$('#dossier');if(!v){box.innerHTML='';return;}
  if(!u){box.innerHTML=`<div class="dos-h"><div><span class="pill p-${v.o}">${OUTL[v.o]}</span><h3>${esc(v.n)}</h3></div></div><p class="empty">The research file for ${esc(v.n)} is not loaded yet.</p>`;return;}
  const ev=uEvents(u),sn=new Set();
- const F=[['Founded',u.founded?fmtD(u.founded):fmtD(v.f)],['Status',u.status],['Asset',u.asset],['Where it came from',u.origin],['Ownership',u.ownership],['People',(u.people||[]).join('; ')],['Outcome',u.outcome]].filter(f=>f[1]);
- box.innerHTML=`<div class="dos-h"><div><span class="pill p-${v.o}">${OUTL[v.o]}</span> <span class="hint" style="margin-left:6px">${esc(v.g)} · ${v.f.slice(0,4)}–${v.to?v.to.slice(0,4):'now'}</span><h3>${esc(u.name||v.n)}</h3></div>
-   <button class="btn ghost" data-act="vant:${v.id}">${S.vant===v.id?'Clear filter':'Filter other pages'}</button></div>
-  ${u.mechanism?`<p class="dos-a">${glz(u.mechanism,sn)}</p>`:''}
-  <div class="facts">${F.map(f=>`<div><div class="kl">${f[0]}</div><div class="fv">${glz(f[1],sn)}</div></div>`).join('')}${(u.facts||[]).map(f=>`<div><div class="kl">${esc(f.k)}</div><div class="fv">${glz(f.v,sn)}${f.src?` <a href="${esc(f.src)}" target="_blank" rel="noopener">src</a>`:''}</div></div>`).join('')}</div>
-  <div class="sep"><h3>History</h3><span class="hint">${ev.length} events · hover or click a marker</span></div>
+ const prof=[['Founded',u.founded?fmtD(u.founded):fmtD(v.f)],['Asset',u.asset],['Mechanism',u.mechanism],['Came from',u.origin],['Ownership',u.ownership],['Leadership',(u.people||[]).map(p=>p.split(' — ')[0]+(p.split(' — ')[1]?' ('+short(p.split(' — ')[1],40).replace(/\.$/,'')+')':'')).join('; ')],['Status',u.status],['Outcome',u.outcome]].filter(f=>f[1]);
+ box.innerHTML=`<div class="dos-h"><div><span class="pill p-${v.o}">${OUTL[v.o]}</span> <span class="hint" style="margin-left:6px">${esc(v.g)} · ${yrs(v)}</span><h3>${esc(u.name||v.n)}</h3></div>
+   <div class="ctl" style="margin:0">${readBtn('file',v.id,'Read the full file')}<button class="btn ghost" data-act="vant:${v.id}">${S.vant===v.id?'Clear filter':'Filter other pages'}</button></div></div>
+  <div class="cols2">
+   <div><div class="sep"><h3>Profile</h3></div><table class="kv">${prof.map(f=>`<tr><th>${f[0]}</th><td>${glz(short(f[1],150),sn)}</td></tr>`).join('')}</table></div>
+   <div><div class="sep"><h3>Key numbers</h3><span class="hint">${(u.facts||[]).length} sourced</span></div>${(u.facts||[]).length?`<table class="kv">${u.facts.map(f=>`<tr><th>${esc(f.k)}</th><td class="num-ish">${glz(short(f.v,140),sn)} ${src(f.src)}</td></tr>`).join('')}</table>`:'<p class="empty">No figures recorded.</p>'}</div>
+  </div>
+  <div class="sep" style="margin-top:22px"><h3>History</h3><span class="hint">${ev.length} events · hover or click a marker</span></div>
   <div class="frame" id="dosTl"></div>
   <div class="legend">${Object.values(LANES).map(l=>`<span>${icon(l[1])}&nbsp;${l[0]}</span>`).join('')}<span>${icon('Readout','mk neg')}&nbsp;Setback</span><span><i style="background:var(--green-soft);border-color:var(--green-soft)"></i>Under Roivant</span></div>
-  <ol class="evl" id="dosList">${ev.map((e,i)=>`<li id="ue-${i}" data-i="${i}" class="${e.neg?'neg':''}"><span class="ed">${fmtD(e.d)}${e.approx?' <span class="ap">approx.</span>':''}</span><span class="el">${icon(LANES[laneOf(e)][1],'mk'+(e.neg?' neg':''))}${LANES[laneOf(e)][0]}</span><div><div class="et">${glz(e.t)}</div><div class="eb">${glz(e.b)}${e.src?`<a href="${esc(e.src)}" target="_blank" rel="noopener">source ↗</a>`:''}</div></div></li>`).join('')}</ol>`;
- box.querySelectorAll('#dosList li').forEach(li=>{li.onclick=e=>{if(e.target.closest('a,.term'))return;openUE(SU.u,+li.dataset.i);};li.onmouseenter=()=>hlMarker(+li.dataset.i);li.onmouseleave=()=>hlMarker(null);});
- drawDosTl();
+  <div class="frame" style="margin-top:14px" id="evTbl"></div>`;
+ const rows=ev.map((e,i)=>({...e,i,y:yf(e.d),ln:LANES[laneOf(e)][0]}));
+ TR.ev=()=>{$('#evTbl').innerHTML=table('ev',[
+  {k:'y',l:'Date',cls:'num nw',fmt:e=>fmtD(e.d)+(e.approx?' <span class="ap">approx.</span>':'')},
+  {k:'ln',l:'Type',cls:'nw',fmt:e=>`<span class="el">${icon(LANES[laneOf(e)][1],'mk'+(e.neg?' neg':''))}${e.ln}</span>`},
+  {k:'t',l:'Event',fmt:e=>`<span class="${e.neg?'negt':''}">${glz(e.t)}</span>`},
+  {k:'b',l:'Detail',nosort:1,fmt:e=>`<span class="dim2">${glz(short(e.b,110))}</span>`},
+  {k:'src',l:'',nosort:1,fmt:e=>src(e.src)}],rows,{sort:'y',rowAttr:e=>`id="ue-${e.i}" data-i="${e.i}" class="evr${e.neg?' neg':''}" tabindex="0"`});
+  $('#evTbl').querySelectorAll('tr[data-i]').forEach(tr=>{tr.onclick=e=>{if(e.target.closest('a,.term,button'))return;openUE(SU.u,+tr.dataset.i);};tr.onmouseenter=()=>hlMarker(+tr.dataset.i);tr.onmouseleave=()=>hlMarker(null);tr.onkeydown=e=>{if(e.key==='Enter'&&e.target===tr)openUE(SU.u,+tr.dataset.i);};});};
+ TR.ev();drawDosTl();
 }
+
+/* ---------- full-text reader ---------- */
+let RD=null;
+const FILE_ORDER=V.map(v=>v.id),AREA_IDS=AREA_ORDER.filter(g=>g!=='Parent').map(g=>GID[g]);
+function openReader(key,noHash){const i=key.indexOf('-'),kind=key.slice(0,i),id=key.slice(i+1);
+ if(kind==='file'&&!V.find(v=>v.id===id))return;if(kind==='area'&&!GNAME[id])return;
+ RD={kind,id};tip.hidden=true;closePanel();const body=$('#rdBody');
+ body.innerHTML=kind==='file'?readerFile(id):readerArea(id);
+ $('#rdCrumb').textContent=kind==='file'?'Subsidiary file':'Disease area brief';
+ const hs=[...body.querySelectorAll('h2[id]')];$('#rdToc').innerHTML=`<div class="lab" style="color:var(--on-page-2);margin-bottom:10px">On this page</div>`+hs.map(h=>`<a href="#${h.id}" data-rt="${h.id}">${esc(h.textContent)}</a>`).join('');
+ const order=kind==='file'?FILE_ORDER:AREA_IDS,j=order.indexOf(id),nm=x=>kind==='file'?(x==='roivant'?'Roivant':VN(x)):GNAME[x];
+ $('#rdPrev').hidden=j<=0;$('#rdNext').hidden=j>=order.length-1;if(j>0)$('#rdPrev').textContent='← '+nm(order[j-1]);if(j<order.length-1)$('#rdNext').textContent=nm(order[j+1])+' →';
+ const r=$('#reader');r.hidden=false;r.scrollTop=0;document.body.style.overflow='hidden';$('#rdClose').focus({preventScroll:true});
+ if(!noHash)try{history.replaceState(null,'','#'+key);}catch(e){}}
+function closeReader(){if($('#reader').hidden)return;$('#reader').hidden=true;document.body.style.overflow='';RD=null;try{history.replaceState(null,'','#'+S.page);}catch(e){}}
+function stepReader(d){if(!RD)return;const order=RD.kind==='file'?FILE_ORDER:AREA_IDS,j=order.indexOf(RD.id)+d;if(j>=0&&j<order.length)openReader(RD.kind+'-'+order[j]);}
+function readerFile(id){
+ const v=V.find(x=>x.id===id),u=UNIT(id)||{},ev=uEvents(u),sn=new Set(),P=t=>`<p>${glz(t,sn)}</p>`;
+ let h=`<div class="rd-eb"><span class="pill p-${v.o}">${OUTL[v.o]}</span><span>${esc(v.g)}</span><span>${yrs(v)}</span>${GID[v.g]!=='parent'?`<button class="lnk" data-act="read:area-${GID[v.g]}">${esc(v.g)} brief →</button>`:''}</div>
+  <h1>${esc(u.name||v.n)}</h1>${u.asset?`<p class="rd-lead">${glz(u.asset,sn)}</p>`:''}`;
+ const sec=(id2,t,html)=>html?`<h2 id="${id2}">${t}</h2>${html}`:'';
+ h+=sec('rd-mech','How it works',u.mechanism&&P(u.mechanism));
+ h+=sec('rd-origin','Where it came from',u.origin&&P(u.origin));
+ h+=sec('rd-own','Ownership',u.ownership&&P(u.ownership));
+ h+=sec('rd-people','People',(u.people||[]).length&&`<ul class="rd-ul">${u.people.map(p=>`<li>${glz(p,sn)}</li>`).join('')}</ul>`);
+ h+=sec('rd-status','Where it stands',[u.status&&P(u.status),u.outcome&&`<h3>Outcome</h3>`+P(u.outcome)].filter(Boolean).join(''));
+ h+=sec('rd-nums','Key numbers',(u.facts||[]).length&&`<table class="rd-tbl">${u.facts.map(f=>`<tr><th>${esc(f.k)}</th><td>${glz(f.v,sn)} ${src(f.src)}</td></tr>`).join('')}</table>`);
+ const deals=DEALS.filter(d=>d.ent===id);
+ h+=sec('rd-deals','Roivant transactions',deals.length&&`<table class="rd-tbl"><tr><th>Date</th><th>Counterparty</th><th>Deal</th><th class="r">Cash to Roivant</th></tr>${deals.map(d=>`<tr><td class="num nw">${fmtD(d.d)}</td><td>${esc(d.cp)}</td><td>${glz(d.st,sn)} ${src(d.src)}</td><td class="num r">${d.cash==null?'n/d':(d.cash>0?'+':'')+money(d.cash)}</td></tr>`).join('')}</table>`);
+ if(ev.length){let y=null,body='';ev.forEach(e=>{const yy=e.d.slice(0,4);if(yy!==y){body+=`<h3 class="rd-yr">${yy}</h3>`;y=yy;}
+   body+=`<div class="rd-ev${e.neg?' neg':''}"><div class="rd-evh"><span class="num">${fmtD(e.d)}</span><span class="el">${icon(LANES[laneOf(e)][1],'mk'+(e.neg?' neg':''))}${LANES[laneOf(e)][0]}</span>${e.approx?'<span class="ap">approx.</span>':''}</div><p><strong>${glz(e.t,sn)}.</strong> ${glz(e.b,sn)} ${src(e.src)}</p></div>`;});
+  h+=`<h2 id="rd-hist">History, in full</h2>`+body;}
+ return h;}
+function readerArea(gid){
+ const r=GRP(gid)||{},name=GNAME[gid],sn=new Set(),units=V.filter(v=>GID[v.g]===gid);
+ let h=`<div class="rd-eb"><span>Disease area</span><span>${units.length} subsidiar${units.length===1?'y':'ies'}</span></div><h1>${esc(name)}</h1>`;
+ if(r.summary)h+=`<p class="rd-lead">${glz(r.summary,sn)}</p>`;
+ if(r.thesis)h+=`<h2 id="rd-thesis">Roivant's thesis</h2><blockquote class="rd-q">${glz(r.thesis,sn)}</blockquote>`;
+ (r.diseases||[]).forEach((d,i)=>{h+=`<h2 id="rd-d${i}">${esc(d.name)}</h2>`+[['What it is',d.what],['How common',d.prevalence],['Standard of care',d.soc],['Unmet need',d.unmet]].filter(x=>x[1]).map(x=>`<h3>${x[0]}</h3><p>${glz(x[1],sn)}</p>`).join('')+(d.src?`<p class="rd-src">${src(d.src)}</p>`:'');});
+ if(r.landscape)h+=`<h2 id="rd-land">Competitive landscape</h2><p>${glz(r.landscape,sn)}</p>`;
+ h+=`<h2 id="rd-units">Subsidiaries in this area</h2><table class="rd-tbl"><tr><th>Subsidiary</th><th>Asset</th><th>Years</th><th>Outcome</th><th></th></tr>${units.map(v=>{const u=UNIT(v.id)||{};return `<tr><td><b>${esc(v.n)}</b></td><td>${glz(short(u.asset||v.a,90))}</td><td class="num nw">${yrs(v)}</td><td><span class="pill p-${v.o}">${OUTL[v.o]}</span></td><td class="r">${readBtn('file',v.id)}</td></tr>`;}).join('')}</table>`;
+ if((r.src||[]).length)h+=`<h2 id="rd-src">Sources</h2><ol class="rd-ol">${r.src.map(u=>`<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\/(www\.)?/,'').slice(0,90))}</a></li>`).join('')}</ol>`;
+ return h;}
+$('#rdClose').addEventListener('click',closeReader);$('#rdPrev').addEventListener('click',()=>stepReader(-1));$('#rdNext').addEventListener('click',()=>stepReader(1));
+$('#rdToc').addEventListener('click',e=>{const a=e.target.closest('a[data-rt]');if(!a)return;e.preventDefault();const t=document.getElementById(a.dataset.rt);if(t)t.scrollIntoView({behavior:RM()?'auto':'smooth',block:'start'});});
+
 let DTG=null;
 function drawDosTl(){
  const box=$('#dosTl');if(!box)return;const v=V.find(x=>x.id===SU.u),ev=uEvents(UNIT(SU.u));
@@ -1226,14 +1369,14 @@ function drawDosTl(){
   s+=`<g class="mkg" data-tip="de${i}" data-act="ue:${SU.u}|${i}" data-i="${i}" tabindex="0" role="button" aria-label="${esc(e.t)}, ${fmtD(e.d)}"><circle cx="${cx}" cy="${cy}" r="12" class="hit"/>${shp(LANES[laneOf(e)][1],cx,cy,6,'mk'+(e.neg?' neg':laneOf(e)==='deal'?' ex':''))}</g>`;});
  s+=`<g id="dhl"></g>`;
  box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="History of ${esc(v.n)} by event type">${s}</svg>`;
- box.querySelectorAll('.mkg').forEach(g=>{g.addEventListener('pointerenter',()=>{const li=$('#ue-'+g.dataset.i);document.querySelectorAll('#dosList li.hl').forEach(x=>x.classList.remove('hl'));if(li)li.classList.add('hl');});g.addEventListener('pointerleave',()=>{const li=$('#ue-'+g.dataset.i);if(li)li.classList.remove('hl');});});
+ box.querySelectorAll('.mkg').forEach(g=>{g.addEventListener('pointerenter',()=>{const li=$('#ue-'+g.dataset.i);document.querySelectorAll('#evTbl tr.hl').forEach(x=>x.classList.remove('hl'));if(li)li.classList.add('hl');});g.addEventListener('pointerleave',()=>{const li=$('#ue-'+g.dataset.i);if(li)li.classList.remove('hl');});});
 }
 function hlMarker(i){const g=$('#dhl');if(!g)return;if(i==null){g.innerHTML='';return;}const m=$(`#dosTl .mkg[data-i="${i}"] circle.hit`);if(!m){g.innerHTML='';return;}g.innerHTML=`<circle cx="${m.getAttribute('cx')}" cy="${m.getAttribute('cy')}" r="13" class="hlm"/>`;}
 function openUE(uid,i){const u=UNIT(uid),ev=uEvents(u),e=ev[i];if(!e)return;tip.hidden=true;S.curEv=null;SU.cur={u:uid,i};
  pbody.innerHTML=`<div class="pk">${icon(LANES[laneOf(e)][1],'mk'+(e.neg?' neg':''))}${LANES[laneOf(e)][0]}${e.neg?' · setback':''} · ${esc(u.name)}</div><h3>${glz(e.t)}</h3><div class="pm">${fmtD(e.d)} ${e.approx?'<span class="ap">approx.</span>':''}</div><p>${glz(e.b)}</p>
  <div class="pa">${e.src?`<a href="${esc(e.src)}" target="_blank" rel="noopener">Source ↗</a>`:''}</div>
  <div class="pnav"><button class="btn ghost" data-act="uen:-1" ${i<=0?'disabled style="opacity:.3"':''}>← Earlier</button><span class="hint" style="align-self:center">${i+1} / ${ev.length}</span><button class="btn ghost" data-act="uen:1" ${i>=ev.length-1?'disabled style="opacity:.3"':''}>Later →</button></div>`;
- panel.hidden=false;document.querySelectorAll('#dosList li.hl').forEach(x=>x.classList.remove('hl'));const li=$('#ue-'+i);if(li&&S.page==='subsidiaries'){li.classList.add('hl');}hlMarker(i);}
+ panel.hidden=false;document.querySelectorAll('#evTbl tr.hl').forEach(x=>x.classList.remove('hl'));const li=$('#ue-'+i);if(li&&S.page==='subsidiaries'){li.classList.add('hl');}hlMarker(i);}
 function stepUE(d){if(!SU.cur)return;openUE(SU.cur.u,SU.cur.i+d);}
 
 /* ---------- FINANCIALS ---------- */
@@ -1339,8 +1482,9 @@ function renderFinTbl(){
 /* ---------- command palette ---------- */
 const IDX=[
  ...PAGES.map(p=>({k:'Page',t:{history:'History',structure:'Company structure',transactions:'Key transactions',subsidiaries:'Subsidiaries',financials:'Financials and share price'}[p],s:'Go to page',a:'page:'+p})),
- ...V.map(v=>({k:'File',t:(v.id==='roivant'?'Roivant':v.n)+' history',s:v.a+' · subsidiary file',a:'unit:'+v.id})),
- ...Object.entries(GID).filter(e=>e[1]!=='parent').map(([n,id])=>({k:'Area',t:n,s:'Disease area research',a:'grp:'+id})),
+ ...V.map(v=>({k:'File',t:(v.id==='roivant'?'Roivant':v.n)+' full file',s:v.a+' · full text',a:'read:file-'+v.id})),
+ ...V.map(v=>({k:'Unit',t:(v.id==='roivant'?'Roivant':v.n)+' overview',s:'Tables and history chart',a:'unit:'+v.id})),
+ ...Object.entries(GID).filter(e=>e[1]!=='parent').map(([n,id])=>({k:'Area',t:n,s:'Full disease-area brief',a:'read:area-'+id})),
  ...GKEYS.map(k=>({k:'Term',t:k,s:GL[k],a:'gl:'+k})),
  ...V.filter(v=>v.id!=='roivant').map(v=>({k:'Unit',t:v.n,s:v.a+' · '+OUTL[v.o]+' · filter all pages',a:'setv:'+v.id})),
  ...EV.map((e,i)=>({k:'Event',t:e.ti,s:fmtD(e.d)+' · '+VN(e.v)+' · '+e.t,a:'gev:'+i})),
@@ -1367,7 +1511,7 @@ $('#vantSel').innerHTML='<option value="">All units</option>'+V.filter(v=>v.id!=
 $('#vantSel').addEventListener('change',e=>setVant(e.target.value||null));
 buildTypeChips();document.querySelectorAll('.lead,.sub,.foot').forEach(glzNode);
 let rT=null;new ResizeObserver(()=>{clearTimeout(rT);rT=setTimeout(renderPage,120);}).observe($('main'));
-window.addEventListener('hashchange',()=>setPage(location.hash.slice(1)));
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(/^(file|area)-/.test(h)){if(S.page!=='subsidiaries')setPage('subsidiaries');openReader(h,true);}else{closeReader();setPage(h);}});
 let start=location.hash.slice(1);if(!PAGES.includes(start)){try{start=localStorage.getItem('roiv-tab')||'';}catch(e){}}
-S.page='';setPage(start||'history');
+const rdStart=/^(file|area)-/.test(location.hash.slice(1))?location.hash.slice(1):null;S.page='';setPage(rdStart?'subsidiaries':(start||'history'));if(rdStart)openReader(rdStart);
 </script>
