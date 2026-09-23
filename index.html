@@ -1,0 +1,1165 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Roivant Company File</title>
+<meta name="description" content="Interactive Roivant Sciences dashboard: history of the Vants, company structure, key transactions and a scenario lab.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Tokens follow the Defense Reformation system (palantirrepo): black ground,
+   off-white #F4F4E4 and green #758C58 panels, gray #D1D0C1, Alliance / Apercu / Rosart.
+   Alliance -> Schibsted Grotesk, Apercu Mono -> DM Mono, Rosart -> Instrument Serif. */
+:root{
+  color-scheme:light;
+  --page:#000000; --on-page:#F4F4E4; --on-page-2:#a3a293; --page-line:#2c2c2a;
+  --panel:#F4F4E4; --panel-2:#E8E8D5; --ink:#000000; --ink-2:#3b3b35; --ink-3:#6c6b60;
+  --line:#D1D0C1; --line-2:#aeada0;
+  --green:#758C58; --green-2:#5d7145; --green-soft:#dde2c8;
+  --gray:#D1D0C1; --sold:#bdbcad; --sold-soft:#e6e6d6;
+  --rust:#A34B32; --rust-soft:#f0dccf; --ochre:#9E7A2A; --ochre-soft:#efe3c2;
+  --in:#758C58; --out:#222223; --link:rgba(0,0,0,.11);
+  --tip-bg:#000000; --tip-ink:#F4F4E4;
+  --g-panel:#758C58; --g-ink:#000000; --g-ink-2:#1d2615;
+  --serif:"Instrument Serif","Rosart",Georgia,"Times New Roman",serif;
+  --sans:"Schibsted Grotesk","Alliance No. 1","Helvetica Neue",Arial,sans-serif;
+  --mono:"DM Mono","Apercu Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --corner:20px; --gut:16px; --dur:.25s;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --panel:#19191A; --panel-2:#232324; --ink:#F4F4E4; --ink-2:#cbcab9; --ink-3:#8e8d80;
+    --line:#333331; --line-2:#4b4a45;
+    --green:#8FA870; --green-2:#a9bf8c; --green-soft:#28301f;
+    --sold:#5f5e57; --sold-soft:#2a2a28;
+    --rust:#D07A5E; --rust-soft:#3a231d; --ochre:#D2A954; --ochre-soft:#342b17;
+    --in:#8FA870; --out:#D1D0C1; --link:rgba(244,244,228,.12);
+    --tip-bg:#F4F4E4; --tip-ink:#000000;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --panel:#19191A; --panel-2:#232324; --ink:#F4F4E4; --ink-2:#cbcab9; --ink-3:#8e8d80;
+  --line:#333331; --line-2:#4b4a45;
+  --green:#8FA870; --green-2:#a9bf8c; --green-soft:#28301f;
+  --sold:#5f5e57; --sold-soft:#2a2a28;
+  --rust:#D07A5E; --rust-soft:#3a231d; --ochre:#D2A954; --ochre-soft:#342b17;
+  --in:#8FA870; --out:#D1D0C1; --link:rgba(244,244,228,.12);
+  --tip-bg:#F4F4E4; --tip-ink:#000000;
+}
+@media (min-width:1024px){:root{--corner:32px;--gut:24px}}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+table{color:inherit;font:inherit}
+html{background:var(--page)}
+body{margin:0;background:var(--page);color:var(--on-page);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;padding-inline:var(--gut)}
+button,select,input{font:inherit;color:inherit}
+a{color:inherit;text-decoration-color:var(--green);text-underline-offset:2px}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.shell{max-width:1360px;margin:0 auto}
+
+/* labels */
+.lab{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.hint{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-3)}
+
+/* banner */
+.banner{background:var(--panel);color:var(--ink);border-radius:0 0 var(--corner) var(--corner);padding:20px 20px 22px;margin-bottom:10px}
+@media (min-width:1024px){.banner{padding:26px 40px 30px}}
+.eyebrow{display:flex;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;color:var(--ink-3)}
+.title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px 24px;flex-wrap:wrap;margin:18px 0 22px}
+.title h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,7vw,84px);line-height:.92;letter-spacing:-.02em;margin:0}
+.title h1 em{font-style:italic;color:var(--green)}
+.tick{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);padding:7px 10px;font-family:var(--mono);font-size:12px;letter-spacing:.1em}
+.tick b{font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px dashed var(--green)}
+.kpi{padding:14px 16px 0 0}
+.kpi+.kpi{padding-left:16px;border-left:1px dashed var(--line-2)}
+.kl{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.kv{font-family:var(--sans);font-weight:500;font-size:clamp(22px,2.6vw,32px);letter-spacing:-.035em;margin-top:4px;font-variant-numeric:tabular-nums}
+.kv.g{color:var(--green)}
+.ks{font-size:12px;color:var(--ink-2);margin-top:2px}
+.ks a{color:var(--ink-3)}
+@media (max-width:1000px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi{padding:12px 12px 12px 0}.kpi+.kpi{padding-left:0;border-left:0}.kpi:nth-child(2n){padding-left:12px;border-left:1px dashed var(--line-2)}.kpi:nth-child(n+3){border-top:1px dashed var(--line-2)}.kpi:last-child{grid-column:1/-1;border-left:0;padding-left:0}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--page);margin-inline:calc(var(--gut)*-1);padding-inline:var(--gut);border-bottom:1px solid var(--page-line)}
+.nav-in{max-width:1360px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;padding-block:8px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tab{border:0;background:none;padding:10px 12px;cursor:pointer;color:var(--on-page-2);white-space:nowrap;font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:2px solid transparent}
+.tab[aria-selected="true"]{color:var(--on-page);border-bottom-color:var(--green)}
+.tab:hover{color:var(--on-page)}
+.tab kbd{font-family:var(--mono);font-size:10px;color:var(--on-page-2);margin-left:6px;opacity:.7}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.nsel{background:var(--page);color:var(--on-page);border:1px solid var(--page-line);padding:7px 8px;font-family:var(--mono);font-size:12px;border-radius:0;color-scheme:dark}
+.obtn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--green);background:none;color:var(--on-page);padding:7px 10px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+.obtn:hover{background:var(--green);color:#000}
+.obtn kbd{font-family:var(--mono);font-size:10px;border:1px solid currentColor;padding:0 4px;opacity:.7}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--green);background:var(--green);color:#000;padding:6px 9px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+
+/* page heads on black */
+main{padding-block:26px 40px}
+.pg-h{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 24px;align-items:end;margin:6px 0 22px}
+@media (max-width:760px){.pg-h{grid-template-columns:minmax(0,1fr)}}
+.pg-h h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.4vw,54px);line-height:1;letter-spacing:-.015em;margin:0;text-wrap:balance}
+.pg-h h2 em{color:var(--green)}
+.lead{font-family:var(--serif);font-size:19px;line-height:1.3;color:var(--on-page-2);margin:12px 0 0;max-width:62ch}
+
+/* panels */
+.panel{background:var(--panel);color:var(--ink);border-radius:var(--corner);padding:20px;margin-bottom:10px}
+@media (min-width:1024px){.panel{padding:28px 36px}}
+.panel.green{background:var(--g-panel);color:var(--g-ink)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.cols>.panel{margin-bottom:0}
+.cols+.panel,.cols+.cols{margin-top:10px}
+@media (max-width:1100px){.cols{grid-template-columns:minmax(0,1fr)}}
+.sep{border-bottom:1px dashed var(--green);padding-bottom:10px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:end;gap:8px 16px;flex-wrap:wrap}
+.panel.green .sep{border-color:var(--g-ink)}
+.sep h3{font-family:var(--sans);font-weight:500;font-size:19px;letter-spacing:-.03em;margin:0}
+.sub{font-family:var(--serif);font-size:16px;line-height:1.3;color:var(--ink-2);margin:0 0 14px;max-width:80ch}
+.sub a{color:var(--ink-2)}
+.ctl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;border:1px solid var(--ink)}
+.seg button{border:0;background:none;padding:6px 10px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-left:1px solid var(--ink)}
+.seg button:first-child{border-left:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+.tchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line-2);background:none;padding:4px 9px 4px 6px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.tchip[aria-pressed="false"]{opacity:.4;text-decoration:line-through}
+.tchip svg{display:block}
+.tog{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.tog input{accent-color:var(--green)}
+.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--ink);background:var(--ink);color:var(--panel);padding:7px 10px;cursor:pointer;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.btn.ghost{background:none;color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--panel)}
+.btn svg{width:10px;height:10px;fill:currentColor}
+.play{display:flex;align-items:center;gap:10px;flex:1;min-width:280px}
+.play input[type=range]{flex:1;accent-color:var(--green)}
+.yr{font-family:var(--mono);font-size:12px;color:var(--ink-2);white-space:nowrap}
+.frame{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:11px;color:var(--ink-2);margin-top:12px}
+.legend i{display:inline-block;width:16px;height:8px;border:1px solid var(--ink);vertical-align:middle;margin-right:6px}
+.empty{font-family:var(--serif);font-size:17px;color:var(--ink-3);padding:18px 0}
+.lnk{border:0;background:none;color:inherit;cursor:pointer;text-decoration:underline;text-decoration-color:var(--green);padding:0}
+.foot{font-family:var(--serif);font-size:15px;color:var(--ink-3);margin:14px 0 0;max-width:90ch}
+.foot a{color:var(--ink-3)}
+
+/* reveal */
+.rv{animation:rise .45s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+@keyframes rise{from{transform:translate3d(0,16px,0);opacity:.35}to{transform:none;opacity:1}}
+
+/* svg */
+svg text{font-family:var(--sans);font-size:12px}
+svg .num,svg text.num{font-family:var(--mono)}
+.t1{fill:var(--ink)} .t2{fill:var(--ink-2)} .t3{fill:var(--ink-3)} .b{font-weight:600}
+.cap{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.s{font-size:11px}
+.grid{stroke:var(--line);stroke-width:1}
+.grid.q{stroke-dasharray:1 3}
+.hair{stroke:var(--line-2);stroke-width:1}
+.rule{stroke:var(--green);stroke-width:1;stroke-dasharray:4 3}
+.band-a{fill:transparent} .band-b{fill:var(--panel-2)}
+.bar{stroke:var(--ink);stroke-width:1}
+.bo-good{fill:var(--green)} .bo-sold{fill:var(--sold)} .bo-bad{fill:var(--rust)} .bo-ink{fill:var(--ink)}
+.mk{fill:var(--panel);stroke:var(--ink);stroke-width:1.5}
+.mk.ex{fill:var(--ink)} .mk.neg{fill:var(--rust);stroke:var(--rust)}
+.hit{fill:transparent}
+.mkg{cursor:pointer}
+.mkg:hover .mk,.mkg:focus .mk{stroke:var(--green);stroke-width:2.6}
+.rowlab{cursor:pointer}
+.rowlab:hover text{fill:var(--green)}
+.cursor{stroke:var(--green);stroke-width:2}
+.xhl{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:2 2}
+.xhb{fill:var(--ink)} .xht{fill:var(--panel)}
+.pline{fill:none;stroke:var(--green);stroke-width:2}
+.pdot{fill:var(--green);stroke:var(--panel);stroke-width:2}
+.root{fill:var(--ink)}
+.edge{fill:none;stroke:var(--line-2);stroke-width:1.5}
+.elab{fill:var(--panel);stroke:var(--line-2)}
+.nd{stroke-width:2;cursor:pointer}
+.nd-approved,.nd-retained{fill:var(--green-soft);stroke:var(--green)}
+.nd-clinical{fill:var(--ochre-soft);stroke:var(--ochre)}
+.nd-sold{fill:var(--sold-soft);stroke:var(--sold)} .nd-failed{fill:var(--rust-soft);stroke:var(--rust)}
+.ring{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:4 3}
+.track{fill:var(--panel-2);stroke:var(--line);stroke-width:1}
+.pb-good{fill:var(--green)} .pb-warn{fill:var(--ochre)}
+.dia{fill:var(--panel);stroke:var(--ink-2);stroke-width:1.5}
+.dia.soon{fill:var(--green);stroke:var(--green)}
+.prow{cursor:pointer}
+.prow:hover .track{fill:var(--green-soft)}
+.wf-tot{fill:var(--ink)} .wf-dec{fill:var(--gray);stroke:var(--ink);stroke-width:1} .wf-res{fill:var(--green)}
+.b-in{fill:var(--in);fill-opacity:.8;stroke:var(--panel);stroke-width:2;cursor:pointer}
+.b-out{fill:var(--out);fill-opacity:.8;stroke:var(--panel);stroke-width:2;cursor:pointer}
+.b-in:hover,.b-out:hover{fill-opacity:1}
+.dim{opacity:.12}
+.cline{fill:none;stroke:var(--ink-2);stroke-width:2}
+.cline.gap{stroke-dasharray:2 4}
+.cdot{fill:var(--ink);stroke:var(--panel);stroke-width:2}
+.snode{fill:var(--ink-2)}
+.snode.in{fill:var(--in)}
+.lk{fill:var(--link);transition:opacity .15s}
+svg.hov .lk{opacity:.25} svg.hov .lk.on{opacity:1;fill:var(--green);fill-opacity:.5}
+.dbl{stroke:var(--line-2);stroke-width:2}
+.dba{fill:var(--panel);stroke:var(--ink-2);stroke-width:2}
+.dbb-r{fill:var(--green)} .dbb-u{fill:var(--ochre)}
+.tpos{fill:var(--green)} .tneg{fill:var(--rust)} .tev{fill:var(--ink);stroke:var(--panel);stroke-width:2}
+.hcell{cursor:pointer;stroke:var(--panel);stroke-width:2}
+.hcell:hover{stroke:var(--ink)}
+.hcur{fill:none;stroke:var(--ink);stroke-width:2}
+.sg{stroke:var(--panel);stroke-width:1.5}
+
+/* unit cards */
+.vcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.vc{text-align:left;background:var(--panel);color:var(--ink);border:1px solid var(--panel);padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+.vc:hover{border-color:var(--green)}
+.vc.on{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+.vc-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.vc-top b{font-weight:500;font-size:16px;letter-spacing:-.02em}
+.vc-a{font-size:13px;color:var(--ink-2)}
+.vc-y{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-3)}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;white-space:nowrap;border:1px solid}
+.p-approved,.p-retained{background:var(--green-soft);color:var(--green-2);border-color:var(--green)}
+.p-clinical{background:var(--ochre-soft);color:var(--ochre);border-color:var(--ochre)}
+.p-sold,.p-merged{background:var(--sold-soft);color:var(--ink-2);border-color:var(--sold)}
+.p-failed{background:var(--rust-soft);color:var(--rust);border-color:var(--rust)}
+
+/* feed */
+.feed{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0;margin-top:16px;border-top:1px dashed var(--green)}
+.fi{display:flex;flex-direction:column;gap:3px;text-align:left;border:0;border-bottom:1px dashed var(--line-2);background:none;padding:10px 12px 10px 0;cursor:pointer}
+.fi:hover .ft{text-decoration:underline;text-decoration-color:var(--green)}
+.fi .fd{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.fi .ft{font-weight:500;letter-spacing:-.01em}
+.fi.new .fd{color:var(--green-2)}
+.fi .fu{font-size:12px;color:var(--ink-3)}
+
+/* scenario */
+.scn{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:10px}
+.scn>*{min-width:0}
+.scn .panel{margin-bottom:0}
+.scn-r{display:flex;flex-direction:column;gap:10px}
+@media (max-width:1000px){.scn{grid-template-columns:minmax(0,1fr)}}
+.fg{display:grid;gap:14px;margin-bottom:18px}
+.fld{display:grid;gap:4px}
+.fld .fh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.fld label{font-size:13.5px;font-weight:500}
+.fld .fr{display:grid;grid-template-columns:minmax(0,1fr) 88px;gap:10px;align-items:center}
+.fld input[type=range]{width:100%;accent-color:var(--green)}
+.fld input[type=number],.cb input[type=number]{width:100%;background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:5px 7px;font-family:var(--mono);font-size:12.5px;text-align:right}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.big{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.big>div{padding:0 16px 0 0}
+.big>div+div{padding-left:16px;border-left:1px dashed var(--line-2)}
+.panel.green .big>div+div{border-left-color:var(--g-ink)}
+.panel.green .big .kl{color:var(--g-ink-2)}
+.big .kv{font-size:clamp(26px,3.4vw,44px)}
+.big .ks{color:var(--ink-3);font-family:var(--mono);font-size:11px}
+.panel.green .big .ks{color:var(--g-ink-2)}
+@media (max-width:760px){.big{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.big>div:nth-child(3){padding-left:0;border-left:0}}
+.cb{width:100%;border-collapse:collapse;min-width:720px}
+.cb th{font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:0 10px 8px 0;border-bottom:1px dashed var(--green)}
+.cb td{padding:10px 10px 10px 0;border-bottom:1px dashed var(--line-2);vertical-align:middle}
+.cb tr.dim td{opacity:.3}
+.cb .cn{font-weight:500;letter-spacing:-.01em}
+.cb .cm{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink-3);text-transform:uppercase}
+.cb .pr{display:flex;align-items:center;gap:8px;min-width:170px}
+.cb .pr input{flex:1;accent-color:var(--green)}
+.cb output{font-family:var(--mono);font-size:12px;width:38px;text-align:right}
+.cb input[type=number]{width:74px}
+.cb .ev{font-family:var(--mono);text-align:right;white-space:nowrap}
+.up{color:var(--green-2)} .dn{color:var(--rust)}
+.panel.green .up{color:var(--g-ink)}
+
+/* deals */
+.deals{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin-top:6px}
+.deal{border:1px solid var(--line-2);padding:14px 16px;display:flex;flex-direction:column;gap:6px;scroll-margin-top:90px;background:var(--panel)}
+.deal h4{margin:0;font-weight:500;font-size:16px;letter-spacing:-.02em}
+.dh{display:flex;justify-content:space-between;align-items:center}
+.dd{font-size:11px;color:var(--ink-3)}
+.dir{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;padding:1px 6px;border:1px solid}
+.d-in{color:var(--green-2)} .d-out{color:var(--ink-2)}
+.dir.d-in{background:var(--green-soft)}
+.dcp{font-size:13px;color:var(--ink-2)}
+.deal dl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0;padding:8px 0;border-top:1px dashed var(--line-2);border-bottom:1px dashed var(--line-2)}
+.deal dt{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3)}
+.deal dd{margin:0;font-weight:500;font-size:18px;letter-spacing:-.02em}
+.deal .st{font-size:13px;color:var(--ink-2);margin:0}
+.deal .why{font-family:var(--serif);font-size:16px;line-height:1.25;margin:0}
+.deal a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-top:auto;color:var(--ink-2)}
+.flash{animation:fl 1.6s ease-out}
+@keyframes fl{0%{box-shadow:0 0 0 4px var(--green)}100%{box-shadow:0 0 0 0 transparent}}
+tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
+@keyframes flt{0%{background:var(--green-soft)}100%{background:transparent}}
+.dq{background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:6px 8px;font-family:var(--mono);font-size:12px;min-width:0;width:200px;max-width:100%}
+.dsel{background:var(--panel);border:1px solid var(--line-2);border-radius:0;padding:6px 8px;font-family:var(--mono);font-size:12px}
+.tot{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);letter-spacing:.03em}
+
+/* tooltip + detail */
+#tip{position:fixed;z-index:60;pointer-events:none;background:var(--tip-bg);color:var(--tip-ink);padding:9px 11px;font-size:12.5px;max-width:290px}
+#tip .tm{opacity:.7;font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;margin-top:2px}
+.dp{position:fixed;z-index:50;top:calc(env(safe-area-inset-top,0px) + 76px);right:16px;width:360px;max-height:calc(100% - 100px);overflow:auto;background:var(--panel);color:var(--ink);border:1px solid var(--ink);border-radius:var(--corner);padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.dp h3{margin:6px 0 4px;font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.05;text-wrap:balance}
+.dp p{font-family:var(--serif);font-size:17px;line-height:1.3}
+.pk{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:6px}
+.pm{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+.ap{background:var(--ochre-soft);color:var(--ochre);font-family:var(--mono);font-size:10px;padding:1px 5px;text-transform:uppercase;letter-spacing:.06em}
+.pv{display:flex;justify-content:space-between;border-top:1px dashed var(--green);border-bottom:1px dashed var(--green);padding:9px 0;margin:10px 0}
+.pv b{font-family:var(--mono);font-weight:500}
+.pa{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.pa a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.pnav{display:flex;justify-content:space-between;gap:8px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+.x{position:absolute;top:14px;right:14px;width:30px;height:30px;border:1px solid var(--green);border-radius:50%;background:none;cursor:pointer;font-size:0}
+.x::before,.x::after{content:"";position:absolute;top:50%;left:50%;width:14px;height:1px;margin:-.5px 0 0 -7px;background:var(--ink)}
+.x::before{transform:rotate(45deg)} .x::after{transform:rotate(-45deg)}
+.x:hover{transform:rotate(90deg);transition:transform var(--dur) ease-out}
+@media (max-width:640px){.dp{left:12px;right:12px;width:auto;top:auto;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);max-height:62%}}
+
+/* command palette */
+.cmdk{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:flex-start;padding:calc(env(safe-area-inset-top,0px) + 10vh) 16px 16px}
+.cmdk-box{width:min(640px,100%);background:var(--panel);color:var(--ink);border-radius:var(--corner);overflow:hidden;border:1px solid var(--green)}
+.cmdk input{width:100%;border:0;border-bottom:1px dashed var(--green);background:none;padding:18px 20px;font-family:var(--serif);font-size:24px;outline:none}
+.cmdk ul{list-style:none;margin:0;padding:6px;max-height:50vh;overflow:auto}
+.cmdk li{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;align-items:baseline;padding:9px 12px;cursor:pointer}
+.cmdk li[aria-selected="true"]{background:var(--ink);color:var(--panel)}
+.cmdk li[aria-selected="true"] .ck,.cmdk li[aria-selected="true"] .cs{color:var(--panel);opacity:.7}
+.cmdk .ck{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green-2)}
+.cmdk .ct{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmdk .cs{grid-column:2;font-size:12px;color:var(--ink-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmdk-f{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-3);padding:10px 20px;border-top:1px solid var(--line)}
+
+.sfoot{border-top:1px dashed var(--green);padding-block:18px 28px;color:var(--on-page-2);font-family:var(--mono);font-size:11px;letter-spacing:.03em;line-height:1.7}
+.sfoot a{margin-right:12px;color:var(--on-page)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="shell">
+<header class="banner">
+  <div class="eyebrow lab"><span>Pylon Partners · Company file</span><span>Data as of 23 Sep 2026 · FY ends 31 Mar</span></div>
+  <div class="title">
+    <h1>Roivant <em>Sciences</em></h1>
+    <span class="tick"><span>NASDAQ</span><b>ROIV</b><span class="num" id="tPx">$40.80</span></span>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="kl">Market cap</div><div class="kv num" id="kMcap">–</div><div class="ks">at $<span id="kPx">40.80</span> × 722.3M sh · <a href="https://www.morningstar.com/stocks/xnas/roiv/quote" target="_blank" rel="noopener">src</a></div></div>
+    <div class="kpi"><div class="kl">Cash, pro forma</div><div class="kv num" id="kCash">$4.7B</div><div class="ks">$3.9B Jun-26 + $772M Moderna · <a href="https://www.investing.com/news/company-news/roivant-q2-2026-slides-950m-moderna-payment-dm-launch-ahead-93CH-4842527" target="_blank" rel="noopener">src</a></div></div>
+    <div class="kpi"><div class="kl">Approved products</div><div class="kv num">1</div><div class="ks">Lisraya (brepocitinib), 27 Aug 2026 · <a href="https://www.drugtopics.com/view/fda-approves-brepocitinib-first-oral-drug-for-dermatomyositis-in-adults" target="_blank" rel="noopener">src</a></div></div>
+    <div class="kpi"><div class="kl">Next catalyst</div><div class="kv num" id="kDays">–</div><div class="ks">NIU Phase 3 topline, 2H 2026 window · <a href="https://investor.roivant.com/news-releases/news-release-details/roivant-reports-financial-results-first-quarter-ended-june-30-2" target="_blank" rel="noopener">src</a></div></div>
+    <div class="kpi"><div class="kl">Your NAV / share</div><div class="kv num g" id="kNav">–</div><div class="ks"><button class="lnk" data-act="page:scenario" id="kNavS">Open the scenario lab</button></div></div>
+  </div>
+</header>
+
+<div class="nav">
+  <div class="nav-in">
+    <nav class="tabs" role="tablist" aria-label="Dashboard pages">
+      <button class="tab" role="tab" id="tab-history" data-act="page:history">History<kbd>1</kbd></button>
+      <button class="tab" role="tab" id="tab-structure" data-act="page:structure">Structure<kbd>2</kbd></button>
+      <button class="tab" role="tab" id="tab-transactions" data-act="page:transactions">Transactions<kbd>3</kbd></button>
+      <button class="tab" role="tab" id="tab-scenario" data-act="page:scenario">Scenario lab<kbd>4</kbd></button>
+    </nav>
+    <div class="tools">
+      <button class="chip" id="scnChip" hidden title="Prices differ from the 11 Sep 2026 marks. Click to reset.">Custom prices ×</button>
+      <label class="lab" for="vantSel" style="color:var(--on-page-2)">Unit</label>
+      <select id="vantSel" class="nsel"></select>
+      <button class="obtn" id="cmdBtn" aria-label="Search the dashboard">Search <kbd>/</kbd></button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <!-- HISTORY -->
+  <section id="pg-history" aria-labelledby="tab-history">
+    <div class="pg-h">
+      <div><h2>From 13 Vants to <em>four</em> retained units</h2>
+      <p class="lead">Each bar is a Vant, from formation to exit, grouped by disease area. Drag across the chart to scrub through time, click a marker for detail, or click a row name to filter every page to that unit.</p></div>
+    </div>
+    <div class="panel rv">
+      <div class="sep"><h3>Timeline</h3>
+        <div class="seg" role="group" aria-label="Zoom to era" id="zoomSeg"><button data-z="all" aria-pressed="true">All</button><button data-z="inc" aria-pressed="false">Incubator</button><button data-z="reset" aria-pressed="false">Reset</button><button data-z="alloc" aria-pressed="false">Allocator</button></div>
+      </div>
+      <div class="ctl" id="typeChips"></div>
+      <div class="ctl">
+        <label class="tog"><input type="checkbox" id="retOnly"> Retained only</label>
+        <label class="tog"><input type="checkbox" id="pxOn"> Share price</label>
+        <div class="play">
+          <button class="btn" id="playBtn" aria-label="Play timeline">▶ Play</button>
+          <div class="seg" role="group" aria-label="Playback speed" id="spdSeg"><button data-s="1" aria-pressed="true">1×</button><button data-s="2" aria-pressed="false">2×</button><button data-s="4" aria-pressed="false">4×</button></div>
+          <input type="range" id="yrSlider" min="2014" max="2026.73" step="0.01" value="2026.73" aria-label="Timeline year">
+          <span class="yr" id="yrOut"></span>
+        </div>
+      </div>
+      <div class="frame" id="tl" style="touch-action:pan-x pan-y"></div>
+      <div class="legend">
+        <span><i style="background:var(--green)"></i>Retained</span>
+        <span><i style="background:var(--sold)"></i>Sold or merged</span>
+        <span><i style="background:var(--rust)"></i>Failed</span>
+        <span><i style="background:var(--rust);width:8px;height:8px;transform:rotate(45deg);border-color:var(--rust)"></i>Negative readout</span>
+        <span><i style="border:0;border-top:1px dashed var(--green);height:0"></i>Matt Gline succeeds Vivek Ramaswamy as CEO (2021, approx.)</span>
+        <span id="pxNote" hidden>Price line: sparse sourced prints, not a continuous series</span>
+        <span>← → scrub one month</span>
+      </div>
+      <div class="feed" id="feed" aria-label="Latest events at the selected date"></div>
+    </div>
+    <div class="vcards rv" style="--d:.08s" id="vcards"></div>
+  </section>
+
+  <!-- STRUCTURE -->
+  <section id="pg-structure" aria-labelledby="tab-structure" hidden>
+    <div class="pg-h">
+      <div><h2>What you own when you <em>buy</em> ROIV</h2>
+      <p class="lead">Four operating units on a ~$4.7B cash base. Only Immunovant has a listed price; the other three are what the market pays for above cash.</p></div>
+    </div>
+    <div class="panel rv">
+      <div class="sep">
+        <div><h3>Ownership</h3></div>
+        <div class="seg" role="group" aria-label="Tree scope"><button id="treeToday" aria-pressed="true">Today</button><button id="treeAll" aria-pressed="false">All-time</button></div>
+      </div>
+      <p class="sub">Roivant stake shown basic · fully diluted, as of 31 Mar 2026 (<a href="https://stocklight.com/stocks/us/nasdaq-roiv/roivant-sciences/annual-reports/nasdaq-roiv-2026-10K-261001392.pdf" target="_blank" rel="noopener">10-K</a>, <a href="https://www.stocktitan.net/sec-filings/ROIV/10-k-roivant-sciences-ltd-files-annual-report-5ec66dd7aaff.html" target="_blank" rel="noopener">Genevant</a>). Click a unit to filter.</p>
+      <div class="frame" id="tree"></div>
+    </div>
+    <div class="panel rv" style="--d:.06s">
+      <div class="sep"><h3>Pipeline by stage</h3>
+        <label class="tog">Readout within <input type="range" id="winSl" min="3" max="36" step="3" value="6" style="width:110px"> <span class="num" id="winOut">6 mo</span></label>
+      </div>
+      <p class="sub">Bar length is the stage reached. A filled diamond marks a readout window closing within the horizon you set. Click a row for the source.</p>
+      <div class="frame" id="pipe"></div>
+    </div>
+    <div class="panel rv" style="--d:.12s">
+      <div class="sep"><h3>Valuation bridge</h3><button class="btn ghost" data-act="page:scenario">Change the prices <svg viewBox="0 0 11 11"><path d="M.3 4.75h8L4.97.24h1.79l3.94 5.22-3.94 5.3H4.97L8.3 6.21h-8z"/></svg></button></div>
+      <p class="sub">Market cap less what can be marked to market leaves the value the market assigns to Priovant, Pulmovant and Genevant, which have no listed price. Prices default to 11 Sep 2026 (<a href="https://www.morningstar.com/stocks/xnas/roiv/quote" target="_blank" rel="noopener">ROIV</a>, <a href="https://www.morningstar.com/stocks/xnas/imvt/quote" target="_blank" rel="noopener">IMVT</a>).</p>
+      <div class="frame" id="wf"></div>
+      <div class="big" style="margin-top:18px;grid-template-columns:repeat(3,minmax(0,1fr))">
+        <div style="border-color:var(--line-2)"><div class="kl">Priced by the market</div><div class="kv num" id="oMk">–</div><div class="ks" id="oMkS" style="color:var(--ink-3)">Cash + Immunovant stake</div></div>
+        <div style="border-color:var(--line-2)"><div class="kl">Paid for unlisted units</div><div class="kv num" id="oRes" style="color:var(--green)">–</div><div class="ks" style="color:var(--ink-3)">Priovant, Pulmovant, Genevant</div></div>
+        <div style="border-color:var(--line-2)"><div class="kl">Moderna contingent</div><div class="kv num">$1.3B</div><div class="ks" style="color:var(--ink-3)">Not in cash; ~81% to Roivant if paid</div></div>
+      </div>
+      <p class="foot">Consolidated cash includes Immunovant's own cash, so part of it is counted twice. The contingent Moderna payment depends on the §1498 appeal (<a href="https://investor.roivant.com/news-releases/news-release-details/roivant-announces-genevant-sciences-and-arbutus-biopharmas-225" target="_blank" rel="noopener">source</a>).</p>
+    </div>
+  </section>
+
+  <!-- TRANSACTIONS -->
+  <section id="pg-transactions" aria-labelledby="tab-transactions" hidden>
+    <div class="pg-h">
+      <div><h2>Buy cheap, sell into a bid, <em>recycle</em> the cash</h2>
+      <p class="lead">Two exits, Sumitomo ($3.0B) and Roche (~$5.2B net), funded almost everything since 2019. Bubble size is cash to Roivant; height is the headline deal value.</p></div>
+      <div class="seg" role="group" aria-label="Deal direction" id="dirSeg" style="border-color:var(--on-page)">
+        <button data-dir="all" aria-pressed="true">All</button><button data-dir="in" aria-pressed="false">Inflows</button><button data-dir="out" aria-pressed="false">Outflows</button>
+      </div>
+    </div>
+    <div class="panel rv">
+      <div class="sep"><h3>Deals over time</h3><span class="tot" id="dealTot"></span></div>
+      <p class="sub">Log scale. Hover for terms, click to jump to the deal card. Strip below: reported consolidated cash.</p>
+      <div class="frame" id="bub"></div>
+      <div class="frame" id="cash"></div>
+      <div class="legend"><span><i style="background:var(--in)"></i>Inflow to Roivant</span><span><i style="background:var(--out)"></i>Outflow</span><span>Cash strip: dotted where quarters are missing from the sources used</span></div>
+    </div>
+    <div class="cols">
+      <div class="panel rv" style="--d:.06s">
+        <div class="sep"><h3>Where the deal cash went</h3></div>
+        <p class="sub">Major deal inflows since 2019 against disclosed uses, split pro rata because cash is fungible. The residual covers R&amp;D, opex and undisclosed buybacks. Pre-2019 private rounds are excluded. Hover a node to trace it.</p>
+        <div class="frame" id="sank"></div>
+      </div>
+      <div class="panel rv" style="--d:.1s">
+        <div class="sep"><h3>Entry cost vs exit or current value</h3></div>
+        <p class="sub">Log scale, $M. Green is realised; ochre is marked at the ROIV and IMVT prices set in the scenario lab.</p>
+        <div class="frame" id="dumb"></div>
+      </div>
+    </div>
+    <div class="panel rv" style="--d:.14s;margin-top:10px">
+      <div class="sep">
+        <h3>Deal cards</h3>
+        <div class="ctl" style="margin:0">
+          <input type="search" id="dealQ" class="dq" placeholder="Filter by name or term" aria-label="Filter deals">
+          <select id="dealSort" class="dsel" aria-label="Sort deals"><option value="date">Newest first</option><option value="cash">Largest cash first</option><option value="mult">Headline value first</option></select>
+        </div>
+      </div>
+      <div class="deals" id="deals"></div>
+    </div>
+  </section>
+
+  <!-- SCENARIO -->
+  <section id="pg-scenario" aria-labelledby="tab-scenario" hidden>
+    <div class="pg-h">
+      <div><h2>What is the rest <em>worth</em>?</h2>
+      <p class="lead">Set the prices, put your own value on each unlisted unit, then weight the open catalysts. The other pages re-mark to these prices. Unit values and catalyst swings are illustrative starting points, not estimates.</p></div>
+      <button class="obtn" id="scnReset">Reset all</button>
+    </div>
+    <div class="scn">
+      <div class="panel rv">
+        <div class="sep"><h3>Market inputs</h3><span class="hint">sourced defaults</span></div>
+        <div class="fg" id="fMkt"></div>
+        <div class="sep"><h3>Unlisted units, $B</h3><span class="hint">your assumptions</span></div>
+        <div class="presets" style="margin-bottom:14px">
+          <button class="btn ghost" data-pre="bear">Bear</button><button class="btn ghost" data-pre="base">Base</button><button class="btn ghost" data-pre="bull">Bull</button><button class="btn" data-pre="mkt" title="Scale the three units so your NAV equals the market cap">Match market</button>
+        </div>
+        <div class="fg" id="fUnits"></div>
+        <p class="hint" style="margin:0">Genevant excludes the contingent Moderna leg, which sits in the catalyst book below.</p>
+      </div>
+      <div class="scn-r">
+        <div class="panel green rv" style="--d:.05s">
+          <div class="sep"><h3>Your sum of the parts</h3><span class="lab" id="scnTag">Base</span></div>
+          <div class="big">
+            <div><div class="kl">NAV / share</div><div class="kv num" id="sNav">–</div><div class="ks" id="sNavS">–</div></div>
+            <div><div class="kl">vs ROIV price</div><div class="kv num" id="sUp">–</div><div class="ks" id="sUpS">–</div></div>
+            <div><div class="kl">Catalyst book EV</div><div class="kv num" id="sEv">–</div><div class="ks" id="sEvS">–</div></div>
+            <div><div class="kl">Market pays for unlisted</div><div class="kv num" id="sRes">–</div><div class="ks" id="sResS">–</div></div>
+          </div>
+        </div>
+        <div class="panel rv" style="--d:.1s">
+          <div class="sep"><h3>Market cap vs your parts</h3></div>
+          <div class="frame" id="stack"></div>
+        </div>
+        <div class="panel rv" style="--d:.14s">
+          <div class="sep"><h3>Sensitivity</h3><span class="hint">click a cell to adopt it</span></div>
+          <p class="sub">Upside to your NAV per share, including the catalyst book, across ROIV price and Priovant value. Everything else holds at your settings.</p>
+          <div class="frame" id="heat"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel rv" style="--d:.18s;margin-top:10px">
+      <div class="sep"><h3>Catalyst book</h3><span class="tot" id="catTot"></span></div>
+      <p class="sub">Each open readout as a bet: probability of a positive result, value to Roivant if positive, value lost if not. Treat the unit values above as ex-catalyst; this book adds the probability-weighted swing.</p>
+      <div class="frame" id="torn"></div>
+      <div class="frame" style="margin-top:14px"><table class="cb" id="catTbl"></table></div>
+    </div>
+  </section>
+</main>
+
+<footer class="sfoot">
+  Sources: <a href="https://www.sec.gov/Archives/edgar/data/0001635088/000163508826000061/roiv-20260331.htm" target="_blank" rel="noopener">FY2026 10-K</a><a href="https://investor.roivant.com/news-releases/news-release-details/roivant-reports-financial-results-first-quarter-ended-june-30-2" target="_blank" rel="noopener">Q1 FY2027 results</a><a href="https://www.sec.gov/Archives/edgar/data/1635088/000114036125027849/ny20049997x3_ars.pdf" target="_blank" rel="noopener">2025 annual report</a><br>
+  Items tagged approx. use dates from general knowledge, not a filing opened for this dashboard. Scenario values are assumptions for exploration, not forecasts.<br>
+  Keys: 1–4 pages · / search · ← → scrub the timeline or step through events · Esc close
+</footer>
+</div>
+
+<div id="tip" hidden></div>
+<aside class="dp" id="panel" hidden aria-live="polite"><button class="x" id="pclose" aria-label="Close detail"></button><div id="pbody"></div></aside>
+<div class="cmdk" id="cmdk" hidden role="dialog" aria-modal="true" aria-label="Search the dashboard">
+  <div class="cmdk-box">
+    <input id="cq" type="text" placeholder="Search units, events, deals, trials" autocomplete="off" aria-controls="cres">
+    <ul id="cres" role="listbox"></ul>
+    <div class="cmdk-f">↑ ↓ to move · Enter to open · Esc to close</div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const TODAY='2026-09-23';
+function yf(s){const p=s.split('-').map(Number);const y=p[0],m=(p[1]||7)-1,d=p[2]||1;return y+(Date.UTC(y,m,d)-Date.UTC(y,0,1))/(365.25*864e5);}
+const NOW=yf(TODAY);
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtD(s){const p=s.split('-');return (p[2]?(+p[2])+' ':'')+(p[1]?MON[+p[1]-1]+' ':'')+p[0];}
+function money(m){if(m==null)return 'n/d';const a=Math.abs(m),s=m<0?'−':'';if(a>=1000)return s+'$'+(a/1000).toFixed(2).replace(/\.?0+$/,'')+'B';return s+'$'+(a>=100?Math.round(a):a.toFixed(1).replace(/\.0$/,''))+'M';}
+const moneyB=b=>money(b*1000);
+const sgnB=b=>(b>=0?'+':'−')+'$'+Math.abs(b).toFixed(2)+'B';
+const pct=u=>(u>=0?'+':'−')+Math.abs(u*100).toFixed(0)+'%';
+const ARW='<svg viewBox="0 0 11 11"><path d="M.3 4.75h8L4.97.24h1.79l3.94 5.22-3.94 5.3H4.97L8.3 6.21h-8z"/></svg>';
+const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const SRC={
+ wiki:'https://en.wikipedia.org/wiki/Roivant_Sciences',
+ genown:'https://www.stocktitan.net/sec-filings/ROIV/10-k-roivant-sciences-ltd-files-annual-report-5ec66dd7aaff.html',
+ k10own:'https://stocklight.com/stocks/us/nasdaq-roiv/roivant-sciences/annual-reports/nasdaq-roiv-2026-10K-261001392.pdf',
+ sumi:'https://www.sumitomo-pharma.com/news/20191031-2.html',
+ sumiClose:'https://www.prnewswire.com/news-releases/sumitovant-biopharma-created-and-launched-as-sumitomo-dainippon-pharma-and-roivant-sciences-close-transaction-for-strategic-alliance-300979738.html',
+ datavant:'https://investor.roivant.com/news-releases/news-release-details/roivant-sciences-reports-first-fiscal-quarter-2021-financial/',
+ datavantS4:'https://www.sec.gov/Archives/edgar/data/1635088/000119312521239461/d65062ds4a.htm',
+ q2fy21:'https://investor.roivant.com/news-releases/news-release-details/roivant-sciences-reports-financial-results-quarter-ended',
+ imvt21:'https://www.immunovant.com/investors/news-events/press-releases/detail/1/immunovant-receives-200-million-strategic-investment-from',
+ imvt25a:'https://www.investing.com/news/insider-trading-news/roivant-sciences-increases-stake-in-immunovant-with-3369-million-purchase-93CH-3815333',
+ imvt25b:'https://www.nasdaq.com/articles/immunovant-stock-buy-after-roivant-sciences-increased-its-stake-350-million',
+ stat:'https://www.statnews.com/2023/10/23/roche-telavant-roivant/',
+ rocheClose:'https://investor.roivant.com/news-releases/news-release-details/roche-completes-acquisition-telavant-roivant-including-rights',
+ ars25:'https://www.sec.gov/Archives/edgar/data/1635088/000114036125027849/ny20049997x3_ars.pdf',
+ neptune:'https://investor.roivant.com/news-releases/news-release-details/roivant-announces-positive-neptune-study-results-brepocitinib',
+ fy24:'https://investor.roivant.com/news-releases/news-release-details/roivant-reports-financial-results-fourth-quarter-and-fiscal-0/',
+ q2fy25:'https://www.sec.gov/Archives/edgar/data/1635088/000114036124046019/ef20034554_10q.htm',
+ valor:'https://www.rheumatologyadvisor.com/news/fda-to-review-brepocitinib-for-treatment-of-dermatomyositis/',
+ cs:'https://investor.roivant.com/news-releases/news-release-details/roivant-announces-positive-phase-2-results-brepocitinib/',
+ moderna:'https://investor.roivant.com/news-releases/news-release-details/roivant-announces-genevant-sciences-and-arbutus-biopharmas-225',
+ nda:'https://investor.roivant.com/news-releases/news-release-details/priovant-announces-fda-acceptance-and-priority-review-new-drug/',
+ fy26:'https://investor.roivant.com/news-releases/news-release-details/roivant-reports-financial-results-fourth-quarter-and-fiscal-2',
+ fy26rd:'https://www.sec.gov/Archives/edgar/data/0001635088/000163508826000060/q4fy2025roivantearningsrel.htm',
+ q1:'https://investor.roivant.com/news-releases/news-release-details/roivant-reports-financial-results-first-quarter-ended-june-30-2',
+ q1slides:'https://www.investing.com/news/company-news/roivant-q2-2026-slides-950m-moderna-payment-dm-launch-ahead-93CH-4842527',
+ lisraya:'https://www.drugtopics.com/view/fda-approves-brepocitinib-first-oral-drug-for-dermatomyositis-in-adults',
+ phocus:'https://www.globenewswire.com/news-release/2026/09/08/3357420/0/en/pulmovant-announces-positive-results-from-phocus-study-of-mosliciguat-in-patients-with-pulmonary-hypertension-associated-with-interstitial-lung-disease-ph-ild-and-unveils-ongoing-p.html',
+ q3fy26:'https://investor.roivant.com/news-releases/news-release-details/roivant-announces-positive-phase-2-results-brepocitinib/',
+ sws:'https://simplywall.st/stocks/us/pharmaceuticals-biotech/nasdaq-roiv/roivant-sciences',
+ mchm:'https://marketchameleon.com/Overview/ROIV/Summary/',
+ cnn:'https://www.cnn.com/markets/stocks/ROIV',
+ mstar:'https://www.morningstar.com/stocks/xnas/roiv/quote'
+};
+
+const V=[
+ {id:'roivant',n:'Roivant (parent)',g:'Parent',a:'Holding company',f:'2014-05',to:null,o:'retained',ap:1},
+ {id:'priovant',n:'Priovant',g:'Immunology',a:'Brepocitinib (Lisraya)',f:'2021-09',to:null,o:'approved',stake:'72% basic · 66% FD'},
+ {id:'immunovant',n:'Immunovant',g:'Immunology',a:'IMVT-1402 (FcRn)',f:'2018-01',to:null,o:'clinical',ap:1,stake:'56% basic · 52% FD'},
+ {id:'telavant',n:'Telavant',g:'Immunology',a:'RVT-3101 (TL1A)',f:'2022-11',to:'2023-12-14',o:'sold'},
+ {id:'pulmovant',n:'Pulmovant',g:'Pulmonary',a:'Mosliciguat (inhaled sGC)',f:'2024-09',to:null,o:'clinical',ap:1,stake:'Majority, % not disclosed in sources used'},
+ {id:'genevant',n:'Genevant',g:'Nucleic acid delivery',a:'LNP & GalNAc IP',f:'2018-07',to:null,o:'retained',ap:1,stake:'83% basic · 64% FD'},
+ {id:'dermavant',n:'Dermavant',g:'Dermatology',a:'Tapinarof (VTAMA)',f:'2016-01',to:'2024-10-28',o:'sold',ap:1},
+ {id:'myovant',n:'Myovant',g:"Women's health & oncology",a:'Relugolix',f:'2016-01',to:'2019-12-30',o:'sold',ap:1},
+ {id:'urovant',n:'Urovant',g:'Urology',a:'Vibegron',f:'2016-06',to:'2019-12-30',o:'sold',ap:1},
+ {id:'enzyvant',n:'Enzyvant',g:'Rare disease',a:'RVT-802 (athymia)',f:'2016-06',to:'2019-12-30',o:'sold',ap:1},
+ {id:'altavant',n:'Altavant',g:'Rare disease',a:'Respiratory rare disease',f:'2017-06',to:'2019-12-30',o:'sold',ap:1},
+ {id:'spirovant',n:'Spirovant',g:'Rare disease',a:'CF gene therapy',f:'2019-06',to:'2019-12-30',o:'sold',ap:1},
+ {id:'axovant',n:'Axovant',g:'Neurology',a:'Intepirdine (Alzheimer’s)',f:'2014-10',to:'2020-01',o:'failed',ap:1},
+ {id:'datavant',n:'Datavant',g:'Health data',a:'Health data linkage',f:'2017-06',to:'2021-07-27',o:'merged',ap:1}
+];
+const VN=id=>(V.find(v=>v.id===id)||{n:id}).n;
+const OUTL={approved:'Approved',clinical:'Clinical',retained:'Retained',sold:'Sold',merged:'Merged',failed:'Failed'};
+const barCls=v=>v.id==='roivant'?'bo-ink':v.o==='failed'?'bo-bad':v.to?'bo-sold':'bo-good';
+
+const TYPES=['Formation','Financing','Readout','Regulatory','Exit','Litigation'];
+const EV=[
+ {d:'2014-05',v:'roivant',t:'Formation',ti:'Roivant founded',b:'Vivek Ramaswamy sets up Roivant to in-license under-developed assets into single-asset subsidiaries, or “Vants”.',src:SRC.wiki,ap:1},
+ {d:'2015-06',v:'axovant',t:'Financing',ti:'Axovant IPO',b:'First Vant to list, on the back of the Alzheimer’s candidate intepirdine.',src:SRC.wiki,ap:1},
+ {d:'2017-08',v:'roivant',t:'Financing',ti:'SoftBank Vision Fund round',b:'About $1.1B raised privately, the largest pre-listing round.',val:1100,src:SRC.wiki,ap:1},
+ {d:'2017-09',v:'axovant',t:'Readout',neg:1,ti:'Intepirdine fails Phase 3',b:'The MINDSET study misses both co-primary endpoints, the reputational low point for the model.',src:SRC.wiki,ap:1},
+ {d:'2018-07',v:'genevant',t:'Formation',ti:'Genevant formed with Arbutus',b:'LNP and GalNAc delivery IP pooled into a licensing vehicle. The estate later produced the Moderna settlement.',src:SRC.genown,ap:1},
+ {d:'2019-12-30',v:'roivant',t:'Exit',ti:'Sumitomo $3B alliance closes',b:'Five Vants are transferred to Sumitovant, and Sumitomo also buys more than 10% of Roivant.',val:3000,src:SRC.sumiClose,deal:'sumitomo'},
+ {d:'2021-07-27',v:'datavant',t:'Exit',ti:'Datavant merges with Ciox',b:'Combined EV of $7.0B. Roivant takes ~$320M cash and ~12% of the combined company.',val:320,src:SRC.datavant,deal:'datavant'},
+ {d:'2021-08-02',v:'immunovant',t:'Financing',ti:'$200M into Immunovant',b:'17.0M shares at $11.75 take the stake from 57.5% to 63.8%.',val:200,src:SRC.imvt21,deal:'imvt21'},
+ {d:'2021-09',v:'priovant',t:'Formation',ti:'Priovant formed with Pfizer',b:'Pfizer licenses brepocitinib to Priovant and keeps 25% of the equity.',src:SRC.wiki,deal:'pfizerBrepo'},
+ {d:'2021-10-01',v:'roivant',t:'Financing',ti:'Nasdaq listing via MAAC SPAC',b:'The SPAC and concurrent PIPE bring $213.4M of net proceeds.',val:213.4,src:SRC.q2fy21,deal:'spac'},
+ {d:'2022-02',v:'genevant',t:'Litigation',ti:'Genevant and Arbutus sue Moderna',b:'An LNP patent suit over Spikevax. A suit against Pfizer and BioNTech follows in 2023.',src:SRC.moderna,ap:1},
+ {d:'2022-05',v:'dermavant',t:'Regulatory',ti:'VTAMA approved in psoriasis',b:'Tapinarof cream reaches the market under Dermavant.',src:SRC.wiki,ap:1},
+ {d:'2022-11',v:'telavant',t:'Formation',ti:'Telavant formed with Pfizer',b:'RVT-3101 (anti-TL1A) is licensed for ~$45M upfront, and Pfizer keeps 25%.',val:45,src:SRC.stat,deal:'pfizerTL1A'},
+ {d:'2023-12-14',v:'telavant',t:'Exit',ti:'Roche closes Telavant',b:'$7.1B upfront plus a $150M milestone. Roivant’s 75% share was ~$5.2B.',val:5200,src:SRC.rocheClose,deal:'roche'},
+ {d:'2024-04-02',v:'priovant',t:'Readout',ti:'NEPTUNE positive in NIU',b:'Phase 2 brepocitinib data in non-infectious uveitis lead to a Phase 3 programme.',src:SRC.neptune},
+ {d:'2024-04-04',v:'roivant',t:'Financing',ti:'Sumitomo stake bought back',b:'71.3M shares at $9.10 ($648.4M) cut the share count by ~9%.',val:648.4,src:SRC.neptune,deal:'sumibuy'},
+ {d:'2024-08',v:'telavant',t:'Exit',ti:'Roche $150M milestone paid',b:'Triggered by the start of the Phase 3 UC trial and paid pro rata to former Telavant holders.',val:150,src:SRC.ars25},
+ {d:'2024-09',v:'pulmovant',t:'Formation',ti:'Pulmovant formed',b:'Mosliciguat, an inhaled sGC activator, is in-licensed from Bayer.',src:SRC.wiki,ap:1},
+ {d:'2024-10-28',v:'dermavant',t:'Exit',ti:'Dermavant sold to Organon',b:'$183.6M cash at close, with further milestones.',val:183.6,src:SRC.ars25,deal:'organon'},
+ {d:'2025-01-16',v:'immunovant',t:'Financing',ti:'$336.9M Immunovant top-up',b:'16.8M shares at $20.00, as part of a $450M PIPE.',val:336.9,src:SRC.imvt25a,deal:'imvt25a'},
+ {d:'2025-09-17',v:'priovant',t:'Readout',ti:'VALOR Phase 3 positive in DM',b:'The primary endpoint and all nine key secondaries were met at 30mg.',src:SRC.valor},
+ {d:'2025-12-12',v:'immunovant',t:'Financing',ti:'$350M Immunovant top-up',b:'16.7M shares at $21.00.',val:350,src:SRC.imvt25b,deal:'imvt25b'},
+ {d:'2026-02-06',v:'priovant',t:'Readout',ti:'Cutaneous sarcoidosis Phase 2 positive',b:'The first positive placebo-controlled study in CS. Breakthrough Therapy designation followed.',src:SRC.cs},
+ {d:'2026-03-03',v:'genevant',t:'Litigation',ti:'$2.25B Moderna settlement',b:'$950M upfront in July 2026, plus $1.3B contingent on the §1498 appeal.',val:2250,src:SRC.moderna,deal:'moderna'},
+ {d:'2026-03-04',v:'priovant',t:'Regulatory',ti:'NDA accepted with Priority Review',b:'PDUFA date set in 3Q 2026.',src:SRC.nda},
+ {d:'2026-05-20',v:'immunovant',t:'Readout',neg:1,ti:'Batoclimab discontinued',b:'The FcRn programme consolidates on IMVT-1402, with a $39M wind-down cost in FY2026.',src:SRC.fy26rd},
+ {d:'2026-07',v:'genevant',t:'Litigation',ti:'Moderna upfront received',b:'$772M to Roivant from the $950M upfront.',val:772,src:SRC.q1slides},
+ {d:'2026-08-27',v:'priovant',t:'Regulatory',ti:'Lisraya approved in DM',b:'The first oral therapy approved for adult dermatomyositis.',src:SRC.lisraya},
+ {d:'2026-09-08',v:'pulmovant',t:'Readout',ti:'PHocus Phase 2 positive',b:'−56.3% placebo-adjusted PVR at Week 16, and the stock rose ~21% on the day. The Phase 3 PHrontier study is enrolling.',src:SRC.phocus}
+];
+const ORD=EV.map((e,i)=>i).sort((a,b)=>yf(EV[a].d)-yf(EV[b].d));
+
+const PX=[['2024-04-02',9.10,'Sumitomo buyback price (negotiated)',SRC.neptune],['2025-07-21',11.52,'Reference price',SRC.sws],['2026-01-12',21.92,'Reference price',SRC.sws],['2026-08-05',34.60,'Close before Q1 results',SRC.q1slides],['2026-09-02',34.18,'Close',SRC.mchm],['2026-09-08',42.50,'Intraday on PHocus data',SRC.cnn],['2026-09-11',40.80,'Close',SRC.mstar]];
+const CASH=[['2021-06-30',2.0,SRC.q2fy21],['2021-09-30',2.5,SRC.q2fy21],['2024-03-31',6.6,SRC.fy24],['2024-09-30',5.4,SRC.q2fy25],['2025-12-31',4.5,SRC.q3fy26],['2026-03-31',4.3,SRC.fy26],['2026-06-30',3.9,SRC.q1],['2026-07-31',4.7,SRC.q1slides,1]];
+
+const DEALS=[
+ {id:'roche',d:'2023-12-14',cp:'Roche',ent:'telavant',ti:'Sale of Telavant (RVT-3101)',head:7100,cash:5200,dir:'in',st:'$7.1B upfront + $150M milestone (paid Aug 2024). Roivant held 75%, Pfizer 25%.',why:'The largest monetisation in Roivant’s history: a ~$45M in-licence sold 13 months later.',src:SRC.rocheClose},
+ {id:'sumitomo',d:'2019-12-30',cp:'Sumitomo Dainippon',ent:'roivant',ti:'Five Vants + >10% of Roivant',head:3000,cash:3000,dir:'in',st:'$2.0B for stakes in Myovant, Urovant, Enzyvant, Altavant and Spirovant, plus $1.0B for Roivant shares. Options on six more Vants.',why:'Funded the shift from incubator to allocator, but sold relugolix and vibegron early.',src:SRC.sumi},
+ {id:'moderna',d:'2026-03-03',cp:'Moderna',ent:'genevant',ti:'Global LNP patent settlement',head:2250,cash:772,dir:'in',st:'$950M upfront to Genevant and Arbutus (Jul 2026) + $1.3B contingent on a favourable §1498 appeal.',why:'Turned a litigation estate into cash. The contingent leg is still open.',src:SRC.moderna},
+ {id:'datavant',d:'2021-07-27',cp:'Ciox Health',ent:'datavant',ti:'Datavant–Ciox merger',head:7000,cash:320,dir:'in',st:'Combined EV $7.0B. Roivant took ~$320M cash plus ~12% fully diluted of the combined company.',why:'Proved a non-drug Vant could exit, booking a $443.8M gain.',src:SRC.datavantS4},
+ {id:'organon',d:'2024-10-28',cp:'Organon',ent:'dermavant',ti:'Sale of Dermavant (VTAMA)',head:null,cash:183.6,dir:'in',st:'$183.6M cash at close plus milestones. Full terms not confirmed from the sources used.',why:'Exited dermatology, a commercial-stage asset that was consuming cash.',src:SRC.ars25},
+ {id:'spac',d:'2021-10-01',cp:'MAAC (SPAC) + PIPE',ent:'roivant',ti:'Nasdaq listing',head:213.4,cash:213.4,dir:'in',st:'Business combination with Montes Archimedes plus a concurrent PIPE.',why:'Gave Roivant a public currency. The cash raised was modest.',src:SRC.q2fy21},
+ {id:'sumibuy',d:'2024-04-04',cp:'Sumitomo Pharma',ent:'roivant',ti:'Buyback of Sumitomo’s entire stake',head:648.4,cash:-648.4,dir:'out',st:'71,251,083 shares at $9.10, within a $1.5B authorisation.',why:'Retired ~9% of shares at a fraction of today’s price.',src:SRC.neptune},
+ {id:'bb26',d:'2026-06-30',cp:'Open market',ent:'roivant',ti:'Quarterly buyback',head:208.7,cash:-208.7,dir:'out',st:'7.3M shares repurchased in the June 2026 quarter.',why:'Buybacks continued alongside a heavier R&D budget.',src:SRC.q1},
+ {id:'imvt21',d:'2021-08-02',cp:'Immunovant',ent:'immunovant',ti:'Strategic investment',head:200,cash:-200,dir:'out',st:'17,021,276 shares at $11.75, a ~15% premium to the 20-day VWAP.',why:'The first big top-up, taking the stake to 63.8%.',src:SRC.imvt21},
+ {id:'imvt25a',d:'2025-01-16',cp:'Immunovant',ent:'immunovant',ti:'PIPE participation',head:336.9,cash:-336.9,dir:'out',st:'16,845,010 shares at $20.00, within a $450M PIPE.',why:'Held Roivant near 57% ahead of the IMVT-1402 registrational trials.',src:SRC.imvt25a},
+ {id:'imvt25b',d:'2025-12-12',cp:'Immunovant',ent:'immunovant',ti:'Equity offering participation',head:350,cash:-350,dir:'out',st:'16,666,666 shares at $21.00.',why:'Doubled down on FcRn before the 2026–27 readouts.',src:SRC.imvt25b},
+ {id:'pfizerTL1A',d:'2022-11-01',cp:'Pfizer',ent:'telavant',ti:'In-licence of RVT-3101',head:45,cash:-45,dir:'out',st:'~$45M upfront plus a development commitment. Pfizer took 25% of Telavant.',why:'The entry ticket for the Roche exit.',src:SRC.stat},
+ {id:'pfizerBrepo',d:'2021-09-01',cp:'Pfizer',ent:'priovant',ti:'In-licence of brepocitinib',head:null,cash:null,dir:'out',st:'Upfront not disclosed in the sources used. Pfizer holds 25% of Priovant.',why:'The asset that became Lisraya.',src:SRC.wiki}
+];
+
+const PIPE=[
+ {a:'Brepocitinib',v:'priovant',ind:'Dermatomyositis (DM)',st:5,lab:'Approved 27 Aug 2026 as Lisraya',nx:'Launched',end:null,src:SRC.lisraya},
+ {a:'Brepocitinib',v:'priovant',ind:'Non-infectious uveitis',st:3,lab:'Phase 3',nx:'Topline 2H 2026',end:'2026-12-31',src:SRC.q1},
+ {a:'Brepocitinib',v:'priovant',ind:'Cutaneous sarcoidosis',st:3,lab:'Phase 3 (BEACON+), first patients enrolled',nx:'Topline 2028',end:'2028-12-31',src:SRC.q1},
+ {a:'Brepocitinib',v:'priovant',ind:'Lichen planopilaris',st:2.5,lab:'Phase 2b/3, Part 1 enrolling',nx:'Not guided',end:null,src:SRC.q1},
+ {a:'IMVT-1402',v:'immunovant',ind:'Difficult-to-treat RA',st:3,lab:'Potentially registrational; 72.7% ACR20 open-label Period 1',nx:'Update 2H 2026',end:'2026-12-31',src:SRC.fy26},
+ {a:'IMVT-1402',v:'immunovant',ind:'Cutaneous lupus (CLE)',st:2,lab:'Proof-of-concept trial',nx:'Topline 2H 2026',end:'2026-12-31',src:SRC.q1},
+ {a:'IMVT-1402',v:'immunovant',ind:"Graves' disease",st:3,lab:'Potentially registrational',nx:'Topline 2027',end:'2027-12-31',src:SRC.fy26},
+ {a:'IMVT-1402',v:'immunovant',ind:'Myasthenia gravis',st:3,lab:'Potentially registrational',nx:'Topline 2027',end:'2027-12-31',src:SRC.fy26},
+ {a:'IMVT-1402',v:'immunovant',ind:'CIDP',st:3,lab:'Potentially registrational',nx:'Not guided',end:null,src:SRC.q3fy26},
+ {a:'IMVT-1402',v:'immunovant',ind:"Sjögren's disease",st:3,lab:'Potentially registrational',nx:'Not guided',end:null,src:SRC.q3fy26},
+ {a:'Mosliciguat',v:'pulmovant',ind:'PH-ILD',st:3,lab:'Phase 3 PHrontier enrolling; Phase 2 positive Sep 2026',nx:'Not guided',end:null,src:SRC.phocus}
+];
+
+/* ---------- scenario model ---------- */
+const SH=722.32; /* ROIV shares, M */
+const DEF={roiv:40.80,imvt:37.18,cash:4.7};
+const PRE={bear:{priovant:8,pulmovant:1,genevant:1.5},base:{priovant:14,pulmovant:3,genevant:2.5},bull:{priovant:20,pulmovant:6,genevant:3.5}};
+/* p = probability of a positive result; up/dn = $B to Roivant. Illustrative, except Moderna up = $1.3B × ~81%. */
+const CAT=[
+ {id:'niu',v:'priovant',ti:'Brepocitinib · NIU Phase 3 topline',win:'2H 2026',end:'2026-12-31',p:.6,up:3,dn:2,pipe:1},
+ {id:'ra',v:'immunovant',ti:'IMVT-1402 · difficult-to-treat RA update',win:'2H 2026',end:'2026-12-31',p:.5,up:1.2,dn:.8,pipe:4},
+ {id:'cle',v:'immunovant',ti:'IMVT-1402 · CLE proof-of-concept topline',win:'2H 2026',end:'2026-12-31',p:.45,up:.6,dn:.3,pipe:5},
+ {id:'moderna',v:'genevant',ti:'Moderna §1498 appeal · contingent leg',win:'Not guided',end:null,p:.5,up:1.05,dn:0,src:SRC.moderna},
+ {id:'graves',v:'immunovant',ti:"IMVT-1402 · Graves' disease topline",win:'2027',end:'2027-12-31',p:.55,up:1.5,dn:1,pipe:6},
+ {id:'mg',v:'immunovant',ti:'IMVT-1402 · myasthenia gravis topline',win:'2027',end:'2027-12-31',p:.6,up:1.2,dn:.8,pipe:7},
+ {id:'cs',v:'priovant',ti:'Brepocitinib · CS Phase 3 topline',win:'2028',end:'2028-12-31',p:.6,up:1.5,dn:1,pipe:2}
+];
+const ZR={all:[2014,2027],inc:[2014,2020.3],reset:[2019.5,2022],alloc:[2021,2027]};
+
+let S={page:'history',vant:null,year:NOW,types:new Set(TYPES),retained:false,price:false,playing:false,treeAll:false,dir:'all',sort:'date',q:'',zoom:'all',speed:1,win:6,curEv:null,preset:'base',
+ inp:{...DEF},val:{...PRE.base},cat:Object.fromEntries(CAT.map(c=>[c.id,{p:c.p,up:c.up,dn:c.dn}]))};
+try{const sv=JSON.parse(localStorage.getItem('roiv-scn')||'null');if(sv){Object.assign(S.inp,sv.inp||{});Object.assign(S.val,sv.val||{});if(sv.cat)for(const k in sv.cat)if(S.cat[k])Object.assign(S.cat[k],sv.cat[k]);S.preset=sv.preset||'custom';}}catch(e){}
+function save(){try{localStorage.setItem('roiv-scn',JSON.stringify({inp:S.inp,val:S.val,cat:S.cat,preset:S.preset}));}catch(e){}}
+const TIP={};
+
+function catEV(c){const k=S.cat[c.id];return k.p*k.up-(1-k.p)*k.dn;}
+function model(o){
+ const I=Object.assign({},S.inp,o&&o.inp),U=Object.assign({},S.val,o&&o.val);
+ const mcap=I.roiv*SH/1000,imvt=I.imvt*206.55/1000*0.56,resid=mcap-I.cash-imvt;
+ const units=U.priovant+U.pulmovant+U.genevant,ev=CAT.reduce((a,c)=>a+catEV(c),0);
+ const nav=I.cash+imvt+units,navc=nav+ev,ps=navc*1000/SH;
+ return {mcap,imvt,resid,units,ev,nav,navc,ps,up:ps/I.roiv-1,I,U};
+}
+
+/* ---------- shapes ---------- */
+function shp(t,x,y,r,cls){
+ const c=`class="${cls}"`;
+ if(t==='Formation')return `<circle cx="${x}" cy="${y}" r="${r}" ${c}/>`;
+ if(t==='Financing')return `<rect x="${x-r+.5}" y="${y-r+.5}" width="${2*r-1}" height="${2*r-1}" ${c}/>`;
+ if(t==='Readout')return `<path d="M${x} ${y-r-1.5}L${x+r+1.5} ${y}L${x} ${y+r+1.5}L${x-r-1.5} ${y}Z" ${c}/>`;
+ if(t==='Regulatory')return `<path d="M${x} ${y-r-1.5}L${x+r+1.5} ${y+r}L${x-r-1.5} ${y+r}Z" ${c}/>`;
+ if(t==='Exit'){let p='';for(let k=0;k<10;k++){const rr=k%2?(r+2)*.45:r+2,a=-Math.PI/2+k*Math.PI/5;p+=(k?'L':'M')+(x+rr*Math.cos(a)).toFixed(1)+' '+(y+rr*Math.sin(a)).toFixed(1);}return `<path d="${p}Z" ${c}/>`;}
+ let p='';for(let k=0;k<6;k++){const a=k*Math.PI/3;p+=(k?'L':'M')+(x+(r+.5)*Math.cos(a)).toFixed(1)+' '+(y+(r+.5)*Math.sin(a)).toFixed(1);}return `<path d="${p}Z" ${c}/>`;
+}
+const icon=(t,cls='mk')=>`<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">${shp(t,8,8,4.5,cls)}</svg>`;
+const evCls=ev=>'mk'+(ev.neg?' neg':ev.t==='Exit'?' ex':'');
+
+/* ---------- tooltip / panel ---------- */
+const tip=$('#tip');
+function placeTip(x,y){const p=14;tip.style.left='0px';tip.style.top='0px';const r=tip.getBoundingClientRect();let L=x+p,T=y+p;if(L+r.width>innerWidth-8)L=x-r.width-p;if(T+r.height>innerHeight-8)T=y-r.height-p;tip.style.left=Math.max(8,L)+'px';tip.style.top=Math.max(8,T)+'px';}
+document.addEventListener('pointerover',e=>{const el=e.target.closest&&e.target.closest('[data-tip]');if(el&&TIP[el.dataset.tip]){tip.innerHTML=TIP[el.dataset.tip];tip.hidden=false;placeTip(e.clientX,e.clientY);}});
+document.addEventListener('pointermove',e=>{if(!tip.hidden)placeTip(e.clientX,e.clientY);});
+document.addEventListener('pointerout',e=>{const el=e.target.closest&&e.target.closest('[data-tip]');if(el&&!el.contains(e.relatedTarget))tip.hidden=true;});
+document.addEventListener('focusin',e=>{const el=e.target.closest&&e.target.closest('[data-tip]');if(el&&TIP[el.dataset.tip]){const r=el.getBoundingClientRect();tip.innerHTML=TIP[el.dataset.tip];tip.hidden=false;placeTip(r.right,r.top);}});
+document.addEventListener('focusout',()=>{tip.hidden=true;});
+document.addEventListener('click',e=>{const el=e.target.closest('[data-act]');if(el){e.preventDefault();act(el.dataset.act);}});
+const typing=t=>t&&(t.tagName==='INPUT'||t.tagName==='SELECT'||t.tagName==='TEXTAREA');
+document.addEventListener('keydown',e=>{
+ if(!$('#cmdk').hidden)return;
+ if(e.key==='Escape'){closePanel();tip.hidden=true;return;}
+ if((e.key==='/'&&!typing(e.target))||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')){e.preventDefault();openCmd();return;}
+ if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('svg [data-act]')){e.preventDefault();act(e.target.closest('[data-act]').dataset.act);return;}
+ if(typing(e.target)||e.metaKey||e.ctrlKey||e.altKey)return;
+ const pg={'1':'history','2':'structure','3':'transactions','4':'scenario'}[e.key];if(pg){setPage(pg);return;}
+ if(e.key==='ArrowLeft'||e.key==='ArrowRight'){const d=e.key==='ArrowLeft'?-1:1;
+  if(!panel.hidden&&S.curEv!=null){e.preventDefault();stepEv(d);}
+  else if(S.page==='history'){e.preventDefault();setYear(S.year+d/12);}}
+});
+function act(a){const i=a.indexOf(':'),k=a.slice(0,i),v=a.slice(i+1);
+ if(k==='ev')openEvent(+v);else if(k==='evn')stepEv(+v);else if(k==='vant')setVant(S.vant===v?null:v);else if(k==='setv')setVant(v||null);else if(k==='deal')gotoDeal(v);
+ else if(k==='pipe')openPipe(+v);else if(k==='page')setPage(v);else if(k==='px')openPx(+v);
+ else if(k==='gev'){setPage('history');openEvent(+v);}else if(k==='gpipe'){setPage('structure');openPipe(+v);}
+ else if(k==='gcat'){setPage('scenario');requestAnimationFrame(()=>{const r=$('#cr-'+v);if(r){r.scrollIntoView({behavior:RM()?'auto':'smooth',block:'center'});r.classList.remove('flash');void r.offsetWidth;r.classList.add('flash');}});}}
+const panel=$('#panel'),pbody=$('#pbody');
+function closePanel(){panel.hidden=true;S.curEv=null;}
+$('#pclose').addEventListener('click',closePanel);
+function stepEv(d){const j=ORD.indexOf(S.curEv)+d;if(j>=0&&j<ORD.length)openEvent(ORD[j]);}
+function openEvent(i){const ev=EV[i];tip.hidden=true;S.curEv=i;const j=ORD.indexOf(i);
+ pbody.innerHTML=`<div class="pk">${icon(ev.t,evCls(ev))}${ev.t}${ev.neg?' · negative':''}</div>
+ <h3>${esc(ev.ti)}</h3><div class="pm">${fmtD(ev.d)} · ${esc(VN(ev.v))} ${ev.ap?'<span class="ap">approx.</span>':''}</div>
+ <p>${esc(ev.b)}</p>${ev.val?`<div class="pv"><span class="lab">Value</span><b>${money(ev.val)}</b></div>`:''}
+ ${ev.ap?'<p class="hint">Date from general knowledge; the source is a background page, not a filing.</p>':''}
+ <div class="pa"><a href="${ev.src}" target="_blank" rel="noopener">Source ↗</a>${ev.deal?`<button class="btn" data-act="deal:${ev.deal}">Deal card ${ARW}</button>`:''}${ev.v!=='roivant'?`<button class="btn ghost" data-act="vant:${ev.v}">${S.vant===ev.v?'Clear filter':'Filter to '+esc(VN(ev.v))}</button>`:''}</div>
+ <div class="pnav"><button class="btn ghost" data-act="evn:-1" ${j<=0?'disabled style="opacity:.3"':''}>← Earlier</button><span class="hint" style="align-self:center">${j+1} / ${ORD.length}</span><button class="btn ghost" data-act="evn:1" ${j>=ORD.length-1?'disabled style="opacity:.3"':''}>Later →</button></div>`;
+ panel.hidden=false;}
+function openPipe(i){const p=PIPE[i];tip.hidden=true;S.curEv=null;const c=CAT.find(c=>c.pipe===i);
+ pbody.innerHTML=`<div class="pk">${esc(p.a)} · ${esc(VN(p.v))}</div><h3>${esc(p.ind)}</h3><div class="pm">${esc(p.lab)}</div><div class="pv"><span class="lab">Next readout</span><b>${esc(p.nx)}</b></div><div class="pa"><a href="${p.src}" target="_blank" rel="noopener">Source ↗</a>${c?`<button class="btn" data-act="gcat:${c.id}">Weight it ${ARW}</button>`:''}<button class="btn ghost" data-act="vant:${p.v}">${S.vant===p.v?'Clear filter':'Filter to '+esc(VN(p.v))}</button></div>`;
+ panel.hidden=false;}
+function openPx(i){const p=PX[i];S.curEv=null;pbody.innerHTML=`<div class="pk">ROIV share price</div><h3>$${p[1].toFixed(2)}</h3><div class="pm">${fmtD(p[0])} · ${esc(p[2])}</div><p class="hint">Sparse sourced prints, not a continuous price series.</p><div class="pa"><a href="${p[3]}" target="_blank" rel="noopener">Source ↗</a></div>`;panel.hidden=false;}
+
+/* ---------- global state ---------- */
+const PAGES=['history','structure','transactions','scenario'];
+function setVant(v){S.vant=v;$('#vantSel').value=v||'';closePanel();renderPage();}
+function setPage(p){if(!PAGES.includes(p))p='history';const changed=S.page!==p;S.page=p;
+ PAGES.forEach(k=>{$('#pg-'+k).hidden=k!==p;$('#tab-'+k).setAttribute('aria-selected',k===p);});
+ if(changed)$('#pg-'+p).querySelectorAll('.rv').forEach(el=>{el.style.animation='none';void el.offsetWidth;el.style.animation='';});
+ try{localStorage.setItem('roiv-tab',p);}catch(e){}
+ try{if(location.hash.slice(1)!==p)history.replaceState(null,'','#'+p);}catch(e){}
+ closePanel();tip.hidden=true;if(p!=='history'&&S.playing)stopPlay();renderPage();}
+function gotoDeal(id){const d=DEALS.find(x=>x.id===id);if(!d)return;S.dir='all';S.q='';$('#dealQ').value='';syncDir();if(S.vant&&S.vant!==d.ent){S.vant=null;$('#vantSel').value='';}
+ setPage('transactions');requestAnimationFrame(()=>{const c=$('#card-'+id);if(c){c.scrollIntoView({behavior:RM()?'auto':'smooth',block:'center'});c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');}});}
+function renderPage(){updKPI();if(S.page==='history'){drawTimeline();renderVCards();}else if(S.page==='structure'){drawTree();drawPipe();drawSOTP();}else if(S.page==='transactions'){drawBubbles();drawCash();drawSankey();drawDumb();renderDeals();}else{updScenario();}}
+function customPx(){return Math.abs(S.inp.roiv-DEF.roiv)>1e-9||Math.abs(S.inp.imvt-DEF.imvt)>1e-9||Math.abs(S.inp.cash-DEF.cash)>1e-9;}
+function updKPI(){const m=model();$('#kMcap').textContent=moneyB(m.mcap);$('#kPx').textContent=S.inp.roiv.toFixed(2);$('#tPx').textContent='$'+S.inp.roiv.toFixed(2);$('#kCash').textContent=moneyB(S.inp.cash);
+ $('#kNav').textContent='$'+m.ps.toFixed(2);$('#kNavS').textContent=`${pct(m.up)} vs price · open the lab`;
+ const days=Math.max(0,Math.ceil((Date.UTC(2026,11,31)-Date.now())/864e5));$('#kDays').textContent=days>0?`≤ ${days} days`:'Due';
+ $('#scnChip').hidden=!customPx();}
+$('#scnChip').addEventListener('click',()=>{Object.assign(S.inp,DEF);afterScenario(true);});
+
+/* ---------- HISTORY ---------- */
+let TLG=null;
+function drawTimeline(){
+ const box=$('#tl');const W=Math.max(box.clientWidth,900),L=198,R=S.price?56:18,T=40,RH=28,GH=20;
+ const [x0,x1]=ZR[S.zoom],X=y=>L+(y-x0)/(x1-x0)*(W-L-R);
+ const rows=V.filter(v=>(!S.retained||!v.to)&&(!S.vant||v.id===S.vant||v.id==='roivant'));
+ let y=T,lay=[],lastG=null;
+ rows.forEach(v=>{if(v.g!==lastG){lay.push({hdr:v.g,y});y+=GH;lastG=v.g;}lay.push({v,y:y+RH/2});y+=RH;});
+ const bot=y+4,H=bot+26;let s='';
+ [[2014,2019.99,'Incubator 2014–19','band-a'],[2019.99,2021.1,'Reset','band-b'],[2021.1,2027,'Allocator 2021–','band-a']].forEach(e=>{
+  const a=Math.max(e[0],x0),b=Math.min(e[1],x1);if(b<=a)return;
+  s+=`<rect x="${X(a)}" y="${T-26}" width="${X(b)-X(a)}" height="${bot-T+26}" class="${e[3]}"/>`;
+  if(X(b)-X(a)>60)s+=`<text x="${X(a)+6}" y="${T-11}" class="t3 cap">${e[2]}</text>`;});
+ const span=x1-x0;
+ for(let yr=Math.ceil(x0);yr<=Math.floor(x1);yr++){const xx=X(yr);s+=`<line x1="${xx}" x2="${xx}" y1="${T-26}" y2="${bot}" class="grid"/>`;if(yr+1<=x1+1e-9)s+=`<text x="${(xx+X(Math.min(yr+1,x1)))/2}" y="${bot+18}" class="t3 num s" text-anchor="middle">${yr}</text>`;
+  if(span<7)for(let q=1;q<4;q++){const qx=yr+q/4;if(qx<x1)s+=`<line x1="${X(qx)}" x2="${X(qx)}" y1="${T-8}" y2="${bot}" class="grid q"/>`;}}
+ if(2021.05>x0&&2021.05<x1)s+=`<line x1="${X(2021.05)}" x2="${X(2021.05)}" y1="${T-26}" y2="${bot}" class="rule"/>`;
+ lay.forEach(r=>{
+  if(r.hdr){s+=`<text x="10" y="${r.y+14}" class="t3 cap">${esc(r.hdr)}</text>`;return;}
+  const v=r.v,cy=r.y,a0=yf(v.f),b=v.to?yf(v.to):NOW,sel=S.vant===v.id;
+  const a=Math.max(a0,x0),e=Math.min(b,S.year,x1);
+  TIP['row-'+v.id]=`<b>${esc(v.n)}</b><div>${esc(v.a)}</div><div class="tm">${v.id==='roivant'?'Parent company events':'Click to '+(sel?'clear filter':'filter all pages')}</div>`;
+  s+=v.id==='roivant'?`<text x="10" y="${cy+4}" class="t1 b">${esc(v.n)}</text>`:`<g class="rowlab" data-act="vant:${v.id}" data-tip="row-${v.id}" tabindex="0" role="button" aria-label="Filter to ${esc(v.n)}"><rect x="4" y="${cy-12}" width="${L-14}" height="24" fill="transparent"/><text x="10" y="${cy+4}" class="${sel?'t1 b':'t1'}">${esc(v.n)}${sel?' ●':''}</text></g>`;
+  if(a0<=S.year&&a0<x1&&e>=a){const bw=Math.max(3,X(e)-X(a));
+   TIP['bar-'+v.id]=`<b>${esc(v.n)}</b> · ${OUTL[v.o]}<div>${esc(v.a)}</div><div class="tm">${fmtD(v.f)}${v.ap?' (approx.)':''} → ${v.to?fmtD(v.to):'today'}</div>${v.stake?`<div class="tm">Roivant stake: ${esc(v.stake)}</div>`:''}`;
+   s+=`<rect x="${X(a)}" y="${cy-5}" width="${bw}" height="10" class="bar ${barCls(v)}" data-tip="bar-${v.id}"/>`;}
+  EV.forEach((ev,i)=>{if(ev.v!==v.id||!S.types.has(ev.t))return;const ey=yf(ev.d);if(ey>S.year+1e-6||ey<x0||ey>x1)return;const ex=X(ey);
+   TIP['ev'+i]=`<b>${esc(ev.ti)}</b><div class="tm">${fmtD(ev.d)}${ev.ap?' · approx.':''} · ${ev.t}</div>${ev.val?`<div class="num">${money(ev.val)}</div>`:''}<div class="tm">Click for detail</div>`;
+   s+=`<g class="mkg" data-tip="ev${i}" data-act="ev:${i}" tabindex="0" role="button" aria-label="${esc(ev.ti)}, ${fmtD(ev.d)}"><circle cx="${ex}" cy="${cy}" r="11" class="hit"/>${shp(ev.t,ex,cy,4.5,evCls(ev))}</g>`;});
+ });
+ if(S.price){const P=v=>bot-6-(v/45)*(bot-T-6);let d='';
+  [0,15,30,45].forEach(t=>{s+=`<text x="${W-R+6}" y="${P(t)+4}" class="t3 num s">$${t}</text>`;});
+  PX.forEach(p=>{const py=yf(p[0]);if(py<=S.year&&py>=x0&&py<=x1)d+=(d?'L':'M')+X(py).toFixed(1)+' '+P(p[1]).toFixed(1);});
+  if(d)s+=`<path d="${d}" class="pline"/>`;
+  PX.forEach((p,i)=>{const py=yf(p[0]);if(py>S.year||py<x0||py>x1)return;TIP['px'+i]=`<b>ROIV $${p[1].toFixed(2)}</b><div class="tm">${fmtD(p[0])} · ${esc(p[2])}</div>`;
+   s+=`<g class="mkg" data-tip="px${i}" data-act="px:${i}" tabindex="0"><circle cx="${X(py)}" cy="${P(p[1])}" r="9" class="hit"/><circle cx="${X(py)}" cy="${P(p[1])}" r="4" class="pdot"/></g>`;});}
+ if(S.year<NOW-0.005&&S.year>=x0&&S.year<=x1){const cx=X(S.year);s+=`<line x1="${cx}" x2="${cx}" y1="${T-26}" y2="${bot}" class="cursor"/>`;}
+ s+=`<g id="xh" visibility="hidden" pointer-events="none"><line class="xhl" y1="${T-26}" y2="${bot}"/><rect class="xhb" y="${bot+4}" width="64" height="18"/><text class="xht num s" y="${bot+17}" text-anchor="middle"></text></g>`;
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Timeline of Roivant subsidiaries and events, 2014 to 2026" style="cursor:crosshair">${s}</svg>`;
+ TLG={L,R,W,x0,x1};
+ const live=V.filter(v=>v.id!=='roivant'&&yf(v.f)<=S.year&&(!v.to||yf(v.to)>S.year)).length;
+ const yy=Math.floor(S.year),mm=MON[Math.min(11,Math.floor((S.year-yy)*12))];
+ $('#yrOut').textContent=`${mm} ${yy} · ${live} Vants live`;
+ $('#pxNote').hidden=!S.price;
+ renderFeed();
+}
+function renderFeed(){
+ const list=EV.map((e,i)=>({e,i})).filter(o=>yf(o.e.d)<=S.year+1e-6&&S.types.has(o.e.t)&&(!S.vant||o.e.v===S.vant)).sort((a,b)=>yf(b.e.d)-yf(a.e.d)).slice(0,4);
+ $('#feed').innerHTML=list.length?list.map((o,k)=>`<button class="fi${k===0?' new':''}" data-act="ev:${o.i}"><span class="fd">${icon(o.e.t,evCls(o.e))}${k===0?'Latest · ':''}${fmtD(o.e.d)}</span><span class="ft">${esc(o.e.ti)}</span><span class="fu">${esc(VN(o.e.v))}${o.e.val?' · '+money(o.e.val):''}</span></button>`).join(''):`<p class="empty">No events yet at this date.</p>`;
+}
+function tlYear(e){const svg=$('#tl svg');if(!svg||!TLG)return null;const r=svg.getBoundingClientRect(),px=(e.clientX-r.left)*(TLG.W/r.width);if(px<TLG.L||px>TLG.W-TLG.R)return null;return TLG.x0+(px-TLG.L)/(TLG.W-TLG.L-TLG.R)*(TLG.x1-TLG.x0);}
+function showXH(y){const g=$('#xh');if(!g)return;if(y==null){g.setAttribute('visibility','hidden');return;}
+ const x=TLG.L+(y-TLG.x0)/(TLG.x1-TLG.x0)*(TLG.W-TLG.L-TLG.R),yy=Math.floor(y),mm=MON[Math.min(11,Math.floor((y-yy)*12))];
+ g.setAttribute('visibility','visible');g.querySelector('line').setAttribute('x1',x);g.querySelector('line').setAttribute('x2',x);
+ g.querySelector('rect').setAttribute('x',x-32);const t=g.querySelector('text');t.setAttribute('x',x);t.textContent=`${mm} ${yy}`;}
+function setYear(y){if(S.playing)stopPlay();S.year=Math.max(2014,Math.min(NOW,y));$('#yrSlider').value=S.year;drawTimeline();}
+(()=>{const tl=$('#tl');let drag=false,lastPT='mouse';
+ tl.addEventListener('pointerdown',e=>{lastPT=e.pointerType;if(e.pointerType!=='mouse'||e.button!==0||e.target.closest('[data-act]'))return;const y=tlYear(e);if(y==null)return;drag=true;tl.setPointerCapture(e.pointerId);setYear(y);});
+ tl.addEventListener('pointermove',e=>{const y=tlYear(e);if(drag&&y!=null){setYear(y);}showXH(e.target.closest('[data-act]')?null:y);});
+ tl.addEventListener('pointerup',()=>{drag=false;});
+ tl.addEventListener('pointerleave',()=>{if(!drag)showXH(null);});
+ tl.addEventListener('click',e=>{if(lastPT==='mouse'||e.target.closest('[data-act]'))return;const y=tlYear(e);if(y!=null)setYear(y);});
+})();
+function renderVCards(){
+ $('#vcards').innerHTML=V.filter(v=>v.id!=='roivant').map(v=>`<button class="vc ${S.vant===v.id?'on':''}" data-act="vant:${v.id}" aria-pressed="${S.vant===v.id}">
+  <span class="vc-top"><b>${esc(v.n)}</b><span class="pill p-${v.o}">${OUTL[v.o]}</span></span>
+  <span class="vc-a">${esc(v.a)}</span><span class="vc-y">${v.f.slice(0,4)}${v.ap?'~':''}–${v.to?v.to.slice(0,4):'now'} · ${esc(v.g)}</span></button>`).join('');
+}
+function buildTypeChips(){
+ $('#typeChips').innerHTML='<span class="hint" style="margin-right:2px">EVENTS</span>'+TYPES.map(t=>`<button class="tchip" data-type="${t}" aria-pressed="${S.types.has(t)}">${icon(t,'mk'+(t==='Exit'?' ex':''))}${t}</button>`).join('')+'<button class="lnk hint" id="typeAll">All</button>';
+ $('#typeChips').querySelectorAll('.tchip').forEach(b=>b.addEventListener('click',()=>{const t=b.dataset.type;S.types.has(t)?S.types.delete(t):S.types.add(t);b.setAttribute('aria-pressed',S.types.has(t));drawTimeline();}));
+ $('#typeAll').addEventListener('click',()=>{S.types=new Set(TYPES);$('#typeChips').querySelectorAll('.tchip').forEach(b=>b.setAttribute('aria-pressed',true));drawTimeline();});
+}
+let timer=null;
+function stopPlay(){S.playing=false;clearInterval(timer);$('#playBtn').textContent='▶ Play';}
+$('#playBtn').addEventListener('click',()=>{
+ if(S.playing){stopPlay();return;}
+ const rm=RM();
+ const z0=ZR[S.zoom][0],zEnd=Math.min(NOW,ZR[S.zoom][1]);if(S.year>=zEnd-0.01||S.year<z0)S.year=z0;S.playing=true;$('#playBtn').textContent='❚❚ Pause';closePanel();
+ timer=setInterval(()=>{const end=Math.min(NOW,ZR[S.zoom][1]);S.year=Math.min(end,S.year+(rm?0.5:0.03*S.speed*(ZR[S.zoom][1]-ZR[S.zoom][0])/13*2));$('#yrSlider').value=S.year;drawTimeline();if(S.year>=end){stopPlay();}},rm?300:40);
+});
+$('#yrSlider').addEventListener('input',e=>{if(S.playing)stopPlay();S.year=+e.target.value;drawTimeline();});
+$('#retOnly').addEventListener('change',e=>{S.retained=e.target.checked;drawTimeline();});
+$('#pxOn').addEventListener('change',e=>{S.price=e.target.checked;drawTimeline();});
+$('#zoomSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.zoom=b.dataset.z;$('#zoomSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));drawTimeline();});
+$('#spdSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.speed=+b.dataset.s;$('#spdSeg').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+
+/* ---------- STRUCTURE ---------- */
+function bez(p0,p1,p2,p3,t){const u=1-t;return u*u*u*p0+3*u*u*t*p1+3*u*t*t*p2+t*t*t*p3;}
+function drawTree(){
+ const box=$('#tree'),W=Math.max(box.clientWidth,640),m=model(),I=S.inp;
+ const K=[
+  {id:'priovant',lab:'$'+S.val.priovant.toFixed(1)+'B*',stk:'72% · 66% FD',mn:'Pfizer & others 28%',st:'approved',vl:'Lisraya launched Aug 2026'},
+  {id:'immunovant',lab:moneyB(m.imvt),stk:'56% · 52% FD',mn:'Public float 44%',st:'clinical',vl:'Roivant stake at $'+I.imvt.toFixed(2)},
+  {id:'pulmovant',lab:'$'+S.val.pulmovant.toFixed(1)+'B*',stk:'Majority · % n/d',mn:'Minority not disclosed',st:'clinical',vl:'Unlisted'},
+  {id:'genevant',lab:'$'+S.val.genevant.toFixed(1)+'B*',stk:'83% · 64% FD',mn:'Others 17%',st:'retained',vl:'$772M received from Moderna; $1.3B contingent'}];
+ const H=S.treeAll?490:340,ry=38,cy=176;let s='';
+ K.forEach((k,i)=>{const cx=W*(i+.5)/4,r=36;
+  const P0=[W/2,ry+24],P1=[W/2,(ry+cy)/2],P2=[cx,(ry+cy)/2-6],P3=[cx,cy-r-2];
+  s+=`<path d="M${P0} C ${P1} ${P2} ${P3}" class="edge"/>`;
+  const t=.7,lx=bez(P0[0],P1[0],P2[0],P3[0],t),ly=bez(P0[1],P1[1],P2[1],P3[1],t);
+  s+=`<rect x="${lx-50}" y="${ly-10}" width="100" height="19" rx="9.5" class="elab"/><text x="${lx}" y="${ly+4}" text-anchor="middle" class="t2 num s">${k.stk}</text>`;
+  const v=V.find(x=>x.id===k.id);
+  TIP['nd-'+k.id]=`<b>${esc(v.n)}</b> · ${OUTL[v.o]}<div>${esc(v.a)}</div><div>${esc(k.vl)}</div><div class="tm">Stake ${esc(v.stake)}. ${k.id==='immunovant'?'Marked at market.':'* Your scenario value.'} Click to filter.</div>`;
+  s+=`<g data-act="vant:${k.id}" data-tip="nd-${k.id}" tabindex="0" role="button" aria-label="Filter to ${esc(v.n)}">`;
+  if(S.vant===k.id)s+=`<circle cx="${cx}" cy="${cy}" r="${r+6}" class="ring"/>`;
+  s+=`<circle cx="${cx}" cy="${cy}" r="${r}" class="nd nd-${k.st}"/>`;
+  s+=`<text x="${cx}" y="${cy+4}" text-anchor="middle" class="t1 num s">${esc(k.lab)}</text></g>`;
+  s+=`<text x="${cx}" y="${cy+r+20}" text-anchor="middle" class="t1 b">${esc(v.n)}</text>`;
+  s+=`<text x="${cx}" y="${cy+r+35}" text-anchor="middle" class="t2 s">${esc(v.a)}</text>`;
+  s+=`<text x="${cx}" y="${cy+r+51}" text-anchor="middle" class="t3 s">${esc(k.mn)}</text>`;
+ });
+ s+=`<rect x="${W/2-100}" y="${ry-22}" width="200" height="46" class="root"/><text x="${W/2}" y="${ry-3}" text-anchor="middle" class="b" fill="var(--panel)">Roivant Sciences</text><text x="${W/2}" y="${ry+14}" text-anchor="middle" class="num s" fill="var(--panel)">${moneyB(m.mcap)} market cap</text>`;
+ s+=`<text x="${W-8}" y="${H-8}" text-anchor="end" class="t3 s">* value from the scenario lab</text>`;
+ if(S.treeAll){const ex=V.filter(v=>v.to),ey=410;
+  s+=`<line x1="16" x2="${W-16}" y1="${ey-44}" y2="${ey-44}" class="rule"/><text x="16" y="${ey-26}" class="t3 cap">Exited · grey = sold or merged, rust = failed</text>`;
+  ex.forEach((v,i)=>{const cx=W*(i+.5)/ex.length;TIP['ex-'+v.id]=`<b>${esc(v.n)}</b> · ${OUTL[v.o]}<div>${esc(v.a)}</div><div class="tm">${v.f.slice(0,4)}${v.ap?'~':''}–${v.to.slice(0,4)} · ${esc(v.g)}</div>`;
+   s+=`<g data-tip="ex-${v.id}" data-act="vant:${v.id}" tabindex="0" role="button"><circle cx="${cx}" cy="${ey}" r="${S.vant===v.id?11:9}" class="nd nd-${v.o==='failed'?'failed':'sold'}"/></g><text x="${cx}" y="${ey+26}" text-anchor="middle" class="t2 s">${esc(v.n)}</text><text x="${cx}" y="${ey+40}" text-anchor="middle" class="t3 num s">${v.to.slice(0,4)}</text>`;});}
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Ownership tree of Roivant subsidiaries">${s}</svg>`;
+}
+function drawPipe(){
+ const box=$('#pipe'),W=Math.max(box.clientWidth,660),L=196,NX=150,TW=W-L-NX-12;
+ const rows=PIPE.map((p,i)=>Object.assign({i},p)).filter(p=>!S.vant||p.v===S.vant);
+ if(!rows.length){box.innerHTML=`<p class="empty">${S.vant==='genevant'?'Genevant is a licensing and litigation estate with no clinical pipeline.':'No active clinical assets for '+esc(VN(S.vant))+'.'} <button class="lnk" data-act="vant:${S.vant}">Show all units</button></p>`;return;}
+ const STG=['Phase 1','Phase 2','Phase 3','Filed','Approved'],cw=TW/5,T=24,RH=26,GH=24;let y=T,s='',last=null;
+ const soonEnd=NOW+S.win/12;
+ const body=[];rows.forEach(p=>{if(p.a!==last){body.push({hdr:p.a,v:p.v,y});y+=GH;last=p.a;}body.push({p,y});y+=RH;});
+ const H=y+6;
+ STG.forEach((t,i)=>{const x=L+i*cw;s+=`<line x1="${x}" x2="${x}" y1="${T-6}" y2="${H-4}" class="grid"/><text x="${x+cw/2}" y="${T-10}" text-anchor="middle" class="t3 cap">${t}</text>`;});
+ s+=`<line x1="${L+TW}" x2="${L+TW}" y1="${T-6}" y2="${H-4}" class="grid"/><text x="${L+TW+16}" y="${T-10}" class="t3 cap">Next readout</text>`;
+ body.forEach(r=>{
+  if(r.hdr){s+=`<text x="8" y="${r.y+16}" class="t1 b">${esc(r.hdr)}</text><text x="${8+r.hdr.length*7.6+8}" y="${r.y+16}" class="t3 s">${esc(VN(r.v))}</text>`;return;}
+  const p=r.p,cy=r.y+RH/2,soon=p.end&&yf(p.end)<=soonEnd;
+  TIP['pp'+p.i]=`<b>${esc(p.a)} · ${esc(p.ind)}</b><div>${esc(p.lab)}</div><div class="tm">Next: ${esc(p.nx)}</div>`;
+  s+=`<g class="prow" data-act="pipe:${p.i}" data-tip="pp${p.i}" tabindex="0" role="button"><rect x="0" y="${r.y}" width="${W}" height="${RH}" fill="transparent"/>
+   <text x="18" y="${cy+4}" class="t2">${esc(p.ind)}</text>
+   <rect x="${L+2}" y="${cy-6}" width="${TW-4}" height="12" class="track"/>
+   <rect x="${L+2}" y="${cy-6}" width="${Math.max(6,TW*p.st/5-4)}" height="12" class="${p.st>=5?'pb-good':'pb-warn'}"/>
+   <path d="M${L+TW+20} ${cy-6}L${L+TW+26} ${cy}L${L+TW+20} ${cy+6}L${L+TW+14} ${cy}Z" class="dia${soon?' soon':''}"/>
+   <text x="${L+TW+32}" y="${cy+4}" class="${soon?'t1 b':'t2'} s">${esc(p.nx)}</text></g>`;
+ });
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Pipeline stage chart">${s}</svg>`;
+}
+$('#winSl').addEventListener('input',e=>{S.win=+e.target.value;$('#winOut').textContent=S.win+' mo';drawPipe();});
+function drawSOTP(){
+ const m=model(),I=S.inp,box=$('#wf'),W=Math.max(box.clientWidth,520),L=230,R=80,RH=36,T=6;
+ const steps=[['Market cap',m.mcap,'tot'],['Cash, pro forma',-I.cash],['Immunovant stake at market (56%)',-m.imvt],['Priovant + Pulmovant + Genevant',m.resid,'res']];
+ const max=Math.max(m.mcap,.1)*1.02,X=v=>L+Math.max(0,v)/max*(W-L-R);let run=m.mcap,s='';const H=T+steps.length*RH+4;
+ steps.forEach((st,i)=>{const y=T+i*RH;let a,b,cls;
+  if(st[2]==='tot'){a=0;b=st[1];cls='wf-tot';}else if(st[2]==='res'){a=0;b=st[1];cls='wf-res';}else{a=run+st[1];b=run;run=a;cls='wf-dec';}
+  s+=`<text x="${L-10}" y="${y+RH/2+4}" text-anchor="end" class="${st[2]?'t1 b':'t2'}">${esc(st[0])}</text>`;
+  s+=`<rect x="${X(a)}" y="${y+8}" width="${Math.max(2,X(b)-X(a))}" height="${RH-16}" class="${cls}"/>`;
+  s+=`<text x="${X(Math.max(a,b))+6}" y="${y+RH/2+4}" class="t2 num s">${st[2]?moneyB(st[1]):'−'+moneyB(Math.abs(st[1]))}</text>`;
+  if(!st[2])s+=`<line x1="${X(a)}" x2="${X(a)}" y1="${y+RH-8}" y2="${y+RH+8}" class="rule"/>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Valuation bridge from market cap to unlisted units">${s}</svg>`;
+ $('#oMk').textContent=moneyB(I.cash+m.imvt);$('#oMkS').textContent=`Cash + Immunovant stake at $${I.imvt.toFixed(2)}`;$('#oRes').textContent=moneyB(m.resid);
+}
+$('#treeToday').addEventListener('click',()=>{S.treeAll=false;$('#treeToday').setAttribute('aria-pressed',true);$('#treeAll').setAttribute('aria-pressed',false);drawTree();});
+$('#treeAll').addEventListener('click',()=>{S.treeAll=true;$('#treeAll').setAttribute('aria-pressed',true);$('#treeToday').setAttribute('aria-pressed',false);drawTree();});
+
+/* ---------- TRANSACTIONS ---------- */
+const TX={x0:2019.5,x1:2027,L:58,R:20};
+const dealText=d=>(d.cp+' '+d.ti+' '+d.st+' '+VN(d.ent)).toLowerCase();
+const dealDim=d=>(S.dir!=='all'&&d.dir!==S.dir)||(S.vant&&d.ent!==S.vant)||(S.q&&!S.q.split(/\s+/).every(w=>dealText(d).includes(w)));
+function drawBubbles(){
+ const box=$('#bub'),W=Math.max(box.clientWidth,660),{x0,x1,L,R}=TX,T=14,H=300,B=24;
+ const X=y=>L+(y-x0)/(x1-x0)*(W-L-R),lg=Math.log10,y0=lg(25),y1=lg(12000),Y=v=>T+(1-(lg(v)-y0)/(y1-y0))*(H-T-B);let s='';
+ [[30,'$30M'],[100,'$100M'],[300,'$300M'],[1000,'$1B'],[3000,'$3B'],[10000,'$10B']].forEach(t=>{s+=`<line x1="${L}" x2="${W-R}" y1="${Y(t[0])}" y2="${Y(t[0])}" class="grid"/><text x="${L-8}" y="${Y(t[0])+4}" text-anchor="end" class="t3 num s">${t[1]}</text>`;});
+ for(let yr=2020;yr<=2026;yr++){s+=`<text x="${(X(yr)+X(yr+1))/2}" y="${H-6}" text-anchor="middle" class="t3 num s">${yr}</text><line x1="${X(yr)}" x2="${X(yr)}" y1="${H-B}" y2="${H-B+5}" class="hair"/>`;}
+ const ds=DEALS.filter(d=>d.cash!=null).sort((a,b)=>Math.abs(b.cash)-Math.abs(a.cash));
+ ds.forEach(d=>{const cx=X(yf(d.d)),hv=d.head??Math.abs(d.cash),cy=Y(hv),r=Math.max(5,Math.sqrt(Math.abs(d.cash)/5200)*34),dim=dealDim(d);
+  TIP['bd-'+d.id]=`<b>${esc(d.cp)}</b> · ${esc(d.ti)}<div class="tm">${fmtD(d.d)} · ${esc(VN(d.ent))}</div><div class="num">Headline ${d.head==null?'n/d':money(d.head)} · to ROIV ${d.cash>0?'+':''}${money(d.cash)}</div><div class="tm">Click for the deal card</div>`;
+  s+=`<g class="${dim?'dim':''}"><circle cx="${cx}" cy="${cy}" r="${r}" class="b-${d.dir}" data-tip="bd-${d.id}" data-act="deal:${d.id}" tabindex="0" role="button" aria-label="${esc(d.cp)} ${esc(d.ti)}"/>`;
+  if(!dim&&Math.abs(d.cash)>=300)s+=`<text x="${cx+r+5}" y="${cy+4}" class="t1 s b">${esc(d.cp)}</text>`;s+='</g>';});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Deal bubble timeline">${s}</svg>`;
+ const live=DEALS.filter(d=>!dealDim(d)&&d.cash!=null),inf=live.filter(d=>d.cash>0).reduce((a,d)=>a+d.cash,0),out=live.filter(d=>d.cash<0).reduce((a,d)=>a-d.cash,0);
+ $('#dealTot').textContent=`${live.length} priced deals · in ${money(inf)} · out ${money(out)}`;
+}
+function drawCash(){
+ const box=$('#cash'),W=Math.max(box.clientWidth,660),{x0,x1,L,R}=TX,T=16,H=118,B=22;
+ const X=y=>L+(y-x0)/(x1-x0)*(W-L-R),Y=v=>T+(1-v/7)*(H-T-B);let s=`<text x="${L}" y="11" class="t3 cap">Consolidated cash, $B</text>`;
+ [0,2,4,6].forEach(t=>{s+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" class="grid"/><text x="${L-8}" y="${Y(t)+4}" text-anchor="end" class="t3 num s">$${t}B</text>`;});
+ for(let i=1;i<CASH.length;i++){const a=CASH[i-1],b=CASH[i],gap=yf(b[0])-yf(a[0])>0.6||b[3];s+=`<line x1="${X(yf(a[0]))}" y1="${Y(a[1])}" x2="${X(yf(b[0]))}" y2="${Y(b[1])}" class="cline${gap?' gap':''}"/>`;}
+ CASH.forEach((c,i)=>{TIP['cs'+i]=`<b>${moneyB(c[1])}</b><div class="tm">${fmtD(c[0])}${c[3]?' · pro forma incl. Moderna receipt':''}</div>`;s+=`<circle cx="${X(yf(c[0]))}" cy="${Y(c[1])}" r="4" class="cdot" data-tip="cs${i}"/>`;});
+ const lc=CASH[CASH.length-1];s+=`<text x="${X(yf(lc[0]))-8}" y="${Y(lc[1])-9}" text-anchor="end" class="t1 num s b">$4.7B pro forma</text>`;
+ DEALS.forEach(d=>{if(d.cash==null||dealDim(d))return;const x=X(yf(d.d));s+=`<line x1="${x}" x2="${x}" y1="${H-B}" y2="${H-B+7}" stroke="var(--${d.dir})" stroke-width="2"/>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Reported cash balance">${s}</svg>`;
+}
+function drawSankey(){
+ const box=$('#sank'),W=Math.max(box.clientWidth,560),H=340,T=8,gap=10,NW=10,LX=172,RX=W-196;
+ const SN=[['Roche (Telavant)',5200,'roche'],['Sumitomo alliance',3000,'sumitomo'],['Moderna upfront',772,'moderna'],['Datavant merger',320,'datavant'],['SPAC + PIPE',213.4,'spac'],['Organon (Dermavant)',183.6,'organon']];
+ const tot=SN.reduce((a,b)=>a+b[1],0),bb=962.7,im=886.9,cash=S.inp.cash*1000;
+ const UN=[['Cash on hand, pro forma',cash],['R&D, opex & other (residual)',Math.max(0,tot-cash-bb-im)],['Buybacks disclosed',bb],['Immunovant top-ups',im]];
+ const utot=UN.reduce((a,b)=>a+b[1],0),k=Math.min((H-2*T-gap*(SN.length-1))/tot,(H-2*T-gap*(UN.length-1))/utot);
+ let ly=T+((H-2*T)-(tot*k+gap*(SN.length-1)))/2,ry=T+((H-2*T)-(utot*k+gap*(UN.length-1)))/2;
+ const ln=SN.map(n=>{const o={y:ly,h:n[1]*k,off:0};ly+=o.h+gap;return o;}),rn=UN.map(n=>{const o={y:ry,h:n[1]*k,off:0};ry+=o.h+gap;return o;});
+ let links='',nodes='';
+ SN.forEach((sn,i)=>UN.forEach((un,j)=>{const f=sn[1]*un[1]/utot,h=f*k;if(h<.2)return;const a=ln[i],b=rn[j],y0=a.y+a.off,y1=b.y+b.off;a.off+=h;b.off+=h;const mx=(LX+NW+RX)/2;
+  TIP[`lk${i}-${j}`]=`<b>${esc(sn[0])} → ${esc(un[0])}</b><div class="num">${money(f)}</div><div class="tm">Pro rata allocation</div>`;
+  links+=`<path class="lk L${i} R${j}" data-tip="lk${i}-${j}" d="M${LX+NW} ${y0}C${mx} ${y0} ${mx} ${y1} ${RX} ${y1}L${RX} ${y1+h}C${mx} ${y1+h} ${mx} ${y0+h} ${LX+NW} ${y0+h}Z"/>`;}));
+ SN.forEach((n,i)=>{const o=ln[i];TIP['sn'+i]=`<b>${esc(n[0])}</b><div class="num">${money(n[1])}</div><div class="tm">Click for the deal card</div>`;
+  nodes+=`<g class="sk" data-k="L${i}" data-tip="sn${i}" data-act="deal:${n[2]}" tabindex="0" role="button" style="cursor:pointer"><rect x="${LX}" y="${o.y}" width="${NW}" height="${Math.max(2,o.h)}" class="snode in"/><text x="${LX-8}" y="${o.y+o.h/2+4}" text-anchor="end" class="t1 s">${esc(n[0])} <tspan class="num t2">${money(n[1])}</tspan></text></g>`;});
+ UN.forEach((n,i)=>{const o=rn[i];TIP['un'+i]=`<b>${esc(n[0])}</b><div class="num">${money(n[1])}</div>`;
+  nodes+=`<g class="sk" data-k="R${i}" data-tip="un${i}"><rect x="${RX}" y="${o.y}" width="${NW}" height="${Math.max(2,o.h)}" class="snode"/><text x="${RX+NW+8}" y="${o.y+o.h/2+4}" class="t1 s">${esc(n[0])}</text><text x="${RX+NW+8}" y="${o.y+o.h/2+18}" class="t2 num s">${money(n[1])}</text></g>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Capital flow from deal inflows to uses">${links}${nodes}</svg>`;
+ const svg=box.querySelector('svg');
+ svg.querySelectorAll('.sk').forEach(g=>{g.addEventListener('pointerenter',()=>{svg.classList.add('hov');svg.querySelectorAll('.lk').forEach(p=>p.classList.toggle('on',p.classList.contains(g.dataset.k)));});
+  g.addEventListener('pointerleave',()=>{svg.classList.remove('hov');});});
+}
+function drawDumb(){
+ const I=S.inp,box=$('#dumb'),W=Math.max(box.clientWidth,500),L=168,R=58,RH=40,T=26;
+ const rows=[
+  {l:'RVT-3101 (Telavant)',a:45,b:5200,r:1,n:'~$45M upfront → ~$5.2B at the Roche close',deal:'roche'},
+  {l:'Sumitomo stake buyback',a:648.4,b:71.251*I.roiv,r:0,n:`71.25M retired shares at $${I.roiv.toFixed(2)}`,deal:'sumibuy'},
+  {l:'Datavant',a:100.6,b:544.4,r:1,n:'Carrying value → $320M cash + stake marked at the merger ($443.8M gain)',deal:'datavant'},
+  {l:'Immunovant · Aug 2021',a:200,b:17.021*I.imvt,r:0,n:`17.0M shares at $${I.imvt.toFixed(2)}`,deal:'imvt21'},
+  {l:'Immunovant · Jan 2025',a:336.9,b:16.845*I.imvt,r:0,n:`16.8M shares at $${I.imvt.toFixed(2)}`,deal:'imvt25a'},
+  {l:'Immunovant · Dec 2025',a:350,b:16.667*I.imvt,r:0,n:`16.7M shares at $${I.imvt.toFixed(2)}`,deal:'imvt25b'}
+ ].filter(r=>{const d=DEALS.find(x=>x.id===r.deal);return !S.vant||d.ent===S.vant;}).sort((a,b)=>b.b/b.a-a.b/a.a);
+ if(!rows.length){box.innerHTML=`<p class="empty">No priced entries for ${esc(VN(S.vant))}. <button class="lnk" data-act="vant:${S.vant}">Show all units</button></p>`;return;}
+ const lg=Math.log10,X=v=>L+(lg(Math.max(10,v))-1)/(4-1)*(W-L-R),H=T+rows.length*RH+4;let s='';
+ [[10,'$10M'],[100,'$100M'],[1000,'$1B'],[10000,'$10B']].forEach(t=>{s+=`<line x1="${X(t[0])}" x2="${X(t[0])}" y1="${T-8}" y2="${H}" class="grid"/><text x="${X(t[0])}" y="${T-12}" text-anchor="middle" class="t3 num s">${t[1]}</text>`;});
+ rows.forEach((r,i)=>{const cy=T+i*RH+RH/2,m=r.b/r.a,key='db'+i;
+  TIP[key]=`<b>${esc(r.l)}</b><div class="num">${money(r.a)} → ${money(r.b)} · ${m.toFixed(1)}×</div><div class="tm">${esc(r.n)}${r.r?' · realised':' · unrealised'}</div>`;
+  s+=`<g data-tip="${key}" data-act="deal:${r.deal}" tabindex="0" role="button" style="cursor:pointer"><rect x="0" y="${cy-RH/2}" width="${W}" height="${RH}" fill="transparent"/>
+   <text x="8" y="${cy+4}" class="t1 s">${esc(r.l)}</text>
+   <line x1="${X(r.a)}" x2="${X(r.b)}" y1="${cy}" y2="${cy}" class="dbl"/>
+   <circle cx="${X(r.a)}" cy="${cy}" r="5" class="dba"/><circle cx="${X(r.b)}" cy="${cy}" r="6.5" class="${r.r?'dbb-r':'dbb-u'}"/>
+   <text x="${W-8}" y="${cy+4}" text-anchor="end" class="t1 num b">${m>=10?Math.round(m):m.toFixed(1)}×</text></g>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Entry cost versus value">${s}</svg>`;
+}
+function renderDeals(){
+ let ds=DEALS.filter(d=>!dealDim(d));
+ ds.sort(S.sort==='cash'?(a,b)=>Math.abs(b.cash||0)-Math.abs(a.cash||0):S.sort==='mult'?(a,b)=>(b.head||0)-(a.head||0):(a,b)=>yf(b.d)-yf(a.d));
+ $('#deals').innerHTML=ds.length?ds.map(d=>`<article class="deal" id="card-${d.id}">
+  <div class="dh"><span class="dd num">${fmtD(d.d)}</span><span class="dir d-${d.dir}">${d.dir==='in'?'Inflow':'Outflow'}</span></div>
+  <h4>${esc(d.ti)}</h4><div class="dcp">${esc(d.cp)} · <button class="lnk" data-act="vant:${d.ent}">${esc(VN(d.ent))}</button></div>
+  <dl><div><dt>Headline</dt><dd class="num">${money(d.head)}</dd></div><div><dt>Cash to Roivant</dt><dd class="num d-${d.dir}">${d.cash==null?'n/d':(d.cash>0?'+':'')+money(d.cash)}</dd></div></dl>
+  <p class="st">${esc(d.st)}</p><p class="why">${esc(d.why)}</p><a href="${d.src}" target="_blank" rel="noopener">Source ↗</a></article>`).join('')
+  :`<p class="empty">No deals match. <button class="lnk" id="dealClr">Clear the filters</button></p>`;
+ const c=$('#dealClr');if(c)c.addEventListener('click',()=>{S.q='';$('#dealQ').value='';S.dir='all';syncDir();setVant(null);});
+}
+function syncDir(){$('#dirSeg').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.dir===S.dir));}
+$('#dirSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.dir=b.dataset.dir;syncDir();drawBubbles();drawCash();renderDeals();});
+$('#dealSort').addEventListener('change',e=>{S.sort=e.target.value;renderDeals();});
+$('#dealQ').addEventListener('input',e=>{S.q=e.target.value.trim().toLowerCase();drawBubbles();drawCash();renderDeals();});
+
+/* ---------- SCENARIO ---------- */
+const FS=[
+ {id:'fRoiv',g:'inp',k:'roiv',l:'ROIV share price',min:10,max:80,step:.01,u:'$',n:'11 Sep 2026 close $40.80'},
+ {id:'fImvt',g:'inp',k:'imvt',l:'IMVT share price',min:5,max:80,step:.01,u:'$',n:'11 Sep 2026 $37.18 · 206.55M sh × 56%'},
+ {id:'fCash',g:'inp',k:'cash',l:'Cash, pro forma',min:2,max:8,step:.1,u:'$B',n:'$3.9B Jun-26 + $772M Moderna'},
+ {id:'fPrio',g:'val',k:'priovant',l:'Priovant',min:0,max:40,step:.5,u:'$B',n:'Lisraya approved; NIU, CS, LPP in trials'},
+ {id:'fPulm',g:'val',k:'pulmovant',l:'Pulmovant',min:0,max:15,step:.25,u:'$B',n:'Mosliciguat, Phase 3 enrolling'},
+ {id:'fGene',g:'val',k:'genevant',l:'Genevant',min:0,max:10,step:.25,u:'$B',n:'LNP and GalNAc licensing estate'}
+];
+function buildScenario(){
+ const f=s=>`<div class="fld"><div class="fh"><label for="${s.id}">${s.l}</label><span class="hint">${s.u}</span></div>
+  <div class="fr"><input type="range" id="${s.id}" min="${s.min}" max="${s.max}" step="${s.step}" aria-label="${s.l}"><input type="number" id="${s.id}n" min="0" step="${s.step}" aria-label="${s.l}, exact value"></div><div class="hint">${s.n}</div></div>`;
+ $('#fMkt').innerHTML=FS.filter(s=>s.g==='inp').map(f).join('');
+ $('#fUnits').innerHTML=FS.filter(s=>s.g==='val').map(f).join('');
+ FS.forEach(s=>{const r=$('#'+s.id),n=$('#'+s.id+'n');
+  const set=(v,src)=>{if(!isFinite(v)||v<0)return;S[s.g][s.k]=v;if(src!==r)r.value=v;if(src!==n)n.value=+v.toFixed(2);if(s.g==='val')S.preset='custom';afterScenario();};
+  r.addEventListener('input',()=>set(+r.value,r));n.addEventListener('change',()=>set(+n.value,n));});
+ $('#catTbl').innerHTML=`<thead><tr><th>Catalyst</th><th>Window</th><th>P(positive)</th><th>If positive, $B</th><th>If not, $B</th><th style="text-align:right">EV, $B</th></tr></thead><tbody>`+
+  CAT.map(c=>{const k=S.cat[c.id],days=c.end?Math.ceil((Date.UTC(...c.end.split('-').map((x,i)=>i===1?x-1:+x))-Date.now())/864e5):null;
+   return `<tr id="cr-${c.id}"><td><div class="cn">${esc(c.ti)}</div><div class="cm">${esc(VN(c.v))}${c.src?` · <a href="${c.src}" target="_blank" rel="noopener">source</a>`:''}${c.pipe!=null?` · <button class="lnk cm" data-act="gpipe:${c.pipe}">pipeline</button>`:''}</div></td>
+   <td class="num" style="white-space:nowrap">${esc(c.win)}<div class="cm">${days!=null?(days>0?'≤ '+days+' days':'due'):'—'}</div></td>
+   <td><div class="pr"><input type="range" id="cp-${c.id}" min="0" max="1" step=".05" value="${k.p}" aria-label="Probability ${esc(c.ti)}"><output id="co-${c.id}">${Math.round(k.p*100)}%</output></div></td>
+   <td><input type="number" id="cu-${c.id}" min="0" step=".1" value="${k.up}" aria-label="Value if positive, ${esc(c.ti)}"></td>
+   <td><input type="number" id="cd-${c.id}" min="0" step=".1" value="${k.dn}" aria-label="Value lost if not, ${esc(c.ti)}"></td>
+   <td class="ev" id="ce-${c.id}"></td></tr>`;}).join('')+'</tbody>';
+ CAT.forEach(c=>{
+  $('#cp-'+c.id).addEventListener('input',e=>{S.cat[c.id].p=+e.target.value;$('#co-'+c.id).textContent=Math.round(S.cat[c.id].p*100)+'%';afterScenario();});
+  $('#cu-'+c.id).addEventListener('change',e=>{const v=+e.target.value;if(isFinite(v)&&v>=0){S.cat[c.id].up=v;afterScenario();}});
+  $('#cd-'+c.id).addEventListener('change',e=>{const v=+e.target.value;if(isFinite(v)&&v>=0){S.cat[c.id].dn=v;afterScenario();}});});
+ document.querySelectorAll('[data-pre]').forEach(b=>b.addEventListener('click',()=>applyPreset(b.dataset.pre)));
+ $('#scnReset').addEventListener('click',()=>{Object.assign(S.inp,DEF);Object.assign(S.val,PRE.base);CAT.forEach(c=>Object.assign(S.cat[c.id],{p:c.p,up:c.up,dn:c.dn}));S.preset='base';afterScenario(true);});
+ syncScenario();
+}
+function applyPreset(p){
+ if(p==='mkt'){const m=model(),target=m.mcap-S.inp.cash-m.imvt-m.ev,u=m.units;
+  if(target<=0){Object.assign(S.val,{priovant:0,pulmovant:0,genevant:0});}
+  else if(u>0){const f=target/u;for(const k in S.val)S.val[k]=+(S.val[k]*f).toFixed(2);}else Object.assign(S.val,{priovant:target*.7,pulmovant:target*.15,genevant:target*.15});
+  S.preset='market';}
+ else{Object.assign(S.val,PRE[p]);S.preset=p;}
+ afterScenario(true);}
+function syncScenario(){
+ FS.forEach(s=>{const v=S[s.g][s.k];$('#'+s.id).value=v;$('#'+s.id+'n').value=+v.toFixed(2);});
+ CAT.forEach(c=>{const k=S.cat[c.id];$('#cp-'+c.id).value=k.p;$('#co-'+c.id).textContent=Math.round(k.p*100)+'%';$('#cu-'+c.id).value=k.up;$('#cd-'+c.id).value=k.dn;});
+}
+let scnRAF=0;
+function afterScenario(sync){save();if(sync)syncScenario();cancelAnimationFrame(scnRAF);scnRAF=requestAnimationFrame(renderPage);}
+function updScenario(){
+ const m=model();
+ $('#sNav').textContent='$'+m.ps.toFixed(2);$('#sNavS').textContent=`${moneyB(m.navc)} total / ${SH.toFixed(1)}M sh`;
+ $('#sUp').textContent=pct(m.up);$('#sUpS').textContent=`at $${S.inp.roiv.toFixed(2)} · ${m.up>=0?'price below your NAV':'price above your NAV'}`;
+ $('#sEv').textContent=sgnB(m.ev);$('#sEvS').textContent=`${(m.ev*1000/SH>=0?'+':'−')}$${Math.abs(m.ev*1000/SH).toFixed(2)} / share`;
+ $('#sRes').textContent=moneyB(m.resid);$('#sResS').textContent=`you say ${moneyB(m.units)}`;
+ $('#scnTag').textContent={bear:'Bear preset',base:'Base preset',bull:'Bull preset',market:'Matched to market',custom:'Custom'}[S.preset]||'Custom';
+ CAT.forEach(c=>{const v=catEV(c),el=$('#ce-'+c.id);el.textContent=sgnB(v);el.className='ev '+(v>=0?'up':'dn');$('#cr-'+c.id).classList.toggle('dim',!!S.vant&&c.v!==S.vant);});
+ const best=CAT.reduce((a,c)=>a+S.cat[c.id].up,0),worst=CAT.reduce((a,c)=>a-S.cat[c.id].dn,0);
+ $('#catTot').textContent=`EV ${sgnB(m.ev)} · all positive $${((m.nav+best)*1000/SH).toFixed(2)} · none positive $${((m.nav+worst)*1000/SH).toFixed(2)} per share`;
+ drawStack(m);drawHeat(m);drawTorn();
+}
+function drawStack(m){
+ const box=$('#stack'),W=Math.max(box.clientWidth,480),L=112,R=70,T=6,RH=44,H=T+2*RH+30;
+ const segs=[['Cash',S.inp.cash,'var(--gray)'],['Immunovant 56%',m.imvt,'var(--ink-2)'],['Priovant',S.val.priovant,'var(--green)'],['Pulmovant',S.val.pulmovant,'var(--green-2)'],['Genevant',S.val.genevant,'var(--ochre)']];
+ const pos=Math.max(0,m.ev),max=Math.max(m.mcap,m.nav+pos,.1)*1.04,X=v=>L+v/max*(W-L-R);let s='',x=0;
+ [0,10,20,30,40,50,60].filter(t=>t<=max).forEach(t=>{s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T}" y2="${T+2*RH}" class="grid"/><text x="${X(t)}" y="${T+2*RH+16}" text-anchor="middle" class="t3 num s">$${t}B</text>`;});
+ TIP['st-m']=`<b>Market cap ${moneyB(m.mcap)}</b><div class="tm">$${S.inp.roiv.toFixed(2)} × ${SH}M shares</div>`;
+ s+=`<text x="0" y="${T+RH/2+4}" class="t1 b">Market cap</text><rect x="${X(0)}" y="${T+10}" width="${X(m.mcap)-X(0)}" height="${RH-20}" class="bo-ink" data-tip="st-m"/><text x="${X(m.mcap)+6}" y="${T+RH/2+4}" class="t1 num s">${moneyB(m.mcap)}</text>`;
+ const y2=T+RH;s+=`<text x="0" y="${y2+RH/2+4}" class="t1 b">Your parts</text>`;
+ segs.forEach((g,i)=>{if(g[1]<=0)return;const w=X(x+g[1])-X(x);TIP['st'+i]=`<b>${g[0]}</b><div class="num">${moneyB(g[1])} · ${(g[1]*1000/SH).toFixed(2)}/sh</div>`;
+  s+=`<rect x="${X(x)}" y="${y2+10}" width="${w}" height="${RH-20}" fill="${g[2]}" class="sg" data-tip="st${i}"/>`;
+  if(w>64)s+=`<text x="${X(x)+5}" y="${y2+RH/2+4}" class="s" fill="${i<2&&i!==1?'var(--ink)':'var(--panel)'}">${g[0].split(' ')[0]}</text>`;x+=g[1];});
+ if(m.ev>0){TIP['st-ev']=`<b>Catalyst book EV</b><div class="num">${sgnB(m.ev)}</div>`;s+=`<rect x="${X(x)}" y="${y2+10}" width="${X(x+m.ev)-X(x)}" height="${RH-20}" fill="none" stroke="var(--ink)" stroke-dasharray="3 2" data-tip="st-ev"/>`;x+=m.ev;}
+ else if(m.ev<0){TIP['st-ev']=`<b>Catalyst book EV</b><div class="num">${sgnB(m.ev)}</div>`;s+=`<rect x="${X(x+m.ev)}" y="${y2+6}" width="${X(x)-X(x+m.ev)}" height="${RH-12}" fill="var(--rust)" fill-opacity=".35" stroke="var(--rust)" data-tip="st-ev"/>`;x+=m.ev;}
+ s+=`<text x="${X(Math.max(x,m.nav))+6}" y="${y2+RH/2+4}" class="t1 num s b">${moneyB(m.navc)}</text>`;
+ s+=`<line x1="${X(m.mcap)}" x2="${X(m.mcap)}" y1="${T+4}" y2="${T+2*RH-4}" class="rule"/>`;
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Market cap against your sum of the parts">${s}</svg>`;
+}
+function drawHeat(m){
+ const box=$('#heat'),W=Math.max(box.clientWidth,420),PXS=[25,30,35,40,45,50,55],PV=[24,21,18,15,12,9,6],L=64,T=10,B=34,cw=(W-L-8)/PXS.length,ch=34,H=T+PV.length*ch+B;let s='';
+ PV.forEach((pv,r)=>{s+=`<text x="${L-8}" y="${T+r*ch+ch/2+4}" text-anchor="end" class="t3 num s">$${pv}B</text>`;
+  PXS.forEach((px,c)=>{const mm=model({inp:{roiv:px},val:{priovant:pv}}),u=mm.up,a=Math.min(1,Math.abs(u)/0.6);
+   TIP[`hc${r}-${c}`]=`<b>${pct(u)}</b><div class="tm">ROIV $${px} · Priovant $${pv}B</div><div class="num">NAV $${mm.ps.toFixed(2)}/sh</div><div class="tm">Click to adopt</div>`;
+   s+=`<g data-tip="hc${r}-${c}" class="hg" data-px="${px}" data-pv="${pv}" style="cursor:pointer"><rect x="${L+c*cw}" y="${T+r*ch}" width="${cw}" height="${ch}" fill="${u>=0?'var(--green)':'var(--rust)'}" fill-opacity="${(0.08+a*0.82).toFixed(2)}" class="hcell"/><text x="${L+c*cw+cw/2}" y="${T+r*ch+ch/2+4}" text-anchor="middle" class="num s" fill="${a>0.55?'var(--panel)':'var(--ink)'}">${pct(u)}</text></g>`;});});
+ PXS.forEach((px,c)=>{s+=`<text x="${L+c*cw+cw/2}" y="${T+PV.length*ch+16}" text-anchor="middle" class="t3 num s">$${px}</text>`;});
+ s+=`<text x="${L}" y="${H-2}" class="t3 cap">ROIV price →</text><text x="4" y="${T-1}" class="t3 cap" dy="0">Prio ↓</text>`;
+ const cx=L+((S.inp.roiv-22.5)/5)*cw,cy=T+((25.5-S.val.priovant)/3)*ch;
+ if(cx>=L&&cx<=W-8&&cy>=T&&cy<=T+PV.length*ch)s+=`<circle cx="${cx}" cy="${cy}" r="7" class="hcur"/><circle cx="${cx}" cy="${cy}" r="2.5" fill="var(--ink)"/>`;
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Sensitivity of upside to ROIV price and Priovant value">${s}</svg>`;
+ box.querySelectorAll('.hg').forEach(g=>g.addEventListener('click',()=>{S.inp.roiv=+g.dataset.px;S.val.priovant=+g.dataset.pv;S.preset='custom';tip.hidden=true;afterScenario(true);}));
+}
+function drawTorn(){
+ const box=$('#torn'),W=Math.max(box.clientWidth,640),L=300,R=70,RH=30,T=22;
+ const rows=CAT.map(c=>({c,k:S.cat[c.id],ev:catEV(c)})).sort((a,b)=>(b.k.up+b.k.dn)-(a.k.up+a.k.dn)),H=T+rows.length*RH+6;
+ const mx=Math.max(.5,...rows.map(r=>Math.max(r.k.up,r.k.dn)))*1.05,Z=L+(W-L-R)/2,X=v=>Z+v/mx*(W-L-R)/2;let s='';
+ const step=mx>4?2:mx>2?1:.5;for(let t=-Math.floor(mx/step)*step;t<=mx;t+=step){s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T-4}" y2="${H-4}" class="${Math.abs(t)<1e-9?'hair':'grid'}"/><text x="${X(t)}" y="${T-8}" text-anchor="middle" class="t3 num s">${t>0?'+':t<0?'−':''}$${Math.abs(t)}B</text>`;}
+ rows.forEach((r,i)=>{const cy=T+i*RH+RH/2,dim=S.vant&&r.c.v!==S.vant;
+  TIP['tn'+i]=`<b>${esc(r.c.ti)}</b><div class="num">P ${Math.round(r.k.p*100)}% · +$${r.k.up}B / −$${r.k.dn}B</div><div class="num">EV ${sgnB(r.ev)}</div><div class="tm">Click to edit</div>`;
+  s+=`<g data-tip="tn${i}" data-act="gcat:${r.c.id}" style="cursor:pointer" ${dim?'opacity=".25"':''}><rect x="0" y="${cy-RH/2}" width="${W}" height="${RH}" fill="transparent"/><text x="0" y="${cy+4}" class="t1 s">${esc(r.c.ti.length>44?r.c.ti.slice(0,43)+'…':r.c.ti)}</text>
+   <rect x="${X(-r.k.dn)}" y="${cy-7}" width="${X(0)-X(-r.k.dn)}" height="14" class="tneg" fill-opacity="${.3+.7*(1-r.k.p)}"/><rect x="${X(0)}" y="${cy-7}" width="${X(r.k.up)-X(0)}" height="14" class="tpos" fill-opacity="${.3+.7*r.k.p}"/>
+   <circle cx="${X(r.ev)}" cy="${cy}" r="5" class="tev"/><text x="${W-4}" y="${cy+4}" text-anchor="end" class="num s ${r.ev>=0?'t1':'t2'}">${sgnB(r.ev)}</text></g>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Catalyst swings: loss if negative, gain if positive, dot at expected value">${s}</svg>`;
+}
+
+/* ---------- command palette ---------- */
+const IDX=[
+ ...PAGES.map(p=>({k:'Page',t:{history:'History',structure:'Company structure',transactions:'Key transactions',scenario:'Scenario lab'}[p],s:'Go to page',a:'page:'+p})),
+ ...V.filter(v=>v.id!=='roivant').map(v=>({k:'Unit',t:v.n,s:v.a+' · '+OUTL[v.o]+' · filter all pages',a:'setv:'+v.id})),
+ ...EV.map((e,i)=>({k:'Event',t:e.ti,s:fmtD(e.d)+' · '+VN(e.v)+' · '+e.t,a:'gev:'+i})),
+ ...DEALS.map(d=>({k:'Deal',t:d.cp+' · '+d.ti,s:fmtD(d.d)+' · '+money(d.cash),a:'deal:'+d.id})),
+ ...PIPE.map((p,i)=>({k:'Trial',t:p.a+' · '+p.ind,s:p.lab+' · '+p.nx,a:'gpipe:'+i})),
+ ...CAT.map(c=>({k:'Catalyst',t:c.ti,s:c.win+' · weight it in the scenario lab',a:'gcat:'+c.id}))
+];
+let cSel=0,cRes=[];
+function openCmd(){$('#cmdk').hidden=false;$('#cq').value='';runCmd();$('#cq').focus();tip.hidden=true;}
+function closeCmd(){$('#cmdk').hidden=true;}
+function runCmd(){const q=$('#cq').value.trim().toLowerCase(),ws=q.split(/\s+/).filter(Boolean);
+ cRes=IDX.filter(o=>{const h=(o.k+' '+o.t+' '+o.s).toLowerCase();return ws.every(w=>h.includes(w));}).slice(0,40);cSel=0;drawCmd();}
+function drawCmd(){$('#cres').innerHTML=cRes.length?cRes.map((o,i)=>`<li role="option" id="co${i}" aria-selected="${i===cSel}" data-i="${i}"><span class="ck">${o.k}</span><span class="ct">${esc(o.t)}</span><span class="cs">${esc(o.s)}</span></li>`).join(''):'<li style="display:block;color:var(--ink-3)">Nothing matches. Try a unit, a partner or a year.</li>';
+ const el=$('#co'+cSel);if(el)el.scrollIntoView({block:'nearest'});$('#cq').setAttribute('aria-activedescendant','co'+cSel);}
+function pickCmd(i){const o=cRes[i];if(!o)return;closeCmd();act(o.a);}
+$('#cq').addEventListener('input',runCmd);
+$('#cq').addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();cSel=Math.min(cRes.length-1,cSel+1);drawCmd();}else if(e.key==='ArrowUp'){e.preventDefault();cSel=Math.max(0,cSel-1);drawCmd();}else if(e.key==='Enter'){e.preventDefault();pickCmd(cSel);}else if(e.key==='Escape'){e.preventDefault();closeCmd();}});
+$('#cres').addEventListener('click',e=>{const li=e.target.closest('li[data-i]');if(li)pickCmd(+li.dataset.i);});
+$('#cmdk').addEventListener('click',e=>{if(e.target.id==='cmdk')closeCmd();});
+$('#cmdBtn').addEventListener('click',openCmd);
+
+/* ---------- boot ---------- */
+$('#vantSel').innerHTML='<option value="">All units</option>'+V.filter(v=>v.id!=='roivant').map(v=>`<option value="${v.id}">${esc(v.n)}${v.to?' (exited)':''}</option>`).join('');
+$('#vantSel').addEventListener('change',e=>setVant(e.target.value||null));
+buildTypeChips();buildScenario();
+let rT=null;new ResizeObserver(()=>{clearTimeout(rT);rT=setTimeout(renderPage,120);}).observe($('main'));
+window.addEventListener('hashchange',()=>setPage(location.hash.slice(1)));
+let start=location.hash.slice(1);if(!PAGES.includes(start)){try{start=localStorage.getItem('roiv-tab')||'';}catch(e){}}
+S.page='';setPage(start||'history');
+</script>
