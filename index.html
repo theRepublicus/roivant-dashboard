@@ -332,6 +332,14 @@ svg .sterm{text-decoration:underline;text-decoration-style:dotted;cursor:help}
 .rd-evh .el{display:inline-flex;gap:5px;align-items:center;text-transform:uppercase}
 .rd-src{font-size:15px}
 
+
+/* portfolio */
+.fate{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.fate i{display:inline-block;width:10px;height:10px;border:1px solid var(--ink)}
+.fl{fill:none;stroke-width:9;stroke-opacity:.28;transition:stroke-opacity .15s}
+svg.fhov .fl{stroke-opacity:.08}svg.fhov .fl.on{stroke-opacity:.75}
+.fv:hover rect,.fv:focus rect{stroke-width:3}
+
 /* financials */
 .pxstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px dashed var(--green);margin-bottom:14px}
 .pxstats>div{padding:12px 16px 12px 0}
@@ -435,8 +443,9 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
       <button class="tab" role="tab" id="tab-history" data-act="page:history">History<kbd>1</kbd></button>
       <button class="tab" role="tab" id="tab-structure" data-act="page:structure">Structure<kbd>2</kbd></button>
       <button class="tab" role="tab" id="tab-transactions" data-act="page:transactions">Transactions<kbd>3</kbd></button>
-      <button class="tab" role="tab" id="tab-subsidiaries" data-act="page:subsidiaries">Subsidiaries<kbd>4</kbd></button>
-      <button class="tab" role="tab" id="tab-financials" data-act="page:financials">Financials<kbd>5</kbd></button>
+      <button class="tab" role="tab" id="tab-portfolio" data-act="page:portfolio">Portfolio<kbd>4</kbd></button>
+      <button class="tab" role="tab" id="tab-subsidiaries" data-act="page:subsidiaries">Subsidiaries<kbd>5</kbd></button>
+      <button class="tab" role="tab" id="tab-financials" data-act="page:financials">Financials<kbd>6</kbd></button>
     </nav>
     <div class="tools">
       <label class="lab" for="vantSel" style="color:var(--on-page-2)">Unit</label>
@@ -557,6 +566,36 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
     </div>
   </section>
 
+  <!-- PORTFOLIO -->
+  <section id="pg-portfolio" aria-labelledby="tab-portfolio" hidden>
+    <div class="pg-h">
+      <div><h2>What came in, what <em>went out</em></h2>
+      <p class="lead">Since 2014 Roivant has licensed, bought or built thirteen businesses. This page shows where each one came from and what Roivant paid, how each sale was priced, and how the portfolio looked at each year end.</p></div>
+    </div>
+    <div class="panel rv"><div class="pxstats" id="pfStats" style="margin:0;border-top:0"></div></div>
+    <div class="panel rv" style="--d:.05s">
+      <div class="sep"><h3>Key acquisitions</h3><span class="hint">sort any column · click a unit for its file</span></div>
+      <p class="sub">Every asset Roivant licensed, bought or built, with the upfront price where it was disclosed and what the asset became.</p>
+      <div class="frame" id="acqTbl"></div>
+    </div>
+    <div class="panel rv" style="--d:.1s">
+      <div class="sep"><h3>Key sales</h3><span class="hint">green bar: cash to Roivant · black bar: what Roivant paid to get in</span></div>
+      <p class="sub">Four exits and one patent settlement. Telavant alone returned more than every other exit combined.</p>
+      <div class="frame" id="saleChart"></div>
+      <div class="frame" style="margin-top:12px" id="saleTbl"></div>
+    </div>
+    <div class="panel rv" style="--d:.15s">
+      <div class="sep"><h3>How the portfolio changed</h3></div>
+      <p class="sub">Left to right: who the asset came from, the Roivant business built around it, and how that business ended for Roivant. Hover any node to trace its path; click a business to open its file.</p>
+      <div class="frame" id="flow"></div>
+            <div class="sep" style="margin-top:26px"><h3 style="font-size:18px">Businesses held at each year end</h3><span class="hint">coloured by how each one ended · click a block for its file</span></div>
+      <div class="frame" id="comp"></div>
+      <div class="legend" id="fateLeg"></div>
+      <div class="sep" style="margin-top:26px"><h3 style="font-size:18px">Three eras</h3></div>
+      <div class="frame" id="eraTbl"></div>
+    </div>
+  </section>
+
   <!-- SUBSIDIARIES -->
   <section id="pg-subsidiaries" aria-labelledby="tab-subsidiaries" hidden>
     <div class="pg-h">
@@ -617,7 +656,7 @@ tr.flash{animation:none}tr.flash td{animation:flt 1.6s ease-out}
 <footer class="sfoot">
   Sources: <a href="https://www.sec.gov/Archives/edgar/data/0001635088/000163508826000061/roiv-20260331.htm" target="_blank" rel="noopener">FY2026 10-K</a><a href="https://investor.roivant.com/news-releases/news-release-details/roivant-reports-financial-results-first-quarter-ended-june-30-2" target="_blank" rel="noopener">Q1 FY2027 results</a><a href="https://www.sec.gov/Archives/edgar/data/1635088/000114036125027849/ny20049997x3_ars.pdf" target="_blank" rel="noopener">2025 annual report</a><br>
   Items tagged approx. use dates from general knowledge, not a filing opened for this dashboard. Dotted-underlined terms show a definition on hover; click to pin it.<br>
-  Keys: 1–5 pages · / search · ← → scrub the timeline or step through events · Esc close
+  Keys: 1–6 pages · / search · ← → scrub the timeline or step through events · Esc close
 </footer>
 </div>
 
@@ -818,7 +857,7 @@ document.addEventListener('keydown',e=>{
  if((e.key==='/'&&!typing(e.target))||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k')){e.preventDefault();openCmd();return;}
  if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('svg [data-act]')){e.preventDefault();act(e.target.closest('[data-act]').dataset.act);return;}
  if(typing(e.target)||e.metaKey||e.ctrlKey||e.altKey)return;
- const pg={'1':'history','2':'structure','3':'transactions','4':'subsidiaries','5':'financials'}[e.key];if(pg){setPage(pg);return;}
+ const pg={'1':'history','2':'structure','3':'transactions','4':'portfolio','5':'subsidiaries','6':'financials'}[e.key];if(pg){setPage(pg);return;}
  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){const d=e.key==='ArrowLeft'?-1:1;
   if(!panel.hidden&&S.curEv!=null){e.preventDefault();stepEv(d);}
   else if(S.page==='history'){e.preventDefault();setYear(S.year+d/12);}}
@@ -847,7 +886,7 @@ function openPipe(i){const p=PIPE[i];tip.hidden=true;S.curEv=null;
 function openPx(i){const p=PX[i];S.curEv=null;pbody.innerHTML=`<div class="pk">ROIV share price</div><h3>$${p[1].toFixed(2)}</h3><div class="pm">${fmtD(p[0])} · ${esc(p[2])}</div><p class="hint">Sparse sourced prints, not a continuous price series.</p><div class="pa"><a href="${p[3]}" target="_blank" rel="noopener">Source ↗</a></div>`;panel.hidden=false;}
 
 /* ---------- global state ---------- */
-const PAGES=['history','structure','transactions','subsidiaries','financials'];
+const PAGES=['history','structure','transactions','portfolio','subsidiaries','financials'];
 function setVant(v){S.vant=v;$('#vantSel').value=v||'';closePanel();renderPage();}
 function setPage(p){if(!PAGES.includes(p))p='history';const changed=S.page!==p;S.page=p;
  PAGES.forEach(k=>{$('#pg-'+k).hidden=k!==p;$('#tab-'+k).setAttribute('aria-selected',k===p);});
@@ -857,7 +896,7 @@ function setPage(p){if(!PAGES.includes(p))p='history';const changed=S.page!==p;S
  closePanel();tip.hidden=true;if(p!=='history'&&S.playing)stopPlay();renderPage();}
 function gotoDeal(id){const d=DEALS.find(x=>x.id===id);if(!d)return;S.dir='all';S.q='';$('#dealQ').value='';syncDir();if(S.vant&&S.vant!==d.ent){S.vant=null;$('#vantSel').value='';}
  setPage('transactions');requestAnimationFrame(()=>{const c=$('#card-'+id);if(c){c.scrollIntoView({behavior:RM()?'auto':'smooth',block:'center'});c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');}});}
-function renderPage(){updKPI();if(S.page==='history'){drawTimeline();renderVCards();}else if(S.page==='structure'){drawTree();drawPipe();drawSOTP();}else if(S.page==='transactions'){drawBubbles();drawCash();drawSankey();drawDumb();renderDeals();}else if(S.page==='subsidiaries'){renderSubs();}else{renderFin();}}
+function renderPage(){updKPI();if(S.page==='history'){drawTimeline();renderVCards();}else if(S.page==='structure'){drawTree();drawPipe();drawSOTP();}else if(S.page==='transactions'){drawBubbles();drawCash();drawSankey();drawDumb();renderDeals();}else if(S.page==='portfolio'){renderPortfolio();}else if(S.page==='subsidiaries'){renderSubs();}else{renderFin();}}
 function updKPI(){const m=model();$('#kMcap').textContent=moneyB(m.mcap);$('#kPx').textContent=S.inp.roiv.toFixed(2);$('#tPx').textContent='$'+S.inp.roiv.toFixed(2);$('#kCash').textContent=moneyB(S.inp.cash);
  const M=FIN.price&&FIN.price.monthly||[];if(M.length){const last=M[M.length-1][1];$('#kSp').textContent='$'+last.toFixed(2);$('#kSpS').textContent=`${pct(last/10-1)} vs $10 listing reference · history`;}
  const days=Math.max(0,Math.ceil((Date.UTC(2026,11,31)-Date.now())/864e5));$('#kDays').textContent=days>0?`≤ ${days} days`:'Due';}
@@ -1379,6 +1418,118 @@ function openUE(uid,i){const u=UNIT(uid),ev=uEvents(u),e=ev[i];if(!e)return;tip.
  panel.hidden=false;document.querySelectorAll('#evTbl tr.hl').forEach(x=>x.classList.remove('hl'));const li=$('#ue-'+i);if(li&&S.page==='subsidiaries'){li.classList.add('hl');}hlMarker(i);}
 function stepUE(d){if(!SU.cur)return;openUE(SU.cur.u,SU.cur.i+d);}
 
+/* ---------- PORTFOLIO ---------- */
+/* Every figure here is taken from the research files in data/ (see each row's source). */
+const ACQ=[
+ {d:'2014-12',asset:'Intepirdine',from:'GSK',v:'axovant',up:5,upl:'$5M',became:'Failed Phase 3 in Alzheimer’s (2017)',appr:'',fate:'wound',src:'https://www.cnbc.com/2015/06/11/biggest-biotech-ipo-ever-and-the-ceo-is-29.html'},
+ {d:'2016-06',asset:'Relugolix (TAK-385)',from:'Takeda',v:'myovant',up:null,upl:'Undisclosed',became:'Orgovyx and Myfembree',appr:'2020, 2021 (under Sumitovant)',fate:'sumi',src:'https://www.takeda.com/newsroom/newsreleases/2016/roivant-sciences-and-takeda-launch-myovant-science'},
+ {d:'2016',asset:'RVT-802 (cultured thymus tissue)',from:'Duke University',v:'enzyvant',up:null,upl:'Undisclosed',became:'Rethymic, first therapy for congenital athymia',appr:'2021 (under Sumitovant)',fate:'sumi',src:'https://www.businesswire.com/news/home/20190605005305/en/Enzyvant-Announces-FDA-Acceptance-of-Biolog'},
+ {d:'2017-02',asset:'Vibegron',from:'Merck',v:'urovant',up:25,upl:'$25M',became:'Gemtesa for overactive bladder',appr:'2020 (under Sumitovant)',fate:'sumi',src:'https://www.sec.gov/Archives/edgar/data/1740547/000156459019031967/urov-10q_20190630.htm'},
+ {d:'2017-09',asset:'Health-data linkage platform',from:'Built in-house',v:'datavant',up:null,upl:'Incubated',became:'Datavant, merged with Ciox at $7.0B',appr:'',fate:'ciox',src:'https://www.datavant.com/press-release/datavant-and-ciox-health-announce-merger-creating-the-largest'},
+ {d:'2017-12',asset:'HL161 (batoclimab), later IMVT-1402',from:'HanAll Biopharma',v:'immunovant',up:30,upl:'$30M (up to ~$502.5M)',became:'IMVT-1402 in potentially registrational trials',appr:'',fate:'held',src:'https://www.thepharmaletter.com/in-brief/brief-hanall-biopharma-gets-30-million-upfront-from-roivant-sciences'},
+ {d:'2018',asset:'KAR5585 (rodatristat ethyl)',from:'Karos Pharmaceuticals',v:'altavant',up:null,upl:'Undisclosed',became:'Failed Phase 2b in PAH (2023)',appr:'',fate:'sumi',src:'https://pulmonaryhypertensionnews.com/news/roivant-launches-altavant-new-company-developing-pah-ther'},
+ {d:'2018-04-11',asset:'LNP and GalNAc delivery IP',from:'Arbutus Biopharma (joint venture)',v:'genevant',up:37.5,upl:'$37.5M commitment',became:'Licensing estate; $2.25B Moderna settlement',appr:'',fate:'held',src:'https://www.globenewswire.com/news-release/2018/04/11/1468874/0/en/Arbutus-and-Roivant-Launch-Genevant-Sciences-with-Industry-Leading-Platform-to-Develop-Broad-Range-of-RNA-Therapeutics-for-Genetic-Diseases.html'},
+ {d:'2018-08-21',asset:'Tapinarof',from:'GSK',v:'dermavant',up:198,upl:'£150M (~$198M) + £100M milestone',became:'VTAMA cream for psoriasis and atopic dermatitis',appr:'2022 (under Roivant)',fate:'organon',src:'https://www.globenewswire.com/news-release/2018/08/21/1554786/0/en/Dermavant-Sciences-Announces-Clos'},
+ {d:'2019',asset:'Cystic fibrosis gene therapy',from:'University of Iowa',v:'spirovant',up:null,upl:'Undisclosed',became:'Preclinical; management buy-out from Sumitomo (2024)',appr:'',fate:'sumi',src:'https://www.biopharmadive.com/news/roivant-sumitomo-cystic-fibrosis-unveil-spirovant/566335/'},
+ {d:'2021-09',asset:'Brepocitinib',from:'Pfizer',v:'priovant',up:null,upl:'25% of Priovant, no cash disclosed',became:'Lisraya for dermatomyositis',appr:'2026 (under Roivant)',fate:'held',src:'https://www.pfizer.com/news/press-release/press-release-detail/roivant-and-pfizer-unveil-priovant-therapeutics-and-ongoing'},
+ {d:'2022-12-01',asset:'RVT-3101 (anti-TL1A)',from:'Pfizer',v:'telavant',up:45,upl:'~$45M + 25% of Telavant',became:'Sold to Roche 13 months later',appr:'',fate:'roche',src:'https://www.statnews.com/2023/10/23/roche-telavant-roivant/'},
+ {d:'2023-07-27',asset:'Mosliciguat',from:'Bayer',v:'pulmovant',up:14,upl:'~$14M (up to $280M milestones)',became:'Positive Phase 2; Phase 3 enrolling',appr:'',fate:'held',src:'https://www.statnews.com/2024/09/10/roivant-mosliciguat-pulmonary-hypertension-from-bayer/'}
+];
+const SALES=[
+ {d:'2019-12-27',buyer:'Sumitomo Dainippon',what:'Stakes in Myovant, Urovant, Enzyvant, Altavant and Spirovant, plus >10% of Roivant',units:['myovant','urovant','enzyvant','altavant','spirovant'],head:3000,cash:2000,cashl:'$2.0B for the Vants (+$1.0B for Roivant shares)',entry:null,entryl:'Mostly undisclosed; $25M for vibegron',next:'Sumitovant won four approvals (Orgovyx, Gemtesa, Myfembree, Rethymic), took Urovant private (2021) and Myovant at $2.9B (2023), then folded them into Sumitomo Pharma America. Rodatristat failed; Sumitomo booked impairments in 2024.',fate:'sumi',src:'https://www.sumitomo-pharma.com/news/20191228.html'},
+ {d:'2021-07-28',buyer:'Ciox Health (merger)',what:'Datavant, merged at a $7.0B combined value',units:['datavant'],head:7000,cash:320,cashl:'~$320M + ~12% of the combined company',entry:100.6,entryl:'$100.6M carrying value',next:'The combined Datavant kept buying: Aetion, Ontellus and DigitalOwl closed in 2025. Roivant booked a $443.8M gain.',fate:'ciox',src:'https://www.sec.gov/Archives/edgar/data/1635088/000119312521239461/d65062ds4a.htm'},
+ {d:'2023-12-14',buyer:'Roche',what:'Telavant and RVT-3101 (US and Japan rights)',units:['telavant'],head:7100,cash:5200,cashl:'~$5.2B (Roivant’s 75%)',entry:45,entryl:'~$45M upfront to Pfizer',next:'Roche renamed it afimkibart and started Phase 3 in ulcerative colitis and Crohn’s. Merck’s rival tulisokibart reached a Phase 3 win first (Jun 2026).',fate:'roche',src:'https://investor.roivant.com/news-releases/news-release-details/roche-completes-acquisition-telavant-roivant-including-rights'},
+ {d:'2024-10-28',buyer:'Organon',what:'Dermavant and VTAMA',units:['dermavant'],head:1200,cash:183.6,cashl:'$183.6M at close; $175M upfront + $75M milestone + up to $950M',entry:198,entryl:'£150M (~$198M) upfront to GSK',next:'Organon won the atopic dermatitis approval (Dec 2024) and paid the $75M milestone. VTAMA made $128M in 2025 against a $150M target.',fate:'organon',src:'https://investor.roivant.com/news-releases/news-release-details/organon-acquire-dermavant-including-'},
+ {d:'2026-03-03',buyer:'Moderna (settlement)',what:'Licence to Genevant and Arbutus LNP patents',units:['genevant'],head:2250,cash:772,cashl:'$772M received; $1.3B more is contingent',entry:37.5,entryl:'$37.5M commitment to Genevant',next:'Genevant keeps the patents. $1.3B more is due if the Federal Circuit upholds the §1498 ruling, and suits against Pfizer and BioNTech continue.',fate:'held',mon:1,src:'https://www.globenewswire.com/news-release/2026/03/03/3248941/34323/en/Roivant-Announces-Genevant-Sciences-and-Arbutus-Biopharma-s-2-25-Billion-Global-Settlement-With-Moderna.html'}
+];
+const FATE={sumi:['Sumitomo alliance, 2019','var(--ochre)'],ciox:['Ciox merger, 2021','var(--sold)'],roche:['Roche, 2023','var(--ink)'],organon:['Organon, 2024','var(--ink-2)'],wound:['Wound down, 2024','var(--rust)'],held:['Still held','var(--green)']};
+const FATE_ORDER=['held','roche','organon','ciox','sumi','wound'];
+const ERAS=[
+ {era:'Incubator',yrs:'2014–2019',model:'Buy shelved big-pharma assets cheaply, put each in a single-asset Vant, and list the Vants.',added:'Axovant, Dermavant, Myovant, Urovant, Enzyvant, Datavant, Immunovant, Genevant, Altavant, Spirovant',out:'None sold. Intepirdine failed Phase 3 (2017).',cap:'Axovant IPO $315M (2015), Myovant IPO $218M (2016), SoftBank-led $1.1B (2017), Urovant IPO $140M (2018)'},
+ {era:'Reset',yrs:'2019–2021',model:'Sell most of the listed Vants to one strategic buyer and use the cash to reposition.',added:'Immunovant listed via SPAC (2019)',out:'Five Vants to Sumitomo ($3.0B incl. Roivant shares); Datavant merged with Ciox ($320M cash)',cap:'Sumitomo $3.0B (2019); Roivant lists via MAAC SPAC, $213.4M net (2021)'},
+ {era:'Allocator',yrs:'2021–now',model:'Fewer, larger bets on late-stage assets, sold to pharma at the right moment or kept to commercialise.',added:'Priovant (2021), Telavant (2022), Pulmovant (2023)',out:'Telavant to Roche (~$5.2B), Dermavant to Organon, Moderna settlement ($772M)',cap:'Sumitomo stake bought back $648.4M (2024); ~$887M into Immunovant; buybacks'}
+];
+function renderPortfolio(){
+ const acqUp=ACQ.reduce((a,r)=>a+(r.up||0),0),approvals=6,exits=SALES.filter(s=>!s.mon),cashOut=exits.reduce((a,s)=>a+s.cash,0);
+ $('#pfStats').innerHTML=`<div><div class="kl">Businesses in</div><div class="kv num">${ACQ.length}</div><div class="ks">12 licensed or bought, 1 built</div></div>
+  <div><div class="kl">Disclosed upfronts</div><div class="kv num">${money(acqUp)}</div><div class="ks">across 7 deals; 6 undisclosed or equity-only</div></div>
+  <div><div class="kl">Approvals from these assets</div><div class="kv num">${approvals}</div><div class="ks">2 under Roivant, 4 after sale to Sumitomo</div></div>
+  <div><div class="kl">Cash from sales</div><div class="kv num g">${money(cashOut)}</div><div class="ks">4 exits, excl. $772M Moderna settlement</div></div>`;
+ TR.acq=()=>{$('#acqTbl').innerHTML=table('acq',[
+  {k:'y',l:'Date',cls:'num nw',sort:r=>yf(r.d),fmt:r=>fmtD(r.d)},
+  {k:'asset',l:'Asset',fmt:r=>`<b>${glz(r.asset)}</b>`},
+  {k:'from',l:'From'},
+  {k:'v',l:'Into',fmt:r=>`<button class="lnk" data-act="unit:${r.v}">${esc(VN(r.v))}</button>`},
+  {k:'up',l:'Paid upfront',cls:'num',fmt:r=>esc(r.upl)},
+  {k:'became',l:'What it became',fmt:r=>glz(r.became)},
+  {k:'appr',l:'Approved',fmt:r=>r.appr?`<span class="pill p-approved">${esc(r.appr)}</span>`:'–'},
+  {k:'fate',l:'Outcome for Roivant',sort:r=>FATE_ORDER.indexOf(r.fate),fmt:r=>`<span class="fate"><i style="background:${FATE[r.fate][1]}"></i>${FATE[r.fate][0]}</span>`},
+  {k:'src',l:'',nosort:1,fmt:r=>src(r.src)}],ACQ,{sort:'y'});};TR.acq();
+ drawSales();
+ TR.sale=()=>{$('#saleTbl').innerHTML=table('sale',[
+  {k:'y',l:'Date',cls:'num nw',sort:r=>yf(r.d),fmt:r=>fmtD(r.d)},
+  {k:'buyer',l:'Buyer',fmt:r=>`<b>${esc(r.buyer)}</b>${r.mon?' <span class="ap">settlement</span>':''}`},
+  {k:'what',l:'What Roivant gave up',fmt:r=>glz(r.what)},
+  {k:'head',l:'Headline',cls:'num r',fmt:r=>money(r.head)+(r.buyer==='Organon'?' max':'')},
+  {k:'cash',l:'Cash to Roivant',cls:'num',fmt:r=>`<b>${money(r.cash)}</b><div class="dim2">${esc(r.cashl)}</div>`},
+  {k:'entry',l:'Roivant’s entry cost',cls:'num',fmt:r=>esc(r.entryl)},
+  {k:'next',l:'What happened next',nosort:1,fmt:r=>`<span class="dim2">${glz(r.next)}</span>`},
+  {k:'src',l:'',nosort:1,fmt:r=>src(r.src)}],SALES,{sort:'y'});};TR.sale();
+ drawFlow();drawComp();
+ TR.era=()=>{$('#eraTbl').innerHTML=table('era',[
+  {k:'era',l:'Era',fmt:r=>`<b>${r.era}</b><div class="dim2 num">${r.yrs}</div>`},
+  {k:'model',l:'Operating model',nosort:1},{k:'added',l:'Added',nosort:1},{k:'out',l:'Sold or lost',nosort:1},{k:'cap',l:'Capital in and out',nosort:1,fmt:r=>`<span class="dim2">${esc(r.cap)}</span>`}],ERAS);};TR.era();
+}
+function drawSales(){
+ const box=$('#saleChart'),W=Math.max(box.clientWidth,600),L=200,R=150,RH=46,T=26,rows=SALES.slice().sort((a,b)=>b.cash-a.cash),H=T+rows.length*RH+10,mx=Math.max(...rows.map(r=>r.cash))*1.02,X=v=>L+v/mx*(W-L-R);let s='';
+ [0,1000,2000,3000,4000,5000].filter(t=>t<=mx).forEach(t=>{s+=`<line x1="${X(t)}" x2="${X(t)}" y1="${T-6}" y2="${H-6}" class="grid"/><text x="${X(t)}" y="${T-12}" text-anchor="middle" class="t3 num s">${t?'$'+t/1000+'B':'$0'}</text>`;});
+ rows.forEach((r,i)=>{const y=T+i*RH,mult=r.entry?r.cash/r.entry:null;
+  TIP['sl'+i]=`<b>${esc(r.buyer)}</b><div class="tm">${fmtD(r.d)}</div><div class="num">Cash to Roivant ${money(r.cash)}</div><div class="num">Entry ${esc(r.entryl)}</div>${mult?`<div class="num">${mult.toFixed(1)}× cash on entry cost</div>`:''}`;
+  s+=`<g data-tip="sl${i}"><rect x="0" y="${y}" width="${W}" height="${RH}" fill="transparent"/><text x="${L-10}" y="${y+RH/2+5}" text-anchor="end" class="t1 b">${esc(r.buyer.replace(/ \(.*\)/,''))}</text>
+   <rect x="${X(0)}" y="${y+10}" width="${Math.max(2,X(r.cash)-X(0))}" height="${RH-20}" fill="${r.mon?'none':'var(--green)'}" stroke="var(--green-2)" ${r.mon?'stroke-dasharray="4 3"':''}/>
+   ${r.entry?`<rect x="${X(0)}" y="${y+RH/2-3}" width="${Math.max(3,X(r.entry)-X(0))}" height="6" fill="var(--ink)"/>`:''}
+   <text x="${X(r.cash)+8}" y="${y+RH/2+5}" class="t1 num s">${money(r.cash)}${mult?` · ${mult>=10?Math.round(mult):mult.toFixed(1)}× entry`:''}${r.mon?' · settlement':''}</text></g>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Cash to Roivant from each sale against its entry cost">${s}</svg>`;
+}
+function drawFlow(){
+ const box=$('#flow'),W=Math.max(box.clientWidth,820),T=34,RH=32,rows=ACQ.slice().sort((a,b)=>FATE_ORDER.indexOf(a.fate)-FATE_ORDER.indexOf(b.fate)||yf(a.d)-yf(b.d)),H=T+rows.length*RH+16;
+ const xL=190,xM=W/2-70,xR=W-230,NW=10,mid=rows.map((r,i)=>({...r,y:T+i*RH+RH/2}));
+ const srcs=[...new Set(rows.map(r=>r.from))].map(n=>({n,ys:mid.filter(m=>m.from===n).map(m=>m.y)})).map(o=>({...o,c:o.ys.reduce((a,b)=>a+b,0)/o.ys.length})).sort((a,b)=>a.c-b.c);
+ const lay=(list,key)=>{const tot=list.reduce((a,o)=>a+o.k,0),gap=(H-T-16-tot*RH)/(Math.max(1,list.length-1));let y=T;return list.map(o=>{const r={...o,y0:y,h:o.k*RH-8};y+=o.k*RH+Math.max(0,gap)*0;return r;});};
+ const left=lay(srcs.map(o=>({n:o.n,k:o.ys.length})));
+ const fates=FATE_ORDER.filter(f=>rows.some(r=>r.fate===f)).map(f=>({n:f,k:rows.filter(r=>r.fate===f).length}));const right=lay(fates);
+ const curve=(x1,y1,x2,y2)=>{const mx=(x1+x2)/2;return `M${x1} ${y1}C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`;};
+ let links='',nodes='';const off={},offR={};
+ mid.forEach((m,i)=>{const L0=left.find(o=>o.n===m.from),R0=right.find(o=>o.n===m.fate);off[m.from]=(off[m.from]||0);offR[m.fate]=(offR[m.fate]||0);
+  const ly=L0.y0+off[m.from]*RH+RH/2-4,ry=R0.y0+offR[m.fate]*RH+RH/2-4;off[m.from]++;offR[m.fate]++;const col=FATE[m.fate][1];
+  links+=`<path class="fl f-${m.v}" d="${curve(xL+NW,ly,xM,m.y)}" stroke="${col}"/><path class="fl f-${m.v}" d="${curve(xM+130,m.y,xR,ry)}" stroke="${col}"/>`;
+  TIP['fv'+i]=`<b>${esc(VN(m.v))}</b><div>${esc(m.asset)}</div><div class="tm">From ${esc(m.from)}, ${fmtD(m.d)} · ${esc(m.upl)}</div><div class="tm">Became: ${esc(m.became)}</div><div class="tm">Outcome: ${FATE[m.fate][0]}</div>`;
+  nodes+=`<g class="fv" data-v="${m.v}" data-tip="fv${i}" data-act="unit:${m.v}" tabindex="0" role="button" style="cursor:pointer"><rect x="${xM}" y="${m.y-12}" width="130" height="24" fill="var(--panel)" stroke="${col}" stroke-width="1.5"/><text x="${xM+65}" y="${m.y+5}" text-anchor="middle" class="t1 s b">${esc(VN(m.v))}</text></g>`;});
+ left.forEach(o=>{nodes+=`<g class="fs" data-s="${esc(o.n)}"><rect x="${xL}" y="${o.y0}" width="${NW}" height="${o.h}" fill="var(--ink-2)"/><text x="${xL-8}" y="${o.y0+o.h/2+5}" text-anchor="end" class="t1 s">${esc(o.n.replace(/ \(.*\)$/,'').replace(' Pharmaceuticals',''))}</text></g>`;});
+ right.forEach(o=>{nodes+=`<g class="ff" data-f="${o.n}"><rect x="${xR}" y="${o.y0}" width="${NW}" height="${o.h}" fill="${FATE[o.n][1]}"/><text x="${xR+NW+8}" y="${o.y0+o.h/2+5}" class="t1 s b">${FATE[o.n][0]}${o.k>1?` <tspan class="t3 num" font-weight="400">· ${o.k}</tspan>`:''}</text></g>`;});
+ const hd=`<text x="${xL}" y="16" class="t3 cap">Where it came from</text><text x="${xM+65}" y="16" text-anchor="middle" class="t3 cap">Roivant business</text><text x="${xR}" y="16" class="t3 cap">How it ended for Roivant</text>`;
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Flow from licensor to Roivant business to outcome">${hd}<g class="fls">${links}</g>${nodes}</svg>`;
+ const svg=box.querySelector('svg'),hl=sel=>{svg.classList.toggle('fhov',!!sel);svg.querySelectorAll('.fl').forEach(p=>p.classList.toggle('on',!!sel&&sel(p)));};
+ svg.querySelectorAll('.fv').forEach(g=>{g.onmouseenter=()=>hl(p=>p.classList.contains('f-'+g.dataset.v));g.onmouseleave=()=>hl(null);});
+ svg.querySelectorAll('.fs').forEach(g=>{const vs=mid.filter(m=>m.from===g.dataset.s).map(m=>'f-'+m.v);g.onmouseenter=()=>hl(p=>vs.some(c=>p.classList.contains(c)));g.onmouseleave=()=>hl(null);});
+ svg.querySelectorAll('.ff').forEach(g=>{const vs=mid.filter(m=>m.fate===g.dataset.f).map(m=>'f-'+m.v);g.onmouseenter=()=>hl(p=>vs.some(c=>p.classList.contains(c)));g.onmouseleave=()=>hl(null);});
+}
+function drawComp(){
+ const box=$('#comp'),yrs=[];for(let y=2014;y<=2026;y++)yrs.push(y);
+ const fateOf=id=>(ACQ.find(a=>a.v===id)||{}).fate||'held',units=V.filter(v=>v.id!=='roivant');
+ const at=y=>{const e=y===2026?NOW:y+.999;return units.filter(v=>yf(v.f)<=e&&(!v.to||yf(v.to)>e));};
+ const mxN=Math.max(...yrs.map(y=>at(y).length)),W=Math.max(box.clientWidth,820),L=40,R=10,T=40,BH=24,H=T+mxN*BH+44,cw=(W-L-R)/yrs.length;let s='';
+ [[2014,2019.99,'Incubator'],[2019.99,2021.1,'Reset'],[2021.1,2027,'Allocator']].forEach((e,i)=>{const x0=L+(Math.max(2014,e[0])-2014)*cw,x1=L+(Math.min(2027,e[1])-2014)*cw;s+=`<rect x="${x0}" y="${T-30}" width="${x1-x0}" height="${mxN*BH+32}" class="${i===1?'band-b':'band-a'}"/><text x="${x0+6}" y="${T-16}" class="t3 cap">${e[2]}</text>`;});
+ yrs.forEach((y,i)=>{const list=at(y).sort((a,b)=>FATE_ORDER.indexOf(fateOf(a.id))-FATE_ORDER.indexOf(fateOf(b.id))||yf(a.f)-yf(b.f)),x=L+i*cw+3,w=cw-6;
+  list.forEach((v,k)=>{const yy=T+(mxN-1-k)*BH,f=fateOf(v.id),key=`cb${y}-${v.id}`;
+   TIP[key]=`<b>${esc(v.n)}</b> · ${y===2026?'today':'end of '+y}<div>${esc(v.a)}</div><div class="tm">Held ${yrs0(v)} · outcome: ${FATE[f][0]}</div>`;
+   s+=`<g data-tip="${key}" data-act="unit:${v.id}" style="cursor:pointer" class="cb c-${v.id}"><rect x="${x}" y="${yy+1}" width="${w}" height="${BH-3}" fill="${FATE[f][1]}" fill-opacity="${f==='held'?.9:.55}"/>${w>58?`<text x="${x+5}" y="${yy+BH/2+4}" class="s" fill="${f==='held'||f==='roche'||f==='organon'?'var(--panel)':'var(--ink)'}">${esc(v.n.length>11?v.n.slice(0,10)+'…':v.n)}</text>`:''}</g>`;});
+  s+=`<text x="${L+i*cw+cw/2}" y="${T+mxN*BH+18}" text-anchor="middle" class="t3 num s">${y===2026?'Now':y}</text><text x="${L+i*cw+cw/2}" y="${T+(mxN-list.length)*BH-6}" text-anchor="middle" class="t1 num s b">${list.length||''}</text>`;});
+ box.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Businesses Roivant held at each year end, coloured by eventual outcome">${s}</svg>`;
+ box.querySelectorAll('.cb').forEach(g=>{const c=[...g.classList].find(x=>x.startsWith('c-'));g.onmouseenter=()=>box.querySelectorAll('.cb').forEach(o=>o.style.opacity=o.classList.contains(c)?1:.35);g.onmouseleave=()=>box.querySelectorAll('.cb').forEach(o=>o.style.opacity='');});
+}
+const yrs0=v=>`${v.f.slice(0,4)}–${v.to?v.to.slice(0,4):'now'}`;
+
 /* ---------- FINANCIALS ---------- */
 let PXS={r:'all',log:false},PXG=null;
 function pxPoints(){return (FIN.price&&FIN.price.monthly||[]).map(([d,p])=>({d,y:yf(d),p:+p})).filter(o=>isFinite(o.p)&&o.p>0);}
@@ -1481,7 +1632,7 @@ function renderFinTbl(){
 
 /* ---------- command palette ---------- */
 const IDX=[
- ...PAGES.map(p=>({k:'Page',t:{history:'History',structure:'Company structure',transactions:'Key transactions',subsidiaries:'Subsidiaries',financials:'Financials and share price'}[p],s:'Go to page',a:'page:'+p})),
+ ...PAGES.map(p=>({k:'Page',t:{history:'History',structure:'Company structure',transactions:'Key transactions',portfolio:'Portfolio: acquisitions, sales and how it changed',subsidiaries:'Subsidiaries',financials:'Financials and share price'}[p],s:'Go to page',a:'page:'+p})),
  ...V.map(v=>({k:'File',t:(v.id==='roivant'?'Roivant':v.n)+' full file',s:v.a+' · full text',a:'read:file-'+v.id})),
  ...V.map(v=>({k:'Unit',t:(v.id==='roivant'?'Roivant':v.n)+' overview',s:'Tables and history chart',a:'unit:'+v.id})),
  ...Object.entries(GID).filter(e=>e[1]!=='parent').map(([n,id])=>({k:'Area',t:n,s:'Full disease-area brief',a:'read:area-'+id})),
@@ -1509,7 +1660,7 @@ $('#cmdBtn').addEventListener('click',openCmd);
 /* ---------- boot ---------- */
 $('#vantSel').innerHTML='<option value="">All units</option>'+V.filter(v=>v.id!=='roivant').map(v=>`<option value="${v.id}">${esc(v.n)}${v.to?' (exited)':''}</option>`).join('');
 $('#vantSel').addEventListener('change',e=>setVant(e.target.value||null));
-buildTypeChips();document.querySelectorAll('.lead,.sub,.foot').forEach(glzNode);
+buildTypeChips();$('#fateLeg').innerHTML=FATE_ORDER.map(f=>`<span><i style="background:${FATE[f][1]}"></i>${FATE[f][0]}</span>`).join('');document.querySelectorAll('.lead,.sub,.foot').forEach(glzNode);
 let rT=null;new ResizeObserver(()=>{clearTimeout(rT);rT=setTimeout(renderPage,120);}).observe($('main'));
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(/^(file|area)-/.test(h)){if(S.page!=='subsidiaries')setPage('subsidiaries');openReader(h,true);}else{closeReader();setPage(h);}});
 let start=location.hash.slice(1);if(!PAGES.includes(start)){try{start=localStorage.getItem('roiv-tab')||'';}catch(e){}}
